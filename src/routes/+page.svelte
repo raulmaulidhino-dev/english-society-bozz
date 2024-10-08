@@ -7,5 +7,4 @@
 </svelte:head>
 
 <section>
-    <h1>Welcome to ES-Bozz!</h1>
 </section>
