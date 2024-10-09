@@ -14,8 +14,8 @@
     ];
 </script>
 
-<footer class="py-4 px-8 flex flex-wrap justify-between items-center gap-y-8">
-    <div class="flex items-center gap-4">
+<footer class="py-4 px-8 mb-36 flex flex-wrap justify-between items-center gap-8">
+    <div class="mx-auto sm:mx-0 flex items-center content-center gap-4">
         <picture>
             <source type="image/webp" srcset={ESBozzLogo} />
             <img src={ESBozzLogo_fallback} alt="English Society-Bozz logo" loading="lazy" class="w-32">
@@ -25,23 +25,18 @@
             <img src={SmansaLogo_fallback} alt="English Society-Bozz logo" loading="lazy" class="w-24"/>
         </picture>
     </div>
-    <div class="flex flex-col gap-4">
+    <div class="mx-auto sm:mx-0 flex flex-col gap-4">
         <div>
-            <ul class="flex items-center gap-2">
+            <ul class="flex justify-center items-center gap-2 sm:justify-start">
                 {#each icons as icon}
-                    <li class={`p-2 border-2 border-primary rounded-[50%] ${icon.primaryColor}`}>
-                        <a href={icon.link} target="_blank" title={icon.title} rel="noopener noreferrer" class="text-primary active:text-white hover:text-white">
+                    <li title={icon.title} class={`text-primary active:text-white hover:text-white p-2 border-2 border-primary rounded-[50%] ${icon.primaryColor}`}>
+                        <a href={icon.link} target="_blank" rel="noopener noreferrer">
                             <svelte:component this={icon.icon} width={20} height={20} />
                         </a>
                     </li>
                 {/each}
             </ul>
         </div>
-        <p class="text-gray-600 text-sm text-center">Copyright © 2024 English Society-Bozz.<br /> All rights reserved.</p>
+        <p class="text-gray-600 text-sm text-center sm:text-left">Copyright © 2024 English Society-Bozz.<br /> All rights reserved.</p>
     </div>
 </footer>
-
-<style>
-
-    
-</style>
