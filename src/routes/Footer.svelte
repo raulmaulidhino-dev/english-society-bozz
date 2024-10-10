@@ -16,14 +16,18 @@
 
 <footer class="py-4 px-8 mb-36 flex flex-wrap justify-between items-center gap-8">
     <div class="mx-auto sm:mx-0 flex items-center content-center gap-4">
-        <picture>
-            <source type="image/webp" srcset={ESBozzLogo} />
-            <img src={ESBozzLogo_fallback} alt="English Society-Bozz logo" loading="lazy" class="w-32">
-        </picture>
-        <picture>
-            <source type="image/webp" srcset={SmansaLogo} />
-            <img src={SmansaLogo_fallback} alt="English Society-Bozz logo" loading="lazy" class="w-24"/>
-        </picture>
+        <a href="/">
+            <picture>
+                <source type="image/webp" srcset={ESBozzLogo} />
+                <img src={ESBozzLogo_fallback} alt="English Society-Bozz logo" loading="lazy" class="w-32">
+            </picture>
+        </a>
+        <a href="http://sman1bobotsari.sch.id" target="_blank">
+            <picture>
+                <source type="image/webp" srcset={SmansaLogo} />
+                <img src={SmansaLogo_fallback} alt="SMA Negeri 1 Bobotsari logo" loading="lazy" class="w-24"/>
+            </picture>
+        </a>
     </div>
     <div class="mx-auto sm:mx-0 flex flex-col gap-4">
         <div>
