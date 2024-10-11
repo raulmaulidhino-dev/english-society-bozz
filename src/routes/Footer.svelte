@@ -1,6 +1,6 @@
 <script>
-    import ESBozzLogo from '$lib/images/logos/es-bozz-logo-circle.webp';
-    import ESBozzLogo_fallback from '$lib/images/logos/es-bozz-logo-circle.png';
+    import ESBozzLogo from '$lib/images/logos/es-bozz-logo-transparent.webp';
+    import ESBozzLogo_fallback from '$lib/images/logos/es-bozz-logo-transparent.png';
     import SmansaLogo from '$lib/images/logos/sman1bobotsari-logo.webp';
     import SmansaLogo_fallback from '$lib/images/logos/sman1bobotsari-logo.png';
 
@@ -15,11 +15,11 @@
 </script>
 
 <footer class="py-4 px-8 mb-36 flex flex-wrap justify-between items-center gap-8">
-    <div class="mx-auto sm:mx-0 flex items-center content-center gap-4">
+    <div class="mx-auto sm:mx-0 flex items-center content-center gap-8">
         <a href="/">
             <picture>
                 <source type="image/webp" srcset={ESBozzLogo} />
-                <img src={ESBozzLogo_fallback} alt="English Society-Bozz logo" loading="lazy" class="w-32">
+                <img src={ESBozzLogo_fallback} alt="English Society-Bozz logo" loading="lazy" class="w-24">
             </picture>
         </a>
         <a href="http://sman1bobotsari.sch.id" target="_blank">
