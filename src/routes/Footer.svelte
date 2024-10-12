@@ -14,7 +14,7 @@
     ];
 </script>
 
-<footer class="py-4 px-8 mb-36 flex flex-wrap justify-between items-center gap-8">
+<footer class="py-12 px-10 mb-36 flex flex-wrap justify-between items-center gap-8">
     <div class="mx-auto sm:mx-0 flex items-center content-center gap-8">
         <a href="/">
             <picture>
