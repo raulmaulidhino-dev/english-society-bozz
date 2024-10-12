@@ -5,8 +5,9 @@ export default {
     extend: {
       colors: {
         primary: '#0F286C',
+        primary_hover: '#0C2056',
         secondary: '#EFC007',
-        background: '#FAFAFA',
+        secondary_hover: '#C39D05',
         text: '#020202',
       },
       fontFamily: {
