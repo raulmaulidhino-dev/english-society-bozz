@@ -1,6 +1,7 @@
 <script>
 	import Hero from './Hero.svelte';
 	import Insights from './Insights.svelte';
+	import Numbers from './Numbers.svelte';
 </script>
 
 <svelte:head>
@@ -10,6 +11,7 @@
 
 <Hero />
 <Insights />
+<Numbers />
 
 <section>
 </section>
