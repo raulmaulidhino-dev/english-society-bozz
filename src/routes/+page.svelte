@@ -2,6 +2,7 @@
 	import Hero from './Hero.svelte';
 	import Insights from './Insights.svelte';
 	import Numbers from './Numbers.svelte';
+	import FunActivities from './FunActivities.svelte'
 </script>
 
 <svelte:head>
@@ -12,6 +13,4 @@
 <Hero />
 <Insights />
 <Numbers />
-
-<section>
-</section>
+<FunActivities />
