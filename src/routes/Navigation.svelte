@@ -51,7 +51,6 @@
             {/each}
         </ul>
     </nav>
-    <button class="text-white text-sm px-4 py-2 font-bold bg-primary hover:bg-primary_hover rounded-full">JOIN NOW</button>
 {/if}
 
 <style>
