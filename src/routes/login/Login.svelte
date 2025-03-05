@@ -2,27 +2,22 @@
     import logo from '$lib/images/logos/es-bozz-logo-transparent.webp';
     import logo_fallback from '$lib/images/logos/es-bozz-logo-transparent.png';
 
-    import axios from 'axios';
-    import { goto } from '$app/navigation';
+    import axios from "axios";
+    import { accessToken } from "../../stores/auth.js";
 
-    let email = "";
+    let emailOrUsername = "";
     let password = "";
     let error = null;
     let isLoading = false;
 
     function validate() {
-        if (email === "" || password === "") {
+        if (emailOrUsername === "" || password === "") {
             error = "Please enter your email and password to continue.";
             return false;
         }
 
-        if (!email.includes("@")) {
-            error = "Please enter a valid email.";
-            return false;
-        }
-
-        if (password.length < 3) {
-            error = "Password must be at least 3 characters long."; // Just for testing in dev.
+        if (password.length < 8) {
+            error = "Password must be at least 8 characters long.";
             return false;
         }
 
@@ -41,17 +36,18 @@
         error = null;
 
         try {
-            const response = await axios.post("https://esbozz-api.vercel.app/auth/login", {
-                email,
+            const res = await axios.post("https://esbozz-api.vercel.app/auth/login", {
+                emailOrUsername,
                 password
             });
 
-            localStorage.setItem("token", response.data.token);
+            accessToken.set(res.data.accessToken);
+            localStorage.setItem("RTID", res.data.refreshTokenID);
 
-            await goto("/dashboard");
+            window.location.href = '/dashboard';
 
         } catch (err) {
-            error = err.response?.data?.message || "Sorry, we couldn\'t log you in.";
+            error = err.response?.data?.message || err;
         } finally {
             isLoading = false;
         }
@@ -68,8 +64,8 @@
                 <img src={logo_fallback} alt="English Society-Bozz logo" class="w-1/2 max-w-xs mx-auto my-4" />
             </picture>
 
-            <label for="email">Email :</label>
-            <input type="email" id="email" bind:value={email} placeholder="johndoe@gmail.com" />
+            <label for="email">Email/Username :</label>
+            <input type="email" id="email" bind:value={emailOrUsername} placeholder="johndoe" />
             
             <br />
             

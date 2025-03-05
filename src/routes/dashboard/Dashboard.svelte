@@ -2,36 +2,47 @@
     import axios from "axios";
     import { onMount } from "svelte";
     import { goto } from "$app/navigation";
+    import { accessToken, refreshAccessToken } from "../../stores/auth.js";
 
     let user = null;
     let error = null;
     let isLoading = true;
 
-    onMount(async () => {
+    let token = $accessToken;
+
+    const fetchProtectedData = async () => {
+        const refreshTokenID = localStorage.getItem("RTID");
+
+        isLoading = true;
+        error = null;
+
         try {
-            const token = localStorage.getItem("token");
+            if (token === null) {
+                await refreshAccessToken(refreshTokenID);
+                token = $accessToken;
+            };
 
-            if (!token) throw new Error("Token not found, please login first.");
-
-            const response = await axios.get("https://esbozz-api.vercel.app/dashboard", {
+            const res = await axios.get("https://esbozz-api.vercel.app/auth/dashboard", {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             });
 
-            user = response.data;
-            
+            user = res.data;
         } catch (err) {
-            error = err.response?.data?.message || "Failed to fetch data.";
+            error = err.response?.data?.message || err;
         } finally {
             isLoading = false;
         }
-    });
+    }
+
+    onMount(fetchProtectedData);
 
     const logout = async () => {
-        localStorage.removeItem("token");
+        accessToken.set(null);
+        localStorage.removeItem("RTID");
 
-        await goto("/login");
+        window.location.href = '/';
 
         user = null;
         error = null;
@@ -42,9 +53,9 @@
 {#if isLoading}
     <p>Loading...</p>
 {:else if error}
-    <p style="color: red;">Error: {error}</p>
+    <p style="color: red;">{error}</p>
 {:else if user}
-    <h2 class="text-3xl sm:text-3xl md:text-4xl font-bold mb-[0.5em] break-words">Welcome back, <span class="text-primary font-extrabold">{user.email}</span>!</h2>
+    <h2 class="text-3xl sm:text-3xl md:text-4xl font-bold mb-[0.5em] break-words">Welcome back, <span class="text-primary font-extrabold">{user.username}</span>!</h2>
     <button class="bg-red-500 hover:bg-red-700 text-white font-extrabold py-2 px-4 rounded-md" on:click={logout}>LOGOUT</button>
 {/if}
 </section>

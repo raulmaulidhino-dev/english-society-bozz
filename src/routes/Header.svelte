@@ -3,9 +3,11 @@
     import logo_fallback from '$lib/images/logos/es-bozz-logo-transparent.png';
     import Navigation from './Navigation.svelte';
     import { goto } from '$app/navigation';
+    import { page } from '$app/stores';
+    import { isLoggedIn } from '../stores/auth.js';
 
-    async function login() {
-        await goto("/login");
+    function login() {
+        window.location.href = "\login";
     }
 
 </script>
@@ -19,6 +21,13 @@
         <p class="font-montserrat font-bold text-sm">ENGLISH<br /> SOCIETY-BOZZ</p>
     </section>
     <Navigation />
-    <!-- I'll resolve this later on -->
-    <button class="text-white text-sm px-4 py-2 font-bold bg-primary hover:bg-primary_hover rounded-full" on:click={login}>LOGIN</button> 
+    {#if !$isLoggedIn }
+        {#if $page.url.pathname === "/login"}
+            <div></div>
+        {:else}
+            <button class="text-white text-sm px-4 py-2 font-bold bg-primary hover:bg-primary_hover rounded-full" on:click={login}>LOGIN</button>
+        {/if }
+    {:else if $page.url.pathname !== "/login"}
+        <div>Profil</div>
+    {/if }
 </header>
