@@ -1,6 +1,7 @@
 <script>
     import logo from '$lib/images/logos/es-bozz-logo-transparent.webp';
     import logo_fallback from '$lib/images/logos/es-bozz-logo-transparent.png';
+    import defaultPFP from '$lib/images/defaults/default_pfp.svg';
     import Navigation from './Navigation.svelte';
     import { goto } from '$app/navigation';
     import { page } from '$app/stores';
@@ -28,6 +29,11 @@
             <button class="text-white text-sm px-4 py-2 font-bold bg-primary hover:bg-primary_hover rounded-full" on:click={login}>LOGIN</button>
         {/if }
     {:else if $page.url.pathname !== "/login"}
-        <div>Profil</div>
+        <div>
+            <a href="/dashboard">
+                <!-- svelte-ignore a11y-img-redundant-alt -->
+                <img src={defaultPFP} alt="Default Profile Photo" class="h-12"/>
+            </a>
+        </div>
     {/if }
 </header>
