@@ -2,7 +2,7 @@
     import { onMount } from 'svelte';
     import { page } from '$app/stores';
 
-    import {Icon, Home, CalendarDays as Events, Trophy as Achievements, InformationCircle as AboutUs} from 'svelte-hero-icons';
+    import { Icon, Home, CalendarDays as Events, Trophy as Achievements, InformationCircle as AboutUs, User as Profile } from 'svelte-hero-icons';
 
     let screenWidth = 0;
 
@@ -24,7 +24,8 @@
         { href: '/', icon: Home, text: "Home" },
         { href: '/', icon: Events, text: "Events" },
         { href: '/', icon: Achievements, text: "Achievements"},
-        { href: '/', icon: AboutUs, text: "About Us"}
+        { href: '/', icon: AboutUs, text: "About Us"},
+        { href: '/user/profile', icon: Profile, text: "Profile"},
     ];
 
     const isActive = path => $page.url.pathname === path || path === '/home';
