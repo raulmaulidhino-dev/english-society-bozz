@@ -1,7 +1,6 @@
 <script>
     import axios from "axios";
     import { onMount } from "svelte";
-    import { goto } from "$app/navigation";
     import { accessToken, refreshAccessToken } from "../../stores/auth.js";
 
     let user = null;
