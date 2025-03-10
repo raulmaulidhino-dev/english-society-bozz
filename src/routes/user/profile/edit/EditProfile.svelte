@@ -1,5 +1,4 @@
 <script>
-    import defaultPFP from '$lib/images/defaults/default_pfp.svg';
     import { Icon, Camera } from 'svelte-hero-icons';
     import { onMount } from 'svelte';
 
