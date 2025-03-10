@@ -12,6 +12,8 @@
         { icon: Youtube, link: 'https://www.youtube.com/@ENGLISHSOCIETYBOZZ', title: 'YouTube Official Account', primaryColor: 'hover:bg-[#FF0000] hover:border-[#FF0000]'},
         { icon: Tiktok, link: 'https://www.tiktok.com/@englishsocietybozz', title: 'TikTok Official Account', primaryColor: 'hover:bg-[#010101] hover:border-[#010101]'},
     ];
+
+    const year = new Date().getFullYear();
 </script>
 
 <footer class="py-12 px-10 mb-36 flex flex-wrap justify-between items-center gap-8">
@@ -41,6 +43,6 @@
                 {/each}
             </ul>
         </div>
-        <p class="text-gray-600 text-sm text-center sm:text-left">Copyright © 2024 English Society-Bozz.<br /> All rights reserved.</p>
+        <p class="text-gray-600 text-sm text-center sm:text-left">Copyright © 2024&mdash;{year} English Society-Bozz.<br /> All rights reserved.</p>
     </div>
 </footer>
