@@ -21,7 +21,7 @@ export const isLoggedIn = derived(refreshTokenID, $refreshTokenID => !!$refreshT
 
 export async function refreshAccessToken(refreshTokenID) {
     try {
-        const res = await axios.post("https://esbozz-api.vercel.app/refresh", {
+        const res = await axios.post("https://esbozz-api.vercel.app/api/refresh", {
             refreshTokenID
         });
     
