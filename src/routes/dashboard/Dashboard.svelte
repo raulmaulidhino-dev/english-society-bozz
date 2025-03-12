@@ -21,7 +21,7 @@
                 token = $accessToken;
             };
 
-            const res = await axios.get("https://esbozz-api.vercel.app/auth/dashboard", {
+            const res = await axios.get("https://esbozz-api.vercel.app/api/auth/dashboard", {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
