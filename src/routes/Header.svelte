@@ -1,9 +1,8 @@
-<script>
+<script>    
     import logo from '$lib/images/logos/es-bozz-logo-transparent.webp';
     import logo_fallback from '$lib/images/logos/es-bozz-logo-transparent.png';
     import defaultPFP from '$lib/images/defaults/default_pfp.svg';
     import Navigation from './Navigation.svelte';
-    import { goto } from '$app/navigation';
     import { page } from '$app/stores';
     import { isLoggedIn } from '../stores/auth.js';
 
