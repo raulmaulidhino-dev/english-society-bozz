@@ -22,13 +22,16 @@
 
     let navItems = [
         { href: '/', icon: Home, text: "Home" },
-        { href: '/', icon: Events, text: "Events" },
-        { href: '/', icon: Achievements, text: "Achievements"},
-        { href: '/', icon: AboutUs, text: "About Us"},
+        { href: '/events', icon: Events, text: "Events" },
+        { href: '/achievements', icon: Achievements, text: "Achievements"},
+        { href: '/about-us', icon: AboutUs, text: "About Us"},
         { href: '/user/profile', icon: Profile, text: "Profile"},
     ];
 
-    const isActive = path => $page.url.pathname === path || path === '/home';
+    $: isActive = (href) => {
+        if (href === '/') return $page.url.pathname === href;
+        return $page.url.pathname.startsWith(href);
+    };
 
 </script>
 {#if screenWidth < 768}
@@ -36,9 +39,9 @@
         <ul class="flex p-3 justify-around items-center">
             {#each navItems as navItem}
                 <li title={navItem.text} 
-                    class="text-primary bg-secondary border-2 border-primary rounded-[50%] p-2 -translate-y-8 
-                    active:text-secondary active:bg-primary active:border-2 active:border-secondary"
-                    class:is-active={isActive(`/${navItem.text.toLowerCase()}`)}>
+                    class="text-primary bg-secondary border-2 border-primary rounded-[50%] p-2 -translate-y-8"
+                    class:is-active={isActive(navItem.href)}
+                >
                     <a href={navItem.href}><Icon src={navItem.icon} size="32" /></a>
                 </li>
             {/each}
