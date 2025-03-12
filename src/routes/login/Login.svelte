@@ -5,10 +5,16 @@
     import axios from "axios";
     import { accessToken } from "../../stores/auth.js";
 
+    import Notification from '../Notification.svelte';
+
     let emailOrUsername = "";
     let password = "";
     let error = null;
     let isLoading = false;
+
+    let showNotification = false;
+    let notificationMessage = "";
+    let notificationType = "success";
 
     function validate() {
         if (emailOrUsername === "" || password === "") {
@@ -36,7 +42,7 @@
         error = null;
 
         try {
-            const res = await axios.post("https://esbozz-api.vercel.app/auth/login", {
+            const res = await axios.post("https://esbozz-api.vercel.app/api/auth/login", {
                 emailOrUsername,
                 password
             });
@@ -44,13 +50,26 @@
             accessToken.set(res.data.accessToken);
             localStorage.setItem("RTID", res.data.refreshTokenID);
 
+            notificationMessage = res.data.message;
+            notificationType = "success";
+            showNotification = true;
+
             window.location.href = '/dashboard';
 
         } catch (err) {
             error = err.response?.data?.message || err;
+
+            notificationMessage = error;
+            notificationType = "error";
+            showNotification = true;
+
         } finally {
             isLoading = false;
         }
+
+        setTimeout(() => {
+            showNotification = false;
+        }, 5000);
     }
     
 </script>
@@ -86,6 +105,10 @@
             </button>
         </form>    
     </section>
+
+    {#if showNotification}
+        <Notification message={notificationMessage} type={notificationType} duration={5000} />
+    {/if}
 </section>
 
 <style>
