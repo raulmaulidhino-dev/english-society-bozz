@@ -32,11 +32,9 @@
             error = err.response?.data?.message || err;
 
             if (err.response?.status === 401) {
-                await refreshAccessToken(refreshTokenID);
-                token = $accessToken;
-                await fetchProtectedData();
+                logout();
             }
-            
+
         } finally {
             isLoading = false;
         }
@@ -52,6 +50,7 @@
 
         user = null;
         error = null;
+        token = null;
     }
 </script>
 
