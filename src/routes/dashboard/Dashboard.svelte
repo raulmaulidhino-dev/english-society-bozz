@@ -30,6 +30,13 @@
             user = res.data;
         } catch (err) {
             error = err.response?.data?.message || err;
+
+            if (err.response?.status === 401) {
+                await refreshAccessToken(refreshTokenID);
+                token = $accessToken;
+                await fetchProtectedData();
+            }
+            
         } finally {
             isLoading = false;
         }
