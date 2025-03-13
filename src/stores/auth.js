@@ -29,5 +29,8 @@ export async function refreshAccessToken(refreshTokenID) {
     } catch (err) {
         console.error(err);
         accessToken.set(null);
+
+        localStorage.removeItem("RTID");
+        window.location.href = '/';
     }
 }
