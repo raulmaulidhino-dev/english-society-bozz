@@ -22,9 +22,9 @@
 
     let navItems = [
         { href: '/', icon: Home, text: "Home" },
-        { href: '/events', icon: Events, text: "Events" },
-        { href: '/achievements', icon: Achievements, text: "Achievements"},
-        { href: '/about-us', icon: AboutUs, text: "About Us"},
+        { href: '/', icon: Events, text: "Events" },
+        { href: '/', icon: Achievements, text: "Achievements"},
+        { href: '/', icon: AboutUs, text: "About Us"},
         { href: '/user/profile', icon: Profile, text: "Profile"},
     ];
 
