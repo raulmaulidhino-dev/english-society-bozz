@@ -30,11 +30,6 @@
             user = res.data;
         } catch (err) {
             error = err.response?.data?.message || err;
-
-            if (err.response?.status === 401) {
-                logout();
-            }
-
         } finally {
             isLoading = false;
         }
