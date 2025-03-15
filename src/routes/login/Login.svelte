@@ -54,7 +54,7 @@
             notificationType = "success";
             showNotification = true;
 
-            window.location.href = '/dashboard';
+            window.location.href = '/user/profile';
 
         } catch (err) {
             error = err.response?.data?.message || err;
@@ -84,7 +84,7 @@
             </picture>
 
             <label for="email">Email/Username :</label>
-            <input type="email" id="email" bind:value={emailOrUsername} placeholder="johndoe" />
+            <input id="email" bind:value={emailOrUsername} placeholder="johndoe" />
             
             <br />
             
