@@ -175,26 +175,24 @@
 
 </script>
 
-{#if !isLoading}
-    <section>
-        <section class="py-10 px-6 flex flex-col justify-center items-start gap-1">
-            <!-- svelte-ignore a11y-img-redundant-alt -->
-            <section id="pfp_container" class="h-48 aspect-square border-4 border-l-primary border-b-primary border-r-secondary border-t-secondary rounded-full my-6 self-center bg-slate-600 relative overflow-hidden">
-                <img id="pfp" src={defaultPFP}
-                    alt="User Photo Profile"
-                />
-                <div id="cam_icon"><Icon src={Camera} size="36" class="text-secondary absolute inset-0 m-auto" /></div>
-            </section>
-            <section class="w-full max-w-lg mx-auto flex flex-col gap-6">
-                {#each inputs as input}
-                    <section class="w-full">
-                        <label for={input.id} class="text-[12px] font-semibold text-primary block mb-2">{input.label}</label>
-                        <input type={input.type} placeholder={input.placeholder} id={input.id} value={input.value} min={input.min} max={input.max} class="text-lg w-full border-b-[1px] pb-1 focus:border-primary focus:outline-none disabled:text-slate-400" />
-                    </section>
-                {/each}
-            </section>
-            <button id="save_profile_btn" class="text-sm text-primary text-center font-semibold w-full max-w-sm border-2 border-primary py-2 px-8 rounded-full my-8 self-center
-                                        hover:bg-secondary">SAVE PROFILE</button>
+<section class="{isLoading ? 'hidden' : ''}">
+    <section class="py-10 px-6 flex flex-col justify-center items-start gap-1">
+        <!-- svelte-ignore a11y-img-redundant-alt -->
+        <section id="pfp_container" class="h-48 aspect-square border-4 border-l-primary border-b-primary border-r-secondary border-t-secondary rounded-full my-6 self-center bg-slate-600 relative overflow-hidden">
+            <img id="pfp" src={defaultPFP}
+                alt="User Photo Profile"
+            />
+            <div id="cam_icon"><Icon src={Camera} size="36" class="text-secondary absolute inset-0 m-auto" /></div>
         </section>
+        <section class="w-full max-w-lg mx-auto flex flex-col gap-6">
+            {#each inputs as input}
+                <section class="w-full">
+                    <label for={input.id} class="text-[12px] font-semibold text-primary block mb-2">{input.label}</label>
+                    <input type={input.type} placeholder={input.placeholder} id={input.id} value={input.value} min={input.min} max={input.max} class="text-lg w-full border-b-[1px] pb-1 focus:border-primary focus:outline-none disabled:text-slate-400" />
+                </section>
+            {/each}
+        </section>
+        <button id="save_profile_btn" class="text-sm text-primary text-center font-semibold w-full max-w-sm border-2 border-primary py-2 px-8 rounded-full my-8 self-center
+                                    hover:bg-secondary">SAVE PROFILE</button>
     </section>
-{/if}
+</section>
