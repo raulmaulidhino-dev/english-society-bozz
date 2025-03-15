@@ -1,6 +1,8 @@
 <script>
     import { onMount } from 'svelte';
     import { page } from '$app/stores';
+    import { isLoggedIn } from '../stores/auth.js';
+
 
     import { Icon, Home, CalendarDays as Events, Trophy as Achievements, InformationCircle as AboutUs, User as Profile } from 'svelte-hero-icons';
 
@@ -25,8 +27,12 @@
         { href: '/', icon: Events, text: "Events" },
         { href: '/', icon: Achievements, text: "Achievements"},
         { href: '/', icon: AboutUs, text: "About Us"},
-        { href: '/user/profile', icon: Profile, text: "Profile"},
     ];
+
+    const profileNavItem = { href: '/user/profile', icon: Profile, text: "Profile"};
+
+    if ($isLoggedIn) navItems = [...navItems, profileNavItem];
+    else navItems = navItems.filter(navItem => JSON.stringify(navItem) !== JSON.stringify(profileNavItem));
 
     $: isActive = (href) => {
         if (href === '/') return $page.url.pathname === href;
