@@ -29,7 +29,7 @@
         {/if }
     {:else if $page.url.pathname !== "/login"}
         <div>
-            <a href="/dashboard">
+            <a href="/user/profile">
                 <!-- svelte-ignore a11y-img-redundant-alt -->
                 <img src={defaultPFP} alt="Default Profile Photo" class="h-12"/>
             </a>
