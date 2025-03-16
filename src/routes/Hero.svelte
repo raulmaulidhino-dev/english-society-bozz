@@ -1,5 +1,24 @@
 <script>
     import { onMount } from 'svelte';
+
+    let landscapePictures = [
+        {srcWebp: '/pictures/UNSOED-Festival-1.webp', srcJpg: '/pictures/UNSOED-Festival-1.jpg', alt: "UNSOED Festival 1"},
+        {srcWebp: '/pictures/Pic-1.webp', srcJpg: '/pictures/Pic-1.jpg', alt: "Our Picture Together!"},
+        {srcWebp: '/pictures/Dahuni-F-Event-1.webp', srcJpg: '/pictures/Dahuni-F-Event-1.jpg', alt: "Dahuni Foundation Event"},
+        {srcWebp: '/pictures/Smansabozz-x-Gogeum.webp', srcJpg: '/pictures/Smansabozz-x-Gogeum.jpg', alt: "SMANSABOZZ AND GOGEUM"},
+        {srcWebp: '/pictures/English-FEST-2024-UMP.webp', srcJpg: '/pictures/English-FEST-2024-UMP.jpg', alt: "English FEST 2024 - UMP"},
+        {srcWebp: '/pictures/Cabdin-Event.webp', srcJpg: '/pictures/Cabdin-Event.jpg', alt: "Cabdin IX Event"},
+        {srcWebp: '/pictures/UNSOED-Festival-2.webp', srcJpg: '/pictures/UNSOED-Festival-2.jpg', alt: "UNSOED Festival 1"},
+    ];
+
+    let squarePictures = [
+        {srcWebp: '/pictures/Competition-1.webp', srcJpg: '/pictures/Competition-1.jpg', alt: "Competition Time!"},
+        {srcWebp: '/pictures/English-Camp-1.webp', srcJpg: '/pictures/English-Camp-1.jpg', alt: "English Camp 1"},
+        {srcWebp: '/pictures/English-Camp-2.webp', srcJpg: '/pictures/English-Camp-2.jpg', alt: "English Camp 2"},
+        {srcWebp: '/pictures/English-Camp-3.webp', srcJpg: '/pictures/English-Camp-3.jpg', alt: "English Camp 3"},
+        {srcWebp: '/pictures/English-Camp-4.webp', srcJpg: '/pictures/English-Camp-4.jpg', alt: "English Camp 4"},
+    ];
+
     onMount(() => {
         const collage = document.getElementById('hero_img_collage');
         const squareImages = document.getElementById('square_images');
@@ -65,20 +84,20 @@
     </section>
     <section id="hero_img_collage" class="hero-img-collage max-w-lg aspect-[4/3] overflow-hidden flex items-center gap-2">
         <section id="square_images" class="flex flex-col gap-2 relative">
-            <img src="https://picsum.photos/500?random=42" alt="Random Pict 1"/>
-            <img src="https://picsum.photos/500?random=43" alt="Random Pict 2"/>
-            <img src="https://picsum.photos/500?random=44" alt="Random Pict 3"/>
-            <img src="https://picsum.photos/500?random=45" alt="Random Pict 4"/>
-            <img src="https://picsum.photos/500?random=46" alt="Random Pict 5"/>
+            {#each squarePictures as squarePicture}
+                <picture>
+                    <source srcset="{squarePicture.srcWebp}" type="image/webp">
+                    <img src="{squarePicture.srcJpg}" alt="{squarePicture.alt}" class="aspect-square block object-cover object-center" />
+                </picture>
+            {/each}
         </section>
         <section id="landscape_images" class="flex flex-col gap-2 relative">
-            <img src="https://picsum.photos/512/288?random=198" alt="Random Pict 6" />
-            <img src="https://picsum.photos/512/288?random=199" alt="Random Pict 7" />
-            <img src="https://picsum.photos/512/288?random=200" alt="Random Pict 8" />
-            <img src="https://picsum.photos/512/288?random=201" alt="Random Pict 9" />
-            <img src="https://picsum.photos/512/288?random=202" alt="Random Pict 10" />
-            <img src="https://picsum.photos/512/288?random=203" alt="Random Pict 11" />
-            <img src="https://picsum.photos/512/288?random=204" alt="Random Pict 12" />
+            {#each landscapePictures as landscapePicture}
+                <picture>
+                    <source srcSet="{landscapePicture.srcWebp}" type="image/webp">
+                    <img src="{landscapePicture.srcJpg}" alt="{landscapePicture.alt}" class="aspect-video block object-cover object-center" />
+                </picture>
+            {/each}
         </section>
     </section>
 </section>
@@ -91,4 +110,5 @@
     .hero-img-collage img {
         @apply rounded-lg;
     }
+    
 </style>
