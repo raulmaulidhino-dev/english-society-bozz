@@ -19,6 +19,10 @@
         {srcWebp: '/pictures/English-Camp-4.webp', srcJpg: '/pictures/English-Camp-4.jpg', alt: "English Camp 4"},
     ];
 
+    function login() {
+        window.location.href = "\login";
+    }
+
     onMount(() => {
         const collage = document.getElementById('hero_img_collage');
         const squareImages = document.getElementById('square_images');
@@ -77,7 +81,7 @@
             <span class="text-primary font-semibold">English Society-Bozz!</span>
         </p>
         <section class="flex gap-4 mb-[1em]">
-            <button class="text-white text-sm px-4 py-2 font-bold bg-primary hover:bg-primary_hover rounded-full inline-block">JOIN NOW</button>
+            <button class="text-white text-sm px-4 py-2 font-bold bg-primary hover:bg-primary_hover rounded-full inline-block" on:click={login}>JOIN NOW</button>
             <button class="text-primary text-sm px-4 py-2 font-bold bg-secondary hover:bg-secondary_hover rounded-full inline-block">EXPLORE</button>
         </section>
         <p class="text-[10px] md:text-[12px]">*Before joining, make sure you are an active student at SMA Negeri 1 Bobotsari</p>
