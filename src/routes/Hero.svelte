@@ -2,21 +2,21 @@
     import { onMount } from 'svelte';
 
     let landscapePictures = [
-        {srcWebp: '/pictures/UNSOED-Festival-1.webp', srcJpg: '/pictures/UNSOED-Festival-1.jpg', alt: "UNSOED Festival 1"},
-        {srcWebp: '/pictures/Pic-1.webp', srcJpg: '/pictures/Pic-1.jpg', alt: "Our Picture Together!"},
-        {srcWebp: '/pictures/Dahuni-F-Event-1.webp', srcJpg: '/pictures/Dahuni-F-Event-1.jpg', alt: "Dahuni Foundation Event"},
-        {srcWebp: '/pictures/Smansabozz-x-Gogeum.webp', srcJpg: '/pictures/Smansabozz-x-Gogeum.jpg', alt: "SMANSABOZZ AND GOGEUM"},
-        {srcWebp: '/pictures/English-FEST-2024-UMP.webp', srcJpg: '/pictures/English-FEST-2024-UMP.jpg', alt: "English FEST 2024 - UMP"},
-        {srcWebp: '/pictures/Cabdin-Event.webp', srcJpg: '/pictures/Cabdin-Event.jpg', alt: "Cabdin IX Event"},
-        {srcWebp: '/pictures/UNSOED-Festival-2.webp', srcJpg: '/pictures/UNSOED-Festival-2.jpg', alt: "UNSOED Festival 1"},
+        {srcWebp: '/pictures/landscape/UNSOED-Festival-1.webp', srcJpg: '/pictures/UNSOED-Festival-1.jpg', alt: "UNSOED Festival 1"},
+        {srcWebp: '/pictures/landscape/Pic-1.webp', srcJpg: '/pictures/Pic-1.jpg', alt: "Our Picture Together!"},
+        {srcWebp: '/pictures/landscape/Dahuni-F-Event-1.webp', srcJpg: '/pictures/Dahuni-F-Event-1.jpg', alt: "Dahuni Foundation Event"},
+        {srcWebp: '/pictures/landscape/Smansabozz-x-Gogeum.webp', srcJpg: '/pictures/Smansabozz-x-Gogeum.jpg', alt: "SMANSABOZZ AND GOGEUM"},
+        {srcWebp: '/pictures/landscape/English-FEST-2024-UMP.webp', srcJpg: '/pictures/English-FEST-2024-UMP.jpg', alt: "English FEST 2024 - UMP"},
+        {srcWebp: '/pictures/landscape/Cabdin-Event.webp', srcJpg: '/pictures/Cabdin-Event.jpg', alt: "Cabdin IX Event"},
+        {srcWebp: '/pictures/landscape/UNSOED-Festival-2.webp', srcJpg: '/pictures/UNSOED-Festival-2.jpg', alt: "UNSOED Festival 1"},
     ];
 
     let squarePictures = [
-        {srcWebp: '/pictures/Competition-1.webp', srcJpg: '/pictures/Competition-1.jpg', alt: "Competition Time!"},
-        {srcWebp: '/pictures/English-Camp-1.webp', srcJpg: '/pictures/English-Camp-1.jpg', alt: "English Camp 1"},
-        {srcWebp: '/pictures/English-Camp-2.webp', srcJpg: '/pictures/English-Camp-2.jpg', alt: "English Camp 2"},
-        {srcWebp: '/pictures/English-Camp-3.webp', srcJpg: '/pictures/English-Camp-3.jpg', alt: "English Camp 3"},
-        {srcWebp: '/pictures/English-Camp-4.webp', srcJpg: '/pictures/English-Camp-4.jpg', alt: "English Camp 4"},
+        {srcWebp: '/pictures/square/Competition-1.webp', srcJpg: '/pictures/Competition-1.jpg', alt: "Competition Time!"},
+        {srcWebp: '/pictures/square/English-Camp-1.webp', srcJpg: '/pictures/English-Camp-1.jpg', alt: "English Camp 1"},
+        {srcWebp: '/pictures/square/English-Camp-2.webp', srcJpg: '/pictures/English-Camp-2.jpg', alt: "English Camp 2"},
+        {srcWebp: '/pictures/square/English-Camp-3.webp', srcJpg: '/pictures/English-Camp-3.jpg', alt: "English Camp 3"},
+        {srcWebp: '/pictures/square/English-Camp-4.webp', srcJpg: '/pictures/English-Camp-4.jpg', alt: "English Camp 4"},
     ];
 
     function login() {
