@@ -87,7 +87,7 @@
         </section>
         <p class="text-[10px] md:text-[12px]">*Before joining, make sure you are an active student at SMA Negeri 1 Bobotsari</p>
     </section>
-    <section id="hero_img_collage" class="hero-img-collage max-w-lg aspect-[4/3] overflow-hidden flex items-center gap-2 border-y-[1rem] border-t-secondary border-double border-b-primary p-2">
+    <section id="hero_img_collage" class="hero-img-collage max-w-lg aspect-[4/3] border-y-[1rem] border-t-secondary border-double border-b-primary p-2 mt-8 lg:mt-0 overflow-hidden flex items-center gap-2">
         <section id="square_images" class="flex flex-col gap-2 relative">
             {#each squarePictures as squarePicture}
                 <picture>
