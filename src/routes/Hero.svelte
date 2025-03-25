@@ -72,7 +72,7 @@
      })
 </script>
 
-<section class="px-6 flex flex-wrap-reverse justify-around items-center gap-10">
+<section class="lg:h-[max(calc(100vh-114px),500px)] px-6 flex flex-wrap-reverse justify-around items-center gap-10">
     <section class="max-w-xl pb-4">
         <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-[0.5em]">Speak Up, Express Yourself: Join our Community!</h1>
         <p class="text-[12px] sm:text-sm md:text-[16px] text-gray-600 font-medium mb-[1em]">
@@ -87,7 +87,7 @@
         </section>
         <p class="text-[10px] md:text-[12px]">*Before joining, make sure you are an active student at SMA Negeri 1 Bobotsari</p>
     </section>
-    <section id="hero_img_collage" class="hero-img-collage max-w-lg aspect-[4/3] overflow-hidden flex items-center gap-2">
+    <section id="hero_img_collage" class="hero-img-collage max-w-lg aspect-[4/3] overflow-hidden flex items-center gap-2 border-y-[1rem] border-t-secondary border-double border-b-primary p-2">
         <section id="square_images" class="flex flex-col gap-2 relative">
             {#each squarePictures as squarePicture}
                 <picture>
