@@ -13,6 +13,9 @@ export default {
       fontFamily: {
         montserrat: ['Montserrat', 'serif'],
       },
+      screens: {
+        bp: '1176px'
+      },
     },
   },
   plugins: [],
