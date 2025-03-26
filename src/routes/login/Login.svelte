@@ -74,14 +74,14 @@
     
 </script>
 
-<section class="bg-secondary px-6 py-[3rem] flex flex-col justify-center items-center">
-    <h2 class="text-3xl sm:text-3xl md:text-4xl font-bold mb-[0.5em]">Login into <span class="font-extrabold">Your Beloved Account</span></h2>
+<section class="bg-secondary bp:h-[max(calc(100vh-114px),500px)] max-h-[1080px] px-6 py-[3rem] flex flex-col justify-center items-center">
     <section class="p-4">
-        <form class="bg-white p-8 rounded-xl">
-            <picture>
+        <form class="bg-white max-w-80 p-8 rounded-[32px] shadow-xl">
+            <h2 class="text-2xl md:text-3xl text-center font-bold mb-[1em]">Welcome back!</h2>
+            <!-- <picture>
                 <source type="image/webp" srcset={logo} />
                 <img src={logo_fallback} alt="English Society-Bozz logo" class="w-1/2 max-w-xs mx-auto my-4" />
-            </picture>
+            </picture> -->
 
             <label for="email">Email/Username :</label>
             <input id="email" bind:value={emailOrUsername} placeholder="johndoe" />
@@ -93,7 +93,7 @@
             
             <br />
             {#if error}
-                <p class="text-red-600 mb-3">{error}</p>
+                <p class="text-red-600 mb-3 text-sm">{error}</p>
             {/if}
             
             <button on:click={login} disabled={isLoading} class="text-white font-extrabold bg-primary w-full p-[0.625rem] rounded-full">
@@ -113,10 +113,14 @@
 
 <style>
     form input {
-        @apply w-full p-[0.625rem] mb-4 border-[#ccc] border-[1px] rounded-md;
+        @apply text-sm w-full p-[0.625rem] mb-4 border-[#ccc] border-[1px] rounded-2xl;
     }
 
     form input:focus {
         @apply outline-primary bg-slate-50;
+    }
+
+    form label {
+        @apply text-sm;
     }
 </style>
