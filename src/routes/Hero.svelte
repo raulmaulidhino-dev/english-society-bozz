@@ -72,7 +72,7 @@
      })
 </script>
 
-<section class="lg:h-[max(calc(100vh-114px),500px)] px-6 flex flex-wrap-reverse justify-around items-center gap-10">
+<section class="bp:h-[max(calc(100vh-114px),500px)] max-h-[1080px] px-6 flex flex-wrap-reverse justify-around items-center gap-10">
     <section class="max-w-xl pb-4">
         <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-[0.5em]">Speak Up, Express Yourself: Join our Community!</h1>
         <p class="text-[12px] sm:text-sm md:text-[16px] text-gray-600 font-medium mb-[1em]">
