@@ -1,7 +1,4 @@
 <script>
-    import logo from '$lib/images/logos/es-bozz-logo-transparent.webp';
-    import logo_fallback from '$lib/images/logos/es-bozz-logo-transparent.png';
-
     import axios from "axios";
     import { accessToken } from "../../stores/auth.js";
 
@@ -78,11 +75,6 @@
     <section class="p-4">
         <form class="bg-white max-w-80 p-8 rounded-[32px] shadow-xl">
             <h2 class="text-2xl md:text-3xl text-center font-bold mb-[1em]">Welcome back!</h2>
-            <!-- <picture>
-                <source type="image/webp" srcset={logo} />
-                <img src={logo_fallback} alt="English Society-Bozz logo" class="w-1/2 max-w-xs mx-auto my-4" />
-            </picture> -->
-
             <label for="email">Email/Username :</label>
             <input id="email" bind:value={emailOrUsername} placeholder="johndoe" />
             
