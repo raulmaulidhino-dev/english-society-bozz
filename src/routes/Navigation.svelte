@@ -1,6 +1,5 @@
 <script>
     import { onMount } from 'svelte';
-    import { isLoggedIn } from '../stores/auth.js';
 
     let screenWidth = 0;
 
@@ -24,11 +23,6 @@
         { href: '/', text: "Achievements"},
         { href: '/', text: "About Us"},
     ];
-
-    const profileNavItem = { href: '/user/profile', text: "Profile"};
-
-    if ($isLoggedIn) navItems = [...navItems, profileNavItem];
-    else navItems = navItems.filter(navItem => JSON.stringify(navItem) !== JSON.stringify(profileNavItem));
 
 </script>
 {#if screenWidth >= 768}
