@@ -56,7 +56,7 @@
                 <button class="text-white hover:text-black text-sm px-4 py-2 font-bold bg-primary hover:bg-secondary rounded-full inline-block" on:click={login}>LOGIN</button>
             {/if}
         {:else if $page.url.pathname !== "/login"}
-            <a href="/profile">
+            <a href="/user/profile">
                 <!-- svelte-ignore a11y-img-redundant-alt -->
                 <img src={defaultPFP} alt="Profile picture" class="rounded-full w-12" />
             </a>
