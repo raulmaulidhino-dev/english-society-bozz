@@ -3,6 +3,9 @@
     import { page } from '$app/stores';
     import { isLoggedIn } from '../stores/auth.js';
 
+    function login() {
+        window.location.href = "\login";
+    }
 
     import { Icon, Home, CalendarDays as Events, Trophy as Achievements, InformationCircle as AboutUs, User as Profile } from 'svelte-hero-icons';
 
@@ -40,20 +43,7 @@
     };
 
 </script>
-{#if screenWidth < 768}
-    <nav class="bg-primary border-t-2 fixed bottom-0 right-0 left-0 z-50">
-        <ul class="flex p-3 justify-around items-center">
-            {#each navItems as navItem}
-                <li title={navItem.text} 
-                    class="text-primary bg-secondary border-2 border-primary rounded-[50%] p-2 -translate-y-8"
-                    class:is-active={isActive(navItem.href)}
-                >
-                    <a href={navItem.href}><Icon src={navItem.icon} size="32" /></a>
-                </li>
-            {/each}
-        </ul>
-    </nav>
-{:else}
+{#if screenWidth >= 768}
     <nav>
         <ul class="flex p-4 justify-around items-center gap-6">
             {#each navItems as navItem}
@@ -62,9 +52,3 @@
         </ul>
     </nav>
 {/if}
-
-<style>
-    .is-active {
-        @apply text-secondary bg-primary border-2 border-secondary;
-    }
-</style>
