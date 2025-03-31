@@ -175,8 +175,8 @@
 
 </script>
 
-<section class="{isLoading ? 'hidden' : ''}">
-    <section class="py-10 px-6 flex flex-col justify-center items-start gap-1">
+<section class="{isLoading ? 'hidden' : ''} bg-slate-200 p-4 md:p-8">
+    <section class="bg-white max-w-xl rounded-2xl mx-auto shadow-lg pt-10 px-6 flex flex-col justify-center items-start gap-1">
         <!-- svelte-ignore a11y-img-redundant-alt -->
         <section id="pfp_container" class="h-48 aspect-square border-4 border-l-primary border-b-primary border-r-secondary border-t-secondary rounded-full my-6 self-center bg-slate-600 relative overflow-hidden">
             <img id="pfp" src={defaultPFP}
@@ -192,7 +192,7 @@
                 </section>
             {/each}
         </section>
-        <button id="save_profile_btn" class="text-sm text-primary text-center font-semibold w-full max-w-sm border-2 border-primary py-2 px-8 rounded-full my-8 self-center
+        <button id="save_profile_btn" class="text-sm text-primary text-center font-semibold w-full sm:w-fit border-2 border-primary py-2 px-8 rounded-full my-8 self-center
                                     hover:bg-secondary">SAVE PROFILE</button>
     </section>
 </section>
