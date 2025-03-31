@@ -3,15 +3,24 @@
     import { accessToken } from "../../stores/auth.js";
 
     import Notification from '../Notification.svelte';
+    import {Icon, Eye, EyeSlash} from 'svelte-hero-icons';
 
     let emailOrUsername = "";
     let password = "";
     let error = null;
     let isLoading = false;
 
+    let passwordInput;
+    let showPassword = false;
+
     let showNotification = false;
     let notificationMessage = "";
     let notificationType = "success";
+
+    function togglePassword() {
+        showPassword = !showPassword;
+        passwordInput.type = showPassword? "text" : "password";
+    }
 
     function validate() {
         if (emailOrUsername === "" || password === "") {
@@ -81,7 +90,10 @@
             <br />
             
             <label for="password">Password :</label>
-            <input type="password" id="password" bind:value={password} placeholder="secretPassword123" />
+            <div class="flex gap-2">
+                <input type="password" id="password" bind:this={passwordInput} bind:value={password} placeholder="secretPassword123" />
+                <button type="button" class="text-sm text-primary p-[0.625rem] mb-4 border-secondary border-[1px] rounded-2xl" on:click={togglePassword}><Icon src={showPassword ? Eye : EyeSlash} size=18></Icon></button>
+            </div>
             
             <br />
             {#if error}
@@ -92,7 +104,7 @@
                 {#if isLoading}
                     Loading...
                 {:else}
-                    LOGIN
+                    LOG IN
                 {/if}
             </button>
         </form>    
