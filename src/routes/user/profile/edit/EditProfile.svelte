@@ -1,7 +1,5 @@
 <script>
-    import defaultPFP from '$lib/images/defaults/default_pfp.svg';
-
-    import { Icon, Camera } from 'svelte-hero-icons';
+    import { Icon, Camera, User as Profile } from 'svelte-hero-icons';
     import { onMount } from 'svelte';
     import { accessToken, refreshAccessToken } from "../../../../stores/auth.js";
 
@@ -174,32 +172,17 @@
         });
 
         document.getElementById("email").disabled = true;
-
-        const PFPContainer = document.getElementById("pfp_container");
-        const pfp = document.getElementById("pfp");
-        const camIcon = document.getElementById("cam_icon");
-
-        PFPContainer.addEventListener("mouseenter", () => {
-            pfp.className = "h-full aspect-inherit rounded-inherit filter mix-blend-multiply opacity-50";
-            camIcon.className = "visible";
-        });
-
-        PFPContainer.addEventListener("mouseleave", () => {
-            pfp.className = "h-full aspect-inherit rounded-inherit";
-            camIcon.className = "invisible";
-        });
     });
 
 </script>
 
 <section class="{isLoading ? 'hidden' : ''} bg-slate-200 p-4 md:p-8">
     <section class="bg-white max-w-xl rounded-2xl mx-auto shadow-lg pt-10 px-6 flex flex-col justify-center items-start gap-1">
-        <!-- svelte-ignore a11y-img-redundant-alt -->
         <section id="pfp_container" class="h-48 aspect-square border-4 border-l-primary border-b-primary border-r-secondary border-t-secondary rounded-full my-6 self-center bg-slate-600 relative overflow-hidden">
-            <img id="pfp" src={defaultPFP}
-                alt="User Photo Profile"
-            />
-            <div id="cam_icon"><Icon src={Camera} size="36" class="text-secondary absolute inset-0 m-auto" /></div>
+            <div id="pfp" class="text-white w-full h-full bg-primary rounded-[50%] p-2 flex justify-center items-center opacity-25">
+                <Icon src={Profile} solid size="72" />
+            </div>
+            <div id="cam_icon"><Icon src={Camera} solid size="36" class="text-secondary absolute inset-0 m-auto" /></div>
         </section>
         <section class="w-full max-w-lg mx-auto flex flex-col gap-6">
             {#each inputs as input}

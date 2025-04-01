@@ -1,9 +1,9 @@
 <script>
-    import defaultPFP from '$lib/images/defaults/default_pfp.svg';
-
     import axios from "axios";
     import { onMount } from "svelte";
     import { accessToken, refreshAccessToken } from "../../../stores/auth.js";
+
+    import {Icon, User as Profile} from 'svelte-hero-icons';
 
     let userProfile = null;
     let error = null;
@@ -80,11 +80,9 @@
             </section>
             <section class="rounded-b-[inherit] relative">
                 <section class="pb-10 px-6 profile-data">
-                    <!-- svelte-ignore a11y-img-redundant-alt -->
-                    <img src={defaultPFP} 
-                        alt="User Photo Profile"
-                        class="bg-white h-24 border-4 border-white rounded-full absolute top-[-48px] left-8"
-                    />
+                    <div class="text-white bg-primary h-24 w-24 border-2 border-white rounded-[50%] p-2 absolute top-[-48px] left-8 flex justify-center items-center">
+                        <Icon src={Profile} solid size="52" />
+                    </div>
                     <h2 class="text-2xl text-primary font-bold capitalize mt-14 break-words">{userProfile?.full_name || "Full Name"}</h2>
                     <p class="text-sm text-slate-500 break-words">{userProfile?.users.username || "username"}</p>
                     <p class="text-sm break-words">{userProfile?.bio || "No bio yet."}</p>
