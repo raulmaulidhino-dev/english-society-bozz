@@ -29,7 +29,7 @@
 
     let navItems = [
         { href: '/', icon: Home, text: "Home" },
-        { href: '/', icon: Events, text: "Events" },
+        { href: '/events', icon: Events, text: "Events" },
         { href: '/', icon: Achievements, text: "Achievements"},
         { href: '/', icon: AboutUs, text: "About Us"},
     ];

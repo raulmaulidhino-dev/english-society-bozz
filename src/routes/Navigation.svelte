@@ -19,7 +19,7 @@
 
     let navItems = [
         { href: '/', text: "Home" },
-        { href: '/', text: "Events" },
+        { href: '/events', text: "Events" },
         { href: '/', text: "Achievements"},
         { href: '/', text: "About Us"},
     ];
