@@ -158,7 +158,7 @@
         const bioTextarea = document.createElement("textarea");
 
         bioTextarea.id = bioInput.id;
-        bioTextarea.value = bioInput.value;
+        bioTextarea.value = userProfile.bio;
         bioTextarea.className = "text-md w-full border-[1px] rounded-lg p-4 focus:border-primary focus:outline-none disabled:text-slate-400 resize-none";
         bioTextarea.placeholder = bioInput.placeholder;
         bioTextarea.rows = 4;
