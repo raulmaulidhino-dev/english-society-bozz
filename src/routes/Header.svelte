@@ -1,8 +1,7 @@
 <script>    
     import logo from '$lib/images/logos/es-bozz-logo-transparent.webp';
     import logo_fallback from '$lib/images/logos/es-bozz-logo-transparent.png';
-    import { Icon, Bars2 as ShowButton, XMark as CloseButton } from 'svelte-hero-icons';
-    import defaultPFP from '$lib/images/defaults/default_pfp.svg';
+    import { Icon, Bars2 as ShowButton, XMark as CloseButton, User as Profile } from 'svelte-hero-icons';
     import Navigation from './Navigation.svelte';
     import { page } from '$app/stores';
     import { isLoggedIn } from '../stores/auth.js';
@@ -58,7 +57,9 @@
         {:else if $page.url.pathname !== "/login"}
             <a href="/user/profile">
                 <!-- svelte-ignore a11y-img-redundant-alt -->
-                <img src={defaultPFP} alt="Profile picture" class="rounded-full w-12" />
+                <div class="text-white bg-primary border-2 border-secondary rounded-[50%] p-2">
+                    <Icon src={Profile} solid size="32" />
+                </div>
             </a>
         {:else}
             <button class="text-white hover:text-black text-sm px-4 py-2 font-bold bg-primary hover:bg-secondary rounded-full inline-block invisible" on:click={login}>LOGIN</button>
