@@ -3,7 +3,6 @@
     import { page } from '$app/stores';
     import { isLoggedIn } from '../stores/auth.js';
     import { isNavShowed } from '../stores/store.js';
-    import defaultPFP from '$lib/images/defaults/default_pfp.svg';
 
     function login() {
         window.location.href = "\login";
@@ -34,11 +33,6 @@
         { href: '/', icon: AboutUs, text: "About Us"},
     ];
 
-    const profileNavItem = { href: '/user/profile', icon: Profile, text: "Profile"};
-
-    if ($isLoggedIn) navItems = [...navItems, profileNavItem];
-    else navItems = navItems.filter(navItem => JSON.stringify(navItem) !== JSON.stringify(profileNavItem));
-
     $: isActive = (href) => {
         if (href === '/') return $page.url.pathname === href;
         return $page.url.pathname.startsWith(href);
@@ -68,7 +62,9 @@
             <div>
                 <a href="/user/profile" class="w-full flex gap-4 border-t-2 p-4">
                     <!-- svelte-ignore a11y-img-redundant-alt -->
-                    <img src={defaultPFP} alt="Default Profile Photo" class="max-h-12 border-2 border-transparent rounded-[50%]"/>
+                    <div class="text-white bg-primary border-2 border-secondary rounded-[50%] p-2">
+                        <Icon src={Profile} solid size="32" />
+                    </div>
                     <div class="font-bold max-h-12 flex items-center justify-center">ME</div>
                 </a>
             </div>
