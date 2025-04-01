@@ -66,7 +66,8 @@
                 const res = await axios.put('https://esbozz-api.vercel.app/api/user/profile', {
                         full_name: document.getElementById('name').value,
                         nickname: document.getElementById('nickname').value,
-                        username: document.getElementById('username').value
+                        username: document.getElementById('username').value,
+                        bio: document.getElementById('bio').value,
                     },
                     {
                         headers: { 
@@ -95,7 +96,8 @@
                 const res = await axios.post('https://esbozz-api.vercel.app/api/user/profile', {
                         full_name: document.getElementById('name').value,
                         nickname: document.getElementById('nickname').value,
-                        username: document.getElementById('username').value
+                        username: document.getElementById('username').value,
+                        bio: document.getElementById('bio').value,
                     },
                     {
                         headers: { 
@@ -130,6 +132,7 @@
         { label: 'Name', id: 'name', type: 'text', placeholder: 'John Doe', value: '', min: '3', max: '100' },
         { label: 'Nickname', id: 'nickname', type: 'text', placeholder: 'John', value: '', min: '2', max: '10' },
         { label: 'Username', id: 'username', type: 'text', placeholder: 'johndoe', value: '', min: '2', max: '20' },
+        { label: 'Bio', id: 'bio', type: 'text', placeholder: 'Enjoys writing, volunteering, and participating in school events.', value: '', min: '0', max: '300' },
         { label: 'Email', id: 'email', type: 'email', placeholder: 'johndoe@example.com', value: '', min: '6', max: '40' },
     ];
 
@@ -142,13 +145,27 @@
 
         if (user) {
             inputs[2].value = user.username;
-            inputs[3].value = user.email;
+            inputs[4].value = user.email;
         }
 
         if (userProfile) {
             inputs[0].value = userProfile.full_name;
             inputs[1].value = userProfile.nickname;
+            inputs[3].value = userProfile.bio;
         }
+
+        const bioInput = document.getElementById("bio");
+        const bioTextarea = document.createElement("textarea");
+
+        bioTextarea.id = bioInput.id;
+        bioTextarea.value = bioInput.value;
+        bioTextarea.className = "text-md w-full border-[1px] rounded-lg p-4 focus:border-primary focus:outline-none disabled:text-slate-400 resize-none";
+        bioTextarea.placeholder = bioInput.placeholder;
+        bioTextarea.rows = 4;
+        bioTextarea.cols = 50;
+        bioTextarea.maxLength = 300;
+
+        bioInput.replaceWith(bioTextarea);
 
         isLoading = false;
 
