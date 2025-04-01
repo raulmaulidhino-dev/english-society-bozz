@@ -209,7 +209,7 @@
                 </section>
             {/each}
         </section>
-        <button id="save_profile_btn" class="text-sm text-primary text-center font-semibold w-full sm:w-fit border-2 border-primary py-2 px-8 rounded-full my-8 self-center
-                                    hover:bg-secondary">SAVE PROFILE</button>
+        <button id="save_profile_btn" class="text-sm text-white bg-primary text-center font-semibold w-full sm:w-fit border-2 border-primary py-2 px-8 rounded-full my-8 self-center
+                                    hover:text-primary hover:bg-secondary">SAVE PROFILE</button>
     </section>
 </section>
