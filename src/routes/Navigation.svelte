@@ -21,8 +21,8 @@
     let navItems = [
         { href: '/', text: "Home" },
         { href: '/events', text: "Events" },
-        { href: '/', text: "Achievements"},
-        { href: '/', text: "About Us"},
+        { href: '/achievements', text: "Achievements"},
+        { href: '/about-us', text: "About Us"},
     ];
 
     $: isActive = (href) => {
