@@ -110,6 +110,8 @@
 
             } catch(err) {
                 error = err.response?.data?.message || err;
+
+                if (err.response?.status === 401) logout();
             }
         }
     };
@@ -194,7 +196,6 @@
                     </section>
                 {/each}
             </section>
-            {error || "Error"}
             <button id="save_profile_btn" class="text-sm text-white bg-primary text-center font-semibold w-full sm:w-fit border-2 border-primary py-2 px-8 rounded-full my-8 self-center
                                         hover:text-primary hover:bg-secondary">SAVE PROFILE</button>
         </section>
