@@ -170,7 +170,9 @@
             const emailInput = document.getElementById("email");
 
             saveProfileBtn.addEventListener("click", () => {
+                isLoading = true;
                 updateOrInsertNewProfile(refreshTokenID);
+                isLoading= false;
             });
 
             emailInput.disabled = true;
