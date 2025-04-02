@@ -10,8 +10,6 @@
     let error = null;
     let isLoading = true;
 
-    let showSection = false;
-
     let token = $accessToken;
 
     const fetchUserProfile = async () => {
@@ -53,9 +51,9 @@
     });
 
     const logout = async () => {
-        showSection = false;
-
         let refreshTokenID = localStorage.getItem("RTID");
+
+        isLoading = true;
 
         try {
 
@@ -90,7 +88,7 @@
                         <Icon src={Profile} solid size="52" />
                     </div>
                     <h2 class="text-2xl text-primary font-bold capitalize mt-14 break-words">{userProfile?.full_name || "Full Name"}</h2>
-                    <p class="text-sm text-slate-500 break-words">{userProfile?.users.username || "username"}</p>
+                    <p class="text-sm text-slate-500 break-words">{userProfile?.users.role.replace("_", " ").replace(/\b\w/g, c => c.toUpperCase()) || "Role"}</p>
                     <p class="text-sm break-words">{userProfile?.bio || "No bio yet."}</p>
                 </section>
                 <section class="border-t-2 border-slate-200 py-4 px-4 flex flex-col gap-2">
@@ -108,4 +106,5 @@
     .profile-data > *:not(h2) {
         @apply mb-[1em];
     }
+
 </style>
