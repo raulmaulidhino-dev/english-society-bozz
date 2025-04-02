@@ -51,9 +51,9 @@
     {:else}
         {#if !$isLoggedIn}
             {#if $page.url.pathname === "/login"}
-                <button class="text-white hover:text-black text-sm px-4 py-2 font-bold bg-primary hover:bg-secondary rounded-full inline-block invisible" on:click={login}>LOGIN</button>
+                <button class="text-white hover:text-primary text-sm border-2 border-primary px-4 py-2 font-bold bg-primary hover:bg-secondary rounded-full inline-block invisible" on:click={login}>LOG IN</button>
             {:else}
-                <button class="text-white hover:text-black text-sm px-4 py-2 font-bold bg-primary hover:bg-secondary rounded-full inline-block" on:click={login}>LOGIN</button>
+                <button class="text-white hover:text-primary text-sm border-2 border-primary px-4 py-2 font-bold bg-primary hover:bg-secondary rounded-full inline-block" on:click={login}>LOG IN</button>
             {/if}
         {:else if $page.url.pathname !== "/login"}
             <button on:click={goToProfile}>
@@ -62,7 +62,7 @@
                 </div>
             </button>
         {:else}
-            <button class="text-white hover:text-black text-sm px-4 py-2 font-bold bg-primary hover:bg-secondary rounded-full inline-block invisible" on:click={login}>LOGIN</button>
+            <button class="text-white hover:text-primary text-sm border-2 border-primary px-4 py-2 font-bold bg-primary hover:bg-secondary rounded-full inline-block invisible" on:click={login}>LOG IN</button>
         {/if}
     {/if}
 </header>

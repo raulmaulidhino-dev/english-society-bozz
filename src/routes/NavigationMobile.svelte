@@ -61,7 +61,7 @@
             {#if $page.url.pathname === "/login"}
                 <div></div>
             {:else}
-                <button class="text-white text-sm px-4 py-2 font-bold bg-primary hover:bg-primary_hover w-full rounded-b-[inherit]" on:click={login}>LOGIN</button>
+                <button class="text-white text-sm px-4 py-2 font-bold bg-primary hover:text-primary hover:bg-secondary w-full rounded-b-[inherit]" on:click={login}>LOG IN</button>
             {/if }
         {:else if $page.url.pathname !== "/login"}
             <div>
