@@ -68,7 +68,7 @@
         transition: transform 0.3s ease-in-out;
     }
 
-    .nav-item.is-active::after {
+    .nav-item.is-active::after, .nav-item:hover::after {
         visibility: visible;
         transform: scaleX(1);
     }
