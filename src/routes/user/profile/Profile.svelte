@@ -3,6 +3,7 @@
     import { onMount } from "svelte";
     import { accessToken, refreshAccessToken } from "../../../stores/auth.js";
 
+    import LoadingSpinner from './../../loading/LoadingSpinner.svelte';
     import {Icon, User as Profile} from 'svelte-hero-icons';
 
     let userProfile = null;
@@ -42,6 +43,10 @@
         }
     }
 
+    function goToProfileEdit() {
+        window.location.href = '/user/profile/edit';
+    }
+
     onMount( async () => {
         await fetchUserProfile();
         if (userProfile) isLoading = false;
@@ -72,8 +77,9 @@
         }
     }
 </script>
-
-{#if !isLoading}
+{#if isLoading}
+    <LoadingSpinner />
+{:else}
     <section class="bg-slate-200 p-4 md:p-8">
         <section class="bg-white max-w-xl rounded-2xl mx-auto shadow-lg flex flex-col justify-center">
             <section class="bg-secondary w-full h-40 rounded-t-[inherit]">
@@ -88,8 +94,8 @@
                     <p class="text-sm break-words">{userProfile?.bio || "No bio yet."}</p>
                 </section>
                 <section class="border-t-2 border-slate-200 py-4 px-4 flex flex-col gap-2">
-                    <a href="/user/profile/edit" class="text-sm text-primary text-center font-semibold w-full sm:w-fit border-2 border-primary py-2 px-8 rounded-full
-                                            hover:bg-secondary sm:absolute sm:top-4 sm:right-4 inline-block">EDIT PROFILE</a>
+                    <button on:click={goToProfileEdit} class="text-sm text-primary text-center font-semibold w-full sm:w-fit border-2 border-primary py-2 px-8 rounded-full
+                                            hover:bg-secondary sm:absolute sm:top-4 sm:right-4 inline-block">EDIT PROFILE</button>
                     <button class="text-sm text-white bg-red-600 font-semibold w-full sm:w-fit border-2 border-primary py-2 px-8 rounded-full"
                                             on:click={logout}>LOG OUT</button>
                 </section>
