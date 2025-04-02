@@ -100,8 +100,12 @@
                 <p class="text-red-600 mb-3 text-sm">{error}</p>
             {/if}
             
-            <button on:click={login} disabled={isLoading} class="text-white font-extrabold bg-primary w-full p-[0.625rem] rounded-full">
+            <button type="button" on:click={login} disabled={isLoading} class="text-white font-extrabold bg-primary w-full p-[0.625rem] rounded-full">
                 {#if isLoading}
+                    <svg class="w-5 h-5 mr-1 animate-spin text-secondary inline" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="4">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="white"></circle>
+                        <path class="opacity-75" d="M4 12a8 8 0 019-8" stroke="currentColor"></path>                    
+                    </svg>
                     Loading...
                 {:else}
                     LOG IN
