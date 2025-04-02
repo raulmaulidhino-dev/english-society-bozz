@@ -1,7 +1,9 @@
 <script>
-    import { Icon, Camera, User as Profile } from 'svelte-hero-icons';
-    import { onMount } from 'svelte';
+    import { onMount, afterUpdate } from 'svelte';
     import { accessToken, refreshAccessToken } from "../../../../stores/auth.js";
+
+    import { Icon, Camera, User as Profile } from 'svelte-hero-icons';
+    import LoadingSpinner from './../../../loading/LoadingSpinner.svelte';
 
     import axios from 'axios';
 
@@ -135,64 +137,75 @@
     ];
 
     onMount( async () => {
-        isLoading = true;
+        try {
+            const refreshTokenID = localStorage.getItem("RTID");
+            await fetchUser(refreshTokenID);
+            await fetchUserProfile(refreshTokenID);
 
-        const refreshTokenID = localStorage.getItem("RTID");
-        await fetchUser(refreshTokenID);
-        await fetchUserProfile(refreshTokenID);
+            if (user) {
+                inputs[2].value = user.username;
+                inputs[4].value = user.email;
+            }
 
-        if (user) {
-            inputs[2].value = user.username;
-            inputs[4].value = user.email;
+            if (userProfile) {
+                inputs[0].value = userProfile.full_name;
+                inputs[1].value = userProfile.nickname;
+                inputs[3].value = userProfile.bio;
+            }
+
+            const bioInput = document.getElementById("bio");
+            const bioTextarea = document.createElement("textarea");
+
+            bioTextarea.id = bioInput.id;
+            bioTextarea.value = userProfile.bio;
+            bioTextarea.className = "text-md w-full border-[1px] rounded-lg p-4 focus:border-primary focus:outline-none disabled:text-slate-400 resize-none";
+            bioTextarea.placeholder = bioInput.placeholder;
+            bioTextarea.rows = 4;
+            bioTextarea.cols = 50;
+            bioTextarea.maxLength = 300;
+
+            bioInput.replaceWith(bioTextarea);
+
+            const saveProfileBtn = document.getElementById("save_profile_btn");
+            const emailInput = document.getElementById("email");
+
+            saveProfileBtn.addEventListener("click", () => {
+                updateOrInsertNewProfile(refreshTokenID);
+            });
+
+            emailInput.disabled = true;
+        } catch (err) {
+            console.error(err);
         }
+    });
 
-        if (userProfile) {
-            inputs[0].value = userProfile.full_name;
-            inputs[1].value = userProfile.nickname;
-            inputs[3].value = userProfile.bio;
-        }
-
-        const bioInput = document.getElementById("bio");
-        const bioTextarea = document.createElement("textarea");
-
-        bioTextarea.id = bioInput.id;
-        bioTextarea.value = userProfile.bio;
-        bioTextarea.className = "text-md w-full border-[1px] rounded-lg p-4 focus:border-primary focus:outline-none disabled:text-slate-400 resize-none";
-        bioTextarea.placeholder = bioInput.placeholder;
-        bioTextarea.rows = 4;
-        bioTextarea.cols = 50;
-        bioTextarea.maxLength = 300;
-
-        bioInput.replaceWith(bioTextarea);
-
+    afterUpdate(() => {
         isLoading = false;
-
-        document.getElementById("save_profile_btn").addEventListener("click", () => {
-            updateOrInsertNewProfile(refreshTokenID);
-        });
-
-        document.getElementById("email").disabled = true;
     });
 
 </script>
 
-<section class="{isLoading ? 'hidden' : ''} bg-slate-200 p-4 md:p-8">
-    <section class="bg-white max-w-xl rounded-2xl mx-auto shadow-lg pt-10 px-6 flex flex-col justify-center items-start gap-1">
-        <section id="pfp_container" class="h-48 aspect-square border-4 border-l-primary border-b-primary border-r-secondary border-t-secondary rounded-full my-6 self-center bg-slate-600 relative overflow-hidden">
-            <div id="pfp" class="text-white w-full h-full bg-primary rounded-[50%] p-2 flex justify-center items-center opacity-25">
-                <Icon src={Profile} solid size="72" />
-            </div>
-            <div id="cam_icon"><Icon src={Camera} solid size="36" class="text-secondary absolute inset-0 m-auto" /></div>
+{#if isLoading}
+    <LoadingSpinner />
+{:else}
+    <section class="bg-slate-200 p-4 md:p-8">
+        <section class="bg-white max-w-xl rounded-2xl mx-auto shadow-lg pt-10 px-6 flex flex-col justify-center items-start gap-1">
+            <section id="pfp_container" class="h-48 aspect-square border-4 border-l-primary border-b-primary border-r-secondary border-t-secondary rounded-full my-6 self-center bg-slate-600 relative overflow-hidden">
+                <div id="pfp" class="text-white w-full h-full bg-primary rounded-[50%] p-2 flex justify-center items-center opacity-25">
+                    <Icon src={Profile} solid size="72" />
+                </div>
+                <div id="cam_icon"><Icon src={Camera} solid size="36" class="text-secondary absolute inset-0 m-auto" /></div>
+            </section>
+            <section class="w-full max-w-lg mx-auto flex flex-col gap-6">
+                {#each inputs as input}
+                    <section class="w-full">
+                        <label for={input.id} class="text-[12px] font-semibold text-primary block mb-2">{input.label}</label>
+                        <input type={input.type} placeholder={input.placeholder} id={input.id} value={input.value} min={input.min} max={input.max} class="text-lg w-full border-b-[1px] pb-1 focus:border-primary focus:outline-none disabled:text-slate-400" />
+                    </section>
+                {/each}
+            </section>
+            <button id="save_profile_btn" class="text-sm text-white bg-primary text-center font-semibold w-full sm:w-fit border-2 border-primary py-2 px-8 rounded-full my-8 self-center
+                                        hover:text-primary hover:bg-secondary">SAVE PROFILE</button>
         </section>
-        <section class="w-full max-w-lg mx-auto flex flex-col gap-6">
-            {#each inputs as input}
-                <section class="w-full">
-                    <label for={input.id} class="text-[12px] font-semibold text-primary block mb-2">{input.label}</label>
-                    <input type={input.type} placeholder={input.placeholder} id={input.id} value={input.value} min={input.min} max={input.max} class="text-lg w-full border-b-[1px] pb-1 focus:border-primary focus:outline-none disabled:text-slate-400" />
-                </section>
-            {/each}
-        </section>
-        <button id="save_profile_btn" class="text-sm text-white bg-primary text-center font-semibold w-full sm:w-fit border-2 border-primary py-2 px-8 rounded-full my-8 self-center
-                                    hover:text-primary hover:bg-secondary">SAVE PROFILE</button>
     </section>
-</section>
+{/if}
