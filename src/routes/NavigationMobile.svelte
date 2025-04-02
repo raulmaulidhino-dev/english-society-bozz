@@ -2,10 +2,15 @@
     import { onMount } from 'svelte';
     import { page } from '$app/stores';
     import { isLoggedIn } from '../stores/auth.js';
-    import { isNavShowed } from '../stores/store.js';
+    import { isNavShowed, toggleNav } from '../stores/store.js';
 
     function login() {
         window.location.href = "\login";
+    }
+
+    function goToProfile() {
+        toggleNav();
+        window.location.href = "/user/profile";
     }
 
     import { Icon, Home, CalendarDays as Events, Trophy as Achievements, InformationCircle as AboutUs, User as Profile } from 'svelte-hero-icons';
@@ -60,13 +65,12 @@
             {/if }
         {:else if $page.url.pathname !== "/login"}
             <div>
-                <a href="/user/profile" class="w-full flex gap-4 border-t-2 p-4">
-                    <!-- svelte-ignore a11y-img-redundant-alt -->
+                <button on:click={goToProfile} class="w-full h-fit flex items-center gap-4 border-t-2 p-4">
                     <div class="text-white bg-primary border-2 border-secondary rounded-[50%] p-2">
                         <Icon src={Profile} solid size="32" />
                     </div>
-                    <div class="font-bold max-h-12 flex items-center justify-center">ME</div>
-                </a>
+                    <div class="font-bold flex items-center justify-center">ME</div>
+                </button>
             </div>
         {/if }
     </nav>
