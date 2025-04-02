@@ -5,15 +5,16 @@
     import Navigation from './Navigation.svelte';
     import { page } from '$app/stores';
     import { isLoggedIn } from '../stores/auth.js';
-    import { isNavShowed } from '../stores/store.js';
+    import { isNavShowed, toggleNav } from '../stores/store.js';
     import { onMount } from'svelte';
 
     function login() {
-        window.location.href = "\login";
+        window.location.href = "/login";
     }
 
-    function toggleNav() {
-        $isNavShowed = !$isNavShowed;
+    function goToProfile() {
+        toggleNav();
+        window.location.href = "/user/profile";
     }
 
     let screenWidth = 0;
@@ -55,12 +56,11 @@
                 <button class="text-white hover:text-black text-sm px-4 py-2 font-bold bg-primary hover:bg-secondary rounded-full inline-block" on:click={login}>LOGIN</button>
             {/if}
         {:else if $page.url.pathname !== "/login"}
-            <a href="/user/profile">
-                <!-- svelte-ignore a11y-img-redundant-alt -->
+            <button on:click={goToProfile}>
                 <div class="text-white bg-primary border-2 border-secondary rounded-[50%] p-2">
                     <Icon src={Profile} solid size="32" />
                 </div>
-            </a>
+            </button>
         {:else}
             <button class="text-white hover:text-black text-sm px-4 py-2 font-bold bg-primary hover:bg-secondary rounded-full inline-block invisible" on:click={login}>LOGIN</button>
         {/if}
