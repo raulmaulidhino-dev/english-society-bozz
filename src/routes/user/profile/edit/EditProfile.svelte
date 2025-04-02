@@ -78,20 +78,20 @@
 
                 window.location.href = '/user/profile';
                 
-            } catch(error) {
+            } catch(err) {
                 error = err.response?.data?.message || err;
 
-                if (err.response?.status === 401) {
-                    logout();
-                }
+                throw Error(
+                    error
+                );
             }
             
-        } catch (error) {
+        } catch (err) {
             try {
                 if (token === null) {
                     await refreshAccessToken(refreshTokenID);
                     token = $accessToken;
-                };
+                }
 
                 const res = await axios.post('https://esbozz-api.vercel.app/api/user/profile', {
                         full_name: document.getElementById('name').value,
@@ -107,12 +107,9 @@
                 );
 
                 window.location.href = '/user/profile';
-            } catch(error) {
-                error = err.response?.data?.message || err;
 
-                if (err.response?.status === 401) {
-                    logout();
-                }
+            } catch(err) {
+                error = err.response?.data?.message || err;
             }
         }
     };
@@ -153,19 +150,6 @@
                 inputs[3].value = userProfile.bio;
             }
 
-            const bioInput = document.getElementById("bio");
-            const bioTextarea = document.createElement("textarea");
-
-            bioTextarea.id = bioInput.id;
-            bioTextarea.value = userProfile.bio;
-            bioTextarea.className = "text-md w-full border-[1px] rounded-lg p-4 focus:border-primary focus:outline-none disabled:text-slate-400 resize-none";
-            bioTextarea.placeholder = bioInput.placeholder;
-            bioTextarea.rows = 4;
-            bioTextarea.cols = 50;
-            bioTextarea.maxLength = 300;
-
-            bioInput.replaceWith(bioTextarea);
-
             const saveProfileBtn = document.getElementById("save_profile_btn");
             const emailInput = document.getElementById("email");
 
@@ -202,10 +186,15 @@
                 {#each inputs as input}
                     <section class="w-full">
                         <label for={input.id} class="text-[12px] font-semibold text-primary block mb-2">{input.label}</label>
-                        <input type={input.type} placeholder={input.placeholder} id={input.id} value={input.value} min={input.min} max={input.max} class="text-lg w-full border-b-[1px] pb-1 focus:border-primary focus:outline-none disabled:text-slate-400" />
+                        {#if input.id === "bio"}
+                            <textarea id={input.id} placeholder={input.placeholder} rows="4" cols="50" value={input.value} maxlength={input.max} class="text-md w-full border-[1px] rounded-lg p-4 focus:border-primary focus:outline-none disabled:text-slate-400 resize-none"></textarea>
+                        {:else}
+                            <input type={input.type} placeholder={input.placeholder} id={input.id} value={input.value} min={input.min} max={input.max} class="text-lg w-full border-b-[1px] pb-1 focus:border-primary focus:outline-none disabled:text-slate-400" />
+                        {/if}
                     </section>
                 {/each}
             </section>
+            {error || "Error"}
             <button id="save_profile_btn" class="text-sm text-white bg-primary text-center font-semibold w-full sm:w-fit border-2 border-primary py-2 px-8 rounded-full my-8 self-center
                                         hover:text-primary hover:bg-secondary">SAVE PROFILE</button>
         </section>
