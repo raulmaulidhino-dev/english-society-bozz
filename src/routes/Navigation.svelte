@@ -1,6 +1,7 @@
 <script>
     import { onMount } from 'svelte';
     import { page } from '$app/stores';
+    import { goto } from '$app/navigation';
 
     let screenWidth = 0;
 
@@ -36,7 +37,7 @@
         <ul class="flex p-4 justify-around items-center gap-6">
             {#each navItems as navItem}
                 <li title={navItem.text} class="font-semibold">
-                    <a href={navItem.href} class="nav-item hover:text-primary" class:is-active={isActive(navItem.href)}>{navItem.text}</a>
+                    <button on:click={() => goto(navItem.href)} class="nav-item hover:text-primary" class:is-active={isActive(navItem.href)}>{navItem.text}</button>
                 </li>
             {/each}
         </ul>
