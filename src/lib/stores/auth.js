@@ -1,31 +1,54 @@
+export const ssr = false;
+
 import { writable } from 'svelte/store';
 import { db } from '$lib/supabase';
+import { BACKEND_URL } from '$lib/config/config';
+
+import axios from 'axios';
 
 export const isLoggedIn = writable(false);
-export const user = writable(null);
+export const userData = writable(null);
+export const userProfile = writable(null);
 
-async function checkAuth() {
-    const {
-        data: { session }
-    } = await db.auth.getSession();
+async function loadUserProfile() {
+    const { data } = await db.auth.getSession();
+    const user = data?.session?.user;
 
-    if (session?.user) {
+    if (user) {
         isLoggedIn.set(true);
-        user.set(session.user);
+        userData.set(user);
+
+        const token = data?.session?.access_token;
+
+        try {
+            const response = await axios.get(`${BACKEND_URL}/user/profile`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+
+            userProfile.set(response.data);
+
+        // eslint-disable-next-line no-unused-vars
+        } catch (error) {
+            userProfile.set(null);
+        }
+
     } else {
         isLoggedIn.set(false);
-        user.set(null);
+        userData.set(null);
+        userProfile.set(null);
     }
 }
 
-checkAuth();
+loadUserProfile();
 
 db.auth.onAuthStateChange((event, session) => {
     if (session?.user) {
-        isLoggedIn.set(true);
-        user.set(session.user);
+        loadUserProfile();
     } else {
+        userProfile.set(null);
         isLoggedIn.set(false);
-        user.set(null);
+        userData.set(null);
     }
 });
