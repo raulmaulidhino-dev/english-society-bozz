@@ -2,6 +2,8 @@
     import { db } from '$lib/supabase';
     import { goto } from '$app/navigation';
 
+    import { isLoading } from '$lib/stores/loading';
+
     import Notification from '../Notification.svelte';
     import {Icon, Eye, EyeSlash} from 'svelte-hero-icons';
 
@@ -48,17 +50,9 @@
             password
         });
 
-        if (!data) {
-            errorMsg = `${emailOrUsername} is not registered yet.`;
-
-            notificationMessage = "Login failed!";
-            notificationType = "error";
-            showNotification = true;
-            return;
-        }
-
         if (error) {
-            errorMsg = "Something went wrong. Please check your internet connection and try again.";
+            if (error.code === "invalid_credentials") errorMsg = "Invalid credentials. Please double check your email and password.";
+            else errorMsg = "Something went wrong.";
 
             notificationMessage = "Login failed!";
             notificationType = "error";
@@ -97,7 +91,7 @@
             {/if}
             
             <button type="button" on:click={login} disabled={false} class="text-white font-extrabold bg-primary w-full p-[0.625rem] rounded-full">
-                {#if false}
+                {#if $isLoading}
                     <svg class="w-5 h-5 mr-1 animate-spin text-secondary inline" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="4">
                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="white"></circle>
                         <path class="opacity-75" d="M4 12a8 8 0 019-8" stroke="currentColor"></path>                    
