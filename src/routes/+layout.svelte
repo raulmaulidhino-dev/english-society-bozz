@@ -5,9 +5,11 @@
 	import '../app.css';
 
 	import { afterNavigate, beforeNavigate } from '$app/navigation';
+
+	import { userProfile } from '$lib/stores/auth';
 	
 	import LoadingSpinner from '$lib/components/LoadingSpinner.svelte';
-	import { isLoading } from '$lib/stores/loading.js';
+	import { isLoading } from '$lib/stores/loading';
 
 	beforeNavigate(() => {
 		isLoading.set(true);
@@ -20,8 +22,8 @@
 </script>
 
 <div class={`app ${$isLoading ? "hidden" : ""}`}>
-	<Header />
-	<NavigationMobile />
+	<Header userProfile={$userProfile} />
+	<NavigationMobile userProfile={$userProfile} />
 
 	<main>
 		<slot />
