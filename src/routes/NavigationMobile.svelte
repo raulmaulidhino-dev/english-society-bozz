@@ -1,10 +1,12 @@
 <script>
+    export let userProfile;
+
     import { onMount } from 'svelte';
     import { page } from '$app/stores';
     import { goto } from '$app/navigation';
 
-    import { isLoggedIn } from '$lib/stores/auth.js';
-    import { isNavShowed, toggleNav } from '$lib/stores/store.js';
+    import { isLoggedIn } from '$lib/stores/auth';
+    import { isNavShowed, toggleNav } from '$lib/stores/store';
 
     function login() {
         goto("/login");
@@ -68,10 +70,14 @@
         {:else if $page.url.pathname !== "/login"}
             <div>
                 <button on:click={goToProfile} class="w-full h-fit flex items-center gap-4 border-t-2 p-4">
-                    <div class="text-white bg-primary border-2 border-secondary rounded-[50%] p-2">
-                        <Icon src={Profile} solid size="32" />
+                    <div class={`text-white bg-primary border-2 border-secondary rounded-[50%] ${ userProfile?.avatar_url ? "" : "p-2" }`}>
+                        {#if userProfile?.avatar_url }
+                            <img src={userProfile.avatar_url} alt={`${userProfile?.nickname ?? "User"}'s avatar`} class="w-12 aspect-square rounded-[inherit]" />
+                        {:else}
+                            <Icon src={Profile} solid size="32" />
+                        {/if}
                     </div>
-                    <div class="font-bold flex items-center justify-center">ME</div>
+                    <div class="font-bold flex items-center justify-center">{ userProfile?.nickname ?? "Me" }</div>
                 </button>
             </div>
         {/if }
