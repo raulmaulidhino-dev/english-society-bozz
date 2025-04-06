@@ -10,10 +10,6 @@ const fetchUserProfile = async (token) => {
 
     let userProfile = null;
 
-    if (!token) {
-        throw error(401, "Unauthorized");
-    }
-
     try {      
         const response = await axios.get(`${BACKEND_URL}/user/profile`, {
             headers: {
@@ -24,12 +20,13 @@ const fetchUserProfile = async (token) => {
         userProfile = response.data;
 
     } catch (err) {
+        // eslint-disable-next-line no-unused-vars
         let errorMsg = err.response?.data?.message || err;
 
         if (err.response?.status === 404 && err.response?.data.redirect) {
             throw redirect(302, err.response.data.redirect);
         } else {
-            throw error(401, "Unauthorized");
+            throw error(404, "Not found");
         }
     }
     return userProfile;
@@ -41,6 +38,10 @@ export async function load() {
     } = await db.auth.getSession();
 
     const token = session?.access_token;
+
+    if (!token) {
+        throw error(404, "Not found");
+    }
 
     const userProfile = await fetchUserProfile(token);
     return { userProfile: userProfile };
