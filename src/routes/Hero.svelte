@@ -90,18 +90,22 @@
     <section id="hero_img_collage" class="hero-img-collage max-w-lg aspect-[4/3] border-y-[1rem] border-t-secondary border-double border-b-primary p-2 mt-8 lg:mt-0 overflow-hidden flex items-center gap-2">
         <section id="square_images" class="flex flex-col gap-2 relative">
             {#each squarePictures as squarePicture}
-                <picture>
-                    <source srcset="{squarePicture.srcWebp}" type="image/webp">
-                    <img src="{squarePicture.srcJpg}" alt="{squarePicture.alt}" class="aspect-square block object-cover object-center" />
-                </picture>
+                <div>
+                    <picture>
+                        <source srcset="{squarePicture.srcWebp}" type="image/webp">
+                        <img src="{squarePicture.srcJpg}" alt="{squarePicture.alt}" class="aspect-square block object-cover object-center" />
+                    </picture>
+                </div>
             {/each}
         </section>
         <section id="landscape_images" class="flex flex-col gap-2 relative">
             {#each landscapePictures as landscapePicture}
-                <picture>
-                    <source srcSet="{landscapePicture.srcWebp}" type="image/webp">
-                    <img src="{landscapePicture.srcJpg}" alt="{landscapePicture.alt}" class="aspect-video block object-cover object-center" />
-                </picture>
+                <div>
+                    <picture>
+                        <source srcSet="{landscapePicture.srcWebp}" type="image/webp">
+                        <img src="{landscapePicture.srcJpg}" alt="{landscapePicture.alt}" class="aspect-video block object-cover object-center" />
+                    </picture>
+                </div>
             {/each}
         </section>
     </section>
