@@ -5,7 +5,7 @@
     import { db } from '$lib/supabase';
     import { BACKEND_URL } from '$lib/config/config';
 
-    import { user } from '$lib/stores/auth';
+    import { userData } from '$lib/stores/auth';
 
     import { onMount } from 'svelte';
     import { goto } from '$app/navigation'
@@ -89,7 +89,7 @@
         inputs[1].value = userProfile?.nickname ?? "";
         inputs[2].value = userProfile?.username ?? "";
         inputs[3].value = userProfile?.bio ?? "";
-        inputs[4].value = $user.email;
+        inputs[4].value = $userData.email ?? "";
     }
 
     const goToUploadAvatar = () => goto('/user/profile/edit/upload-avatar');
