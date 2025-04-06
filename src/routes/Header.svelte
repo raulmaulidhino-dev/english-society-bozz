@@ -1,20 +1,24 @@
-<script>    
+<script>
+    import { page } from '$app/stores';
+    import { goto } from '$app/navigation';
+
+    import Navigation from './Navigation.svelte';
     import logo from '$lib/images/logos/es-bozz-logo-transparent.webp';
     import logo_fallback from '$lib/images/logos/es-bozz-logo-transparent.png';
     import { Icon, Bars2 as ShowButton, XMark as CloseButton, User as Profile } from 'svelte-hero-icons';
-    import Navigation from './Navigation.svelte';
-    import { page } from '$app/stores';
-    import { isLoggedIn } from '../stores/auth.js';
-    import { isNavShowed, toggleNav } from '../stores/store.js';
+ 
+    
+    import { isLoggedIn } from '$lib/stores/auth';
+    import { isNavShowed, toggleNav } from '$lib/stores/store';
     import { onMount } from'svelte';
 
     function login() {
-        window.location.href = "/login";
+        goto("/login");
     }
 
     function goToProfile() {
         toggleNav();
-        window.location.href = "/user/profile";
+        goto("/user/profile");
     }
 
     let screenWidth = 0;
