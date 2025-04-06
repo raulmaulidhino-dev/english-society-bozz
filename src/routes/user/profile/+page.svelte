@@ -1,5 +1,6 @@
 <script>
+    export let data;
     import Profile from './Profile.svelte';
 </script>
 
-<Profile />
+<Profile user={data.userProfile} />
