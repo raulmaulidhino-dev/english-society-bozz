@@ -1,16 +1,18 @@
 <script>
     import { onMount } from 'svelte';
     import { page } from '$app/stores';
-    import { isLoggedIn } from '../stores/auth.js';
-    import { isNavShowed, toggleNav } from '../stores/store.js';
+    import { goto } from '$app/navigation';
+
+    import { isLoggedIn } from '$lib/stores/auth.js';
+    import { isNavShowed, toggleNav } from '$lib/stores/store.js';
 
     function login() {
-        window.location.href = "\login";
+        goto("/login");
     }
 
     function goToProfile() {
         toggleNav();
-        window.location.href = "/user/profile";
+        goto("/user/profile");
     }
 
     import { Icon, Home, CalendarDays as Events, Trophy as Achievements, InformationCircle as AboutUs, User as Profile } from 'svelte-hero-icons';
