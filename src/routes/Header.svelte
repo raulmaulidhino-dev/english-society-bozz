@@ -1,4 +1,6 @@
 <script>
+    export let userProfile;
+
     import { page } from '$app/stores';
     import { goto } from '$app/navigation';
 
@@ -6,8 +8,7 @@
     import logo from '$lib/images/logos/es-bozz-logo-transparent.webp';
     import logo_fallback from '$lib/images/logos/es-bozz-logo-transparent.png';
     import { Icon, Bars2 as ShowButton, XMark as CloseButton, User as Profile } from 'svelte-hero-icons';
- 
-    
+
     import { isLoggedIn } from '$lib/stores/auth';
     import { isNavShowed, toggleNav } from '$lib/stores/store';
     import { onMount } from'svelte';
@@ -61,8 +62,12 @@
             {/if}
         {:else if $page.url.pathname !== "/login"}
             <button on:click={goToProfile}>
-                <div class="text-white bg-primary border-2 border-secondary rounded-[50%] p-2">
-                    <Icon src={Profile} solid size="32" />
+                <div class={`text-white bg-primary border-2 border-secondary rounded-[50%] aspect-square ${ userProfile?.avatar_url ? "" : "p-2" }`}>
+                    {#if userProfile?.avatar_url }
+                        <img src={userProfile.avatar_url} alt={`${userProfile?.nickname ?? "User"}'s avatar'`} class="w-12 aspect-square rounded-[inherit]" />
+                    {:else}
+                        <Icon src={Profile} solid size="32" />
+                    {/if}
                 </div>
             </button>
         {:else}
