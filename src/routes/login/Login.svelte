@@ -1,15 +1,14 @@
 <script>
-    import axios from "axios";
-    import { accessToken } from "../../stores/auth.js";
+    import { db } from '$lib/supabase';
+    import { goto } from '$app/navigation';
 
     import Notification from '../Notification.svelte';
     import {Icon, Eye, EyeSlash} from 'svelte-hero-icons';
 
     let emailOrUsername = "";
     let password = "";
-    let error = null;
-    let isLoading = false;
-
+    let errorMsg = null;
+    
     let passwordInput;
     let showPassword = false;
 
@@ -24,16 +23,16 @@
 
     function validate() {
         if (emailOrUsername === "" || password === "") {
-            error = "Please enter your email and password to continue.";
+            errorMsg = "Please enter your email and password to continue.";
             return false;
         }
 
         if (password.length < 8) {
-            error = "Password must be at least 8 characters long.";
+            errorMsg = "Password must be at least 8 characters long.";
             return false;
         }
 
-        error = "";
+        errorMsg = "";
         return true;
     }
 
@@ -44,38 +43,35 @@
 
         if (!validate()) return;
 
-        isLoading = true;
-        error = null;
+        const { data, error } = await db.auth.signInWithPassword({
+            email: emailOrUsername,
+            password
+        });
 
-        try {
-            const res = await axios.post("https://esbozz-api.vercel.app/api/auth/login", {
-                emailOrUsername,
-                password
-            });
+        if (!data) {
+            errorMsg = `${emailOrUsername} is not registered yet.`;
 
-            accessToken.set(res.data.accessToken);
-            localStorage.setItem("RTID", res.data.refreshTokenID);
-
-            notificationMessage = res.data.message;
-            notificationType = "success";
-            showNotification = true;
-
-            window.location.href = '/user/profile';
-
-        } catch (err) {
-            error = err.response?.data?.message || err;
-
-            notificationMessage = error;
+            notificationMessage = "Login failed!";
             notificationType = "error";
             showNotification = true;
-
-        } finally {
-            isLoading = false;
+            return;
         }
 
-        setTimeout(() => {
-            showNotification = false;
-        }, 5000);
+        if (error) {
+            errorMsg = "Something went wrong. Please check your internet connection and try again.";
+
+            notificationMessage = "Login failed!";
+            notificationType = "error";
+            showNotification = true;
+            return;
+        }
+
+        notificationMessage = "Login successful!";
+        notificationType = "success";
+        showNotification = true;
+
+        goto('/user/profile');
+
     }
     
 </script>
@@ -96,12 +92,12 @@
             </div>
             
             <br />
-            {#if error}
-                <p class="text-red-600 mb-3 text-sm">{error}</p>
+            {#if errorMsg}
+                <p class="text-red-600 mb-3 text-sm">{errorMsg}</p>
             {/if}
             
-            <button type="button" on:click={login} disabled={isLoading} class="text-white font-extrabold bg-primary w-full p-[0.625rem] rounded-full">
-                {#if isLoading}
+            <button type="button" on:click={login} disabled={false} class="text-white font-extrabold bg-primary w-full p-[0.625rem] rounded-full">
+                {#if false}
                     <svg class="w-5 h-5 mr-1 animate-spin text-secondary inline" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="4">
                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="white"></circle>
                         <path class="opacity-75" d="M4 12a8 8 0 019-8" stroke="currentColor"></path>                    
