@@ -15,7 +15,8 @@
 
     let avatarUrl;
     if (userProfile.new_avatar_url) avatarUrl = userProfile.new_avatar_url;
-    else avatarUrl = userProfile.avatar_url;
+    else if (userProfile.avatar_url) avatarUrl = userProfile.avatar_url;
+    else avatarUrl = null;
 
     let errorMsg = null;
 
@@ -106,7 +107,7 @@
         await updateOrInsertNewProfile(token);
     };
 
-    const goToUploadAvatar = () => goto('/user/profile/edit/upload-avatar');
+    const goToEditAvatar = () => goto(`/user/profile/edit/edit-avatar${ userProfile?.avatar_url ? `?avatarUrl=${encodeURIComponent(userProfile.avatar_url)}` : "" }`);
 
     onMount( async () => {
         const emailInput = document.getElementById("email");
@@ -117,8 +118,8 @@
 
 <section class="bg-slate-200 p-4 md:p-8">
     <section class="bg-white max-w-xl rounded-2xl mx-auto shadow-lg pt-10 px-6 flex flex-col justify-center items-start gap-1">
-        <section id="pfp_container" class="h-48 aspect-square border-4 border-l-primary border-b-primary border-r-secondary border-t-secondary rounded-full my-6 self-center bg-slate-600 relative overflow-hidden">
-            <div id="pfp" role="button" on:click={goToUploadAvatar} on:keydown={(e) => (e.key === 'u' || e.key === 'U') && goToUploadAvatar()} tabindex="0" class={`text-white w-full h-full bg-primary rounded-[50%] ${ avatarUrl ? "" : "p-4" } flex justify-center items-center opacity-25`}>
+        <section id="pfp_container" role="button" on:click={goToEditAvatar} on:keydown={(e) => (e.key === 'u' || e.key === 'U') && goToEditAvatar()} tabindex="0" class="h-48 aspect-square border-4 border-l-primary border-b-primary border-r-secondary border-t-secondary rounded-full my-6 self-center bg-slate-600 relative overflow-hidden">
+            <div id="pfp" class={`text-white w-full h-full bg-primary rounded-[50%] ${ avatarUrl ? "" : "p-4" } flex justify-center items-center opacity-25`}>
                 {#if avatarUrl}
                     <img src={avatarUrl} alt={`${userProfile?.nickname || "User"}'s Avatar`} class="w-full rounded-[inherit]" />
                 {:else}
