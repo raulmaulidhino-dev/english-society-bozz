@@ -11,7 +11,7 @@
     import { get } from 'svelte/store';
     import { goto } from '$app/navigation'
 
-    import { Icon, Camera, User as Profile } from 'svelte-hero-icons';
+    import { Icon, PencilSquare as EditIcon, User as Profile } from 'svelte-hero-icons';
 
     let avatarUrl;
     if (userProfile.new_avatar_url) avatarUrl = userProfile.new_avatar_url;
@@ -126,7 +126,7 @@
                     <Icon src={Profile} solid size="72" />
                 {/if}
             </div>
-            <div id="cam_icon"><Icon src={Camera} solid size="36" class="text-secondary absolute inset-0 m-auto" /></div>
+            <div id="cam_icon"><Icon src={EditIcon} size="36" class="text-secondary absolute inset-0 m-auto" /></div>
         </section>
         <form on:submit={handleSubmit} class="w-full max-w-lg mx-auto flex flex-col gap-6">
             {#each inputs as input}
