@@ -7,7 +7,7 @@
     import Notification from '../Notification.svelte';
     import {Icon, Eye, EyeSlash} from 'svelte-hero-icons';
 
-    let emailOrUsername = "";
+    let email = "";
     let password = "";
     let errorMsg = null;
     
@@ -24,7 +24,7 @@
     }
 
     function validate() {
-        if (emailOrUsername === "" || password === "") {
+        if (email === "" || password === "") {
             errorMsg = "Please enter your email and password to continue.";
             return false;
         }
@@ -46,7 +46,7 @@
         if (!validate()) return;
 
         const { data, error } = await db.auth.signInWithPassword({
-            email: emailOrUsername,
+            email: email,
             password
         });
 
@@ -72,25 +72,25 @@
 
 <section class="bg-secondary bp:h-[max(calc(100vh-114px),500px)] max-h-[1080px] px-6 py-[3rem] flex flex-col justify-center items-center">
     <section class="p-4">
-        <form class="bg-white max-w-80 p-8 rounded-[32px] shadow-xl">
-            <h2 class="text-2xl md:text-3xl text-center font-bold mb-[1em]">Welcome back!</h2>
-            <label for="email">Email/Username :</label>
-            <input id="email" bind:value={emailOrUsername} placeholder="johndoe" />
+        <form on:submit={login} class="bg-white max-w-80 p-8 rounded-[32px] shadow-xl">
+            <h2 class="text-2xl md:text-3xl text-center font-bold mb-[1em]">Welcome Back!</h2>
+            <label for="email">Email :</label>
+            <input id="email" name="email" type="email" bind:value={email} placeholder="you@example.com" autocomplete="email" required aria-required />
             
             <br />
             
             <label for="password">Password :</label>
             <div class="flex gap-2">
-                <input type="password" id="password" bind:this={passwordInput} bind:value={password} placeholder="secretPassword123" />
+                <input type="password" id="password" bind:this={passwordInput} bind:value={password} placeholder="•••••••• (no peeking)" autocomplete="current-password" required aria-required />
                 <button type="button" class="text-sm text-primary p-[0.625rem] mb-4 border-secondary border-[1px] rounded-2xl" on:click={togglePassword}><Icon src={showPassword ? Eye : EyeSlash} size=18></Icon></button>
             </div>
             
             <br />
             {#if errorMsg}
-                <p class="text-red-600 mb-3 text-sm">{errorMsg}</p>
+                <p role="alert" class="text-red-600 mb-3 text-sm">{errorMsg}</p>
             {/if}
             
-            <button type="button" on:click={login} disabled={false} class="text-white font-extrabold bg-primary w-full p-[0.625rem] rounded-full">
+            <button type="submit" disabled={false} class="text-white font-extrabold bg-primary w-full p-[0.625rem] rounded-full">
                 {#if $isLoading}
                     <svg class="w-5 h-5 mr-1 animate-spin text-secondary inline" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="4">
                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="white"></circle>
