@@ -8,6 +8,7 @@
     import { userData } from '$lib/stores/auth';
 
     import { onMount } from 'svelte';
+    import { get } from 'svelte/store';
     import { goto } from '$app/navigation'
 
     import { Icon, Camera, User as Profile } from 'svelte-hero-icons';
@@ -77,11 +78,11 @@
     };
 
     let inputs = [
-        { label: 'Name', id: 'name', type: 'text', placeholder: 'John Doe', value: '', min: '3', max: '100' },
-        { label: 'Nickname', id: 'nickname', type: 'text', placeholder: 'John', value: '', min: '2', max: '10' },
-        { label: 'Username', id: 'username', type: 'text', placeholder: 'johndoe', value: '', min: '2', max: '20' },
-        { label: 'Bio', id: 'bio', type: 'text', placeholder: 'Enjoys writing, volunteering, and participating in school events.', value: '', min: '0', max: '300' },
-        { label: 'Email', id: 'email', type: 'email', placeholder: 'johndoe@example.com', value: '', min: '6', max: '40' },
+        { label: 'Name', id: 'name', type: 'text', placeholder: 'e.g., John D. O\'Connor', value: '', minlength: '3', maxlength: '100', pattern: "^[A-Za-z.,' ]+(?<!'')$", title: "Only letters, spaces, dots (.), commas (,), and single quote (') allowed. Double single-quotes are not allowed.", required: true },
+        { label: 'Nickname', id: 'nickname', type: 'text', placeholder: 'e.g., Jojo or O\'Neil', value: '', minlength: '2', maxlength: '10', pattern: "^[A-Za-z.,' ]+(?<!'')$", title: "Only letters, spaces, dots (.), commas (,), and single quote (') allowed. Double single-quotes are not allowed.", required: true },
+        { label: 'Username', id: 'username', type: 'text', placeholder: 'e.g., user123 (Just example)', value: '', minlength: '3', maxlength: '20', pattern: "^[a-z0-9._]{3,20}$", title: "Only lowercase letters, numbers, dots (.), and underscores (_).", required: true },
+        { label: 'Bio', id: 'bio', type: 'text', placeholder: 'e.g., Enjoys writing, volunteering, and participating in school events.', value: '', minlength: '0', maxlength: '300', required: false },
+        { label: 'Email', id: 'email', type: 'email', placeholder: 'you@example.com', value: '', minlength: '6', maxlength: '40', required: true },
     ];
 
     if (userProfile) {
@@ -89,30 +90,27 @@
         inputs[1].value = userProfile?.nickname ?? "";
         inputs[2].value = userProfile?.username ?? "";
         inputs[3].value = userProfile?.bio ?? "";
-        inputs[4].value = $userData.email ?? "";
     }
+
+    const user = get(userData);
+    if (user) inputs[4].value = user.email ?? "";
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const {
+            data: { session }
+        } = await db.auth.getSession();
+        const token = session?.access_token;
+        
+        await updateOrInsertNewProfile(token);
+    };
 
     const goToUploadAvatar = () => goto('/user/profile/edit/upload-avatar');
 
     onMount( async () => {
-        try {
-            const saveProfileBtn = document.getElementById("save_profile_btn");
-            const emailInput = document.getElementById("email");
-            emailInput.disabled = true;
-
-            saveProfileBtn.addEventListener("click", async () => {
-                const {
-                    data: { session }
-                } = await db.auth.getSession();
-
-                const token = session?.access_token;
-
-                await updateOrInsertNewProfile(token);
-            });
-
-        } catch (err) {
-            console.error(err);
-        }
+        const emailInput = document.getElementById("email");
+        emailInput.disabled = true;
     });
 
 </script>
@@ -129,19 +127,21 @@
             </div>
             <div id="cam_icon"><Icon src={Camera} solid size="36" class="text-secondary absolute inset-0 m-auto" /></div>
         </section>
-        <section class="w-full max-w-lg mx-auto flex flex-col gap-6">
+        <form on:submit={handleSubmit} class="w-full max-w-lg mx-auto flex flex-col gap-6">
             {#each inputs as input}
                 <section class="w-full">
-                    <label for={input.id} class="text-[12px] font-semibold text-primary block mb-2">{input.label}</label>
+                    <label for={input.id} class="text-[12px] font-semibold text-primary block mb-2">{input.label} <span class="text-slate-400">({input.minlength}&ndash;{input.maxlength} characters)<span class="text-red-500">{ input.required ? "*" : "" }</span></span></label>
                     {#if input.id === "bio"}
-                        <textarea id={input.id} placeholder={input.placeholder} rows="4" cols="50" value={input.value} maxlength={input.max} class="text-md w-full border-[1px] rounded-lg p-4 focus:border-primary focus:outline-none disabled:text-slate-400 resize-none"></textarea>
+                        <textarea id={input.id} name={input.id} placeholder={input.placeholder} rows="4" cols="50" bind:value={input.value} maxlength={input.maxlength} required={input.required} aria-required={input.required} autocomplete="off" class="text-md w-full border-[1px] rounded-lg p-4 focus:border-primary focus:outline-none disabled:text-slate-400 resize-none"></textarea>
+                        <div aria-live="polite" aria-atomic="true" class="text-sm bg-slate-200 w-fit rounded-full py-1 px-3 ml-auto"><span class={`${ input.value.length > input.maxlength ? "text-red-500" : input.value.length === input.maxlength ? "text-primary" : "" }`}>{input.value.length}</span> / {input.maxlength}</div>
                     {:else}
-                        <input type={input.type} placeholder={input.placeholder} id={input.id} value={input.value} min={input.min} max={input.max} class="text-lg w-full border-b-[1px] pb-1 focus:border-primary focus:outline-none disabled:text-slate-400" />
+                        <input id={input.id} name={input.id} type={input.type} placeholder={input.placeholder} value={input.value} minlength={input.minlength} maxlength={input.maxlength} pattern={input.pattern || undefined} title={input.title || undefined} required={input.required} aria-required={input.required} autocomplete="off" class="text-lg w-full border-b-[1px] pb-1 focus:border-primary focus:outline-none disabled:text-slate-400" />
+                        <small class={`${input.title ? "text-[9px] text-slate-400" : "hidden"}`}>{input.title ?? ""}</small>
                     {/if}
                 </section>
             {/each}
-        </section>
-        <button id="save_profile_btn" class="text-sm text-white bg-primary text-center font-semibold w-full sm:w-fit border-2 border-primary py-2 px-8 rounded-full my-8 self-center
-                                    hover:text-primary hover:bg-secondary">SAVE PROFILE</button>
+                <button id="save_profile_btn" type="submit" class="text-sm text-white bg-primary text-center font-semibold w-full sm:w-fit border-2 border-primary py-2 px-8 rounded-full my-8 self-center
+                hover:text-primary hover:bg-secondary">SAVE PROFILE</button>
+        </form>
     </section>
 </section>
