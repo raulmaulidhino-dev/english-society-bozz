@@ -10,7 +10,7 @@ const fetchUserProfile = async (token) => {
     let userProfile = null;
 
     if (!token) {
-        throw error(401, "Unauthorized");
+        throw error(404, "Not found");
     }
 
     try {            
@@ -26,7 +26,7 @@ const fetchUserProfile = async (token) => {
         if (err.response?.status === 404 && err.response?.data.redirect) {
             userProfile = {};
         } else {
-            throw error(401, "Unauthorized");
+            throw error(404, "Not found");
         }
     }
     
@@ -40,7 +40,7 @@ export async function load({ url }) {
 
     const token = session?.access_token;
 
-    const newAvatarUrl = url.searchParams?.get('newAvatarUrl') || "";
+    const newAvatarUrl = url.searchParams?.get('newAvatarUrl') || null;
 
     let userProfile = await fetchUserProfile(token);
     if (newAvatarUrl) userProfile = {...userProfile, new_avatar_url: newAvatarUrl};
