@@ -43,6 +43,10 @@ export async function load() {
         throw error(404, "Not found");
     }
 
-    const userProfile = await fetchUserProfile(token);
+    let userProfile = await fetchUserProfile(token);
+
+    const roles = session?.user?.app_metadata?.roles;
+    if (roles) userProfile = {...userProfile, roles};
+    
     return { userProfile: userProfile };
 }
