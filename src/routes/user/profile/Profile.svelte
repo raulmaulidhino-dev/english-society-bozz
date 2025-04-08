@@ -11,6 +11,11 @@
         goto('/user/profile/edit');
     }
 
+    function formatUserRoles(roles) {
+        const formattedRoles = roles.map(r => r.replace(/[-_]/g, " ").replace(/\b\w/g, c => c.toUpperCase()));
+        return formattedRoles;
+    }
+
     const logout = async () => {
         const { error } = db.auth.signOut();
         if (error) console.error(error.message);
@@ -33,7 +38,7 @@
                     {/if}
                 </div>
                 <h2 class="text-2xl text-primary font-bold capitalize mt-14 break-words">{user?.full_name || "Full Name"}</h2>
-                <p class="text-sm text-slate-500 break-words">{user?.username || "username"}</p>
+                <p class="text-sm text-slate-500 break-words">{user?.username || "username" } - <span class="font-bold text-secondary">{ user.roles ? formatUserRoles(user.roles).join(" | ") : "User" }</span></p>
                 <p class="text-sm break-words">{user?.bio || "No bio yet."}</p>
             </section>
             <section class="border-t-2 border-slate-200 py-4 px-4 flex flex-col gap-2">
