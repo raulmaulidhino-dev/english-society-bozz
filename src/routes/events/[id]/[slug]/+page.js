@@ -1,18 +1,24 @@
 export const ssr = false;
 
 import axios from "axios";
-import { error } from "@sveltejs/kit";
+import { error, redirect } from "@sveltejs/kit";
 
 import { BACKEND_URL } from "$lib/config/config";
 
 export async function load({ params }) {
     const { id, slug } = params;
 
+    let event = null;
+
     try {
         const res = await axios.get(`${BACKEND_URL}/events/${id}/${slug}`);
-        const event  = res.data;
+        event  = res.data;
+
+        if (slug !== event.slug) throw redirect(301, `/events/${id}/${event.slug}`);
+
         return { event };
     } catch (err) {
+        if (err.status === 301) throw redirect(301, `/events/${id}/${event.slug}`);
         throw error(err?.response?.status || 404, err?.response?.data?.message || "Not found");
     }
 }

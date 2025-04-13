@@ -1,7 +1,7 @@
 <script>
     export let data;
     
-    import {Icon, MapPin, CalendarDays, Sparkles} from 'svelte-hero-icons';
+    import {Icon, MapPin, CalendarDays, Sparkles, Photo as EventThumb} from 'svelte-hero-icons';
 
     const event_date = new Date(data.event.date);
 
@@ -9,15 +9,15 @@
 
 </script>
 
-<article class="bg-white shadow-md">
+<article class="bg-white shadow-md max-w-xl mx-auto">
     <section class="w-full aspect-[3/2] relative">
         {#if data.event.image_url}
             <!-- svelte-ignore a11y-img-redundant-alt -->
             <img src={data.event.image_url} alt={data.event.title}
             class="rounded-t-[inherit]"/>
         {:else}
-            <div class="bg-primary w-full aspect-[3/2]">
-                
+            <div class="bg-primary w-full aspect-[3/2] flex justify-center items-center">
+                <Icon src={EventThumb} size="72" class="text-secondary" />
             </div>
         {/if}
         <div class="w-fit h-fit text-center bg-white p-2 rounded-md absolute top-2 left-2 aspect-square shadow-xl flex flex-col justify-center items-center"><span class="text-xl font-bold">{event_date.toLocaleString('en-US', { day: "2-digit" })}</span><span class="text-sm text-primary font-semibold">{event_date.toLocaleString('en-US', { month: "short" }).toUpperCase()}</span></div>
@@ -49,9 +49,11 @@
                             {/if}
                         </p>
                     </div>
-                    <section class="text-sm border-t-2 border-t-slate-200 pt-4">
-                        {data.event.description}
-                    </section>
+                    {#if data?.event?.description}
+                        <section class="text-sm border-t-2 border-t-slate-200 pt-4">
+                            {data.event.description}
+                        </section>
+                    {/if}
             </section>
         </section>
     </section>
