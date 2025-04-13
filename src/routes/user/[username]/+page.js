@@ -6,12 +6,14 @@ import { error, redirect } from "@sveltejs/kit";
 import { db } from "$lib/supabase";
 import { BACKEND_URL } from "$lib/config/config";
 
+let user = null;
+
 export async function load({ params }) {
     const { username } = params;
 
     try {
         const res = await axios.get(`${BACKEND_URL}/user/${username}`);
-        const user = res?.data;
+        user = res?.data;
 
 
         const { data } = await db.auth.getSession();
@@ -32,9 +34,8 @@ export async function load({ params }) {
         return { user };
 
     } catch (err) {
-        console.log(err || "Unknown Error");
-
         if (err.status === 302) throw redirect(302, '/user/profile');
+        else if (err.status === 401 && user) return { user };
         else throw error(404, "Not found");
     }
 }
