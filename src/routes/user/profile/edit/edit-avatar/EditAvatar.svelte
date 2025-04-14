@@ -1,5 +1,4 @@
 <script>
-    export let avatarUrl;
 
     import axios from "axios";
     import { db } from '$lib/supabase';
@@ -9,12 +8,13 @@
     import { goto } from '$app/navigation';
 
     import { Icon, User as Profile } from 'svelte-hero-icons';
+    let { avatarUrl = $bindable() } = $props();
 
-    let fileInput;
-    let originalImage = null;
+    let fileInput = $state();
+    let originalImage = $state(null);
     let compressedBlob = null;
     let publicAvatarUrl = "";
-    let errorMsg = "";
+    let errorMsg = $state("");
 
     const MAX_SIZE = 300 * 1024;
 
@@ -182,13 +182,13 @@
             {/if}
         </div>
         
-        <input type="file" accept="image/*" bind:this={fileInput} on:change={handleFileChange} class="hidden" />
+        <input type="file" accept="image/*" bind:this={fileInput} onchange={handleFileChange} class="hidden" />
         <small class="text-sm text-slate-400 text-center">Please choose a square (1 : 1) image.</small>
         <p role="alert" class="text-red-500">{errorMsg}</p>
         <section class="w-full flex flex-wrap gap-2">
-            <button on:click={openFilePicker} class="text-sm text-primary bg-white text-center font-semibold border-2 border-primary py-2 px-8 rounded-full hover:text-primary hover:bg-secondary flex-grow">CHOOSE IMAGE</button>
+            <button onclick={openFilePicker} class="text-sm text-primary bg-white text-center font-semibold border-2 border-primary py-2 px-8 rounded-full hover:text-primary hover:bg-secondary flex-grow">CHOOSE IMAGE</button>
             {#if avatarUrl}
-                <button on:click={deleteAvatar} class="text-sm text-white bg-red-600 text-center font-semibold border-2 border-primary py-2 px-8 rounded-full hover:bg-red-700 flex-grow">DELETE AVATAR</button>
+                <button onclick={deleteAvatar} class="text-sm text-white bg-red-600 text-center font-semibold border-2 border-primary py-2 px-8 rounded-full hover:bg-red-700 flex-grow">DELETE AVATAR</button>
             {/if}
             <button id="uploadBtn" class={`text-sm text-white bg-primary text-center font-semibold w-full sm:w-fit border-2 border-primary py-2 px-8 rounded-full ${originalImage ? "" : "hidden"} hover:text-primary hover:bg-secondary`}>UPLOAD</button>
         </section>

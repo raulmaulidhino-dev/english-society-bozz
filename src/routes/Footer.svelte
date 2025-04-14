@@ -37,7 +37,7 @@
                 {#each icons as icon}
                     <li title={icon.title} class={`text-primary active:text-white hover:text-white p-2 border-2 border-primary rounded-[50%] ${icon.primaryColor}`}>
                         <a href={icon.link} target="_blank" rel="noopener noreferrer">
-                            <svelte:component this={icon.icon} width={20} height={20} />
+                            <icon.icon width={20} height={20} />
                         </a>
                     </li>
                 {/each}

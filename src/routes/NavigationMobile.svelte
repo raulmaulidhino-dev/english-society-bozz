@@ -1,5 +1,4 @@
 <script>
-    export let userProfile;
 
     import { onMount } from 'svelte';
     import { page } from '$app/stores';
@@ -18,8 +17,9 @@
     }
 
     import { Icon, Home, CalendarDays as Events, Trophy as Achievements, InformationCircle as AboutUs, User as Profile } from 'svelte-hero-icons';
+    let { userProfile } = $props();
 
-    let screenWidth = 0;
+    let screenWidth = $state(0);
 
     onMount(() => {
         screenWidth = window.innerWidth;
@@ -42,10 +42,10 @@
         { href: '/about-us', icon: AboutUs, text: "About Us"},
     ];
 
-    $: isActive = (href) => {
+    let isActive = $derived((href) => {
         if (href === '/') return $page.url.pathname === href;
         return $page.url.pathname.startsWith(href);
-    };
+    });
 
 </script>
 
@@ -61,17 +61,17 @@
                 </li>
             {/each}
         </ul>
-        {#if !$isLoggedIn }
+        {#if !$isLoggedIn}
             {#if $page.url.pathname === "/login"}
                 <div></div>
             {:else}
-                <button class="text-white text-sm px-4 py-2 font-bold bg-primary hover:text-primary hover:bg-secondary w-full rounded-b-[inherit]" on:click={login}>LOG IN</button>
+                <button class="text-white text-sm px-4 py-2 font-bold bg-primary hover:text-primary hover:bg-secondary w-full rounded-b-[inherit]" onclick={login}>LOG IN</button>
             {/if }
         {:else if $page.url.pathname !== "/login"}
             <div>
-                <button on:click={goToProfile} class="w-full h-fit flex items-center gap-4 border-t-2 p-4">
+                <button onclick={goToProfile} class="w-full h-fit flex items-center gap-4 border-t-2 p-4">
                     <div class={`text-white bg-primary border-2 border-secondary rounded-[50%] ${ userProfile?.avatar_url ? "" : "p-2" }`}>
-                        {#if userProfile?.avatar_url }
+                        {#if userProfile?.avatar_url}
                             <img src={userProfile.avatar_url} alt={`${userProfile?.nickname ?? "User"}'s avatar`} class="w-12 aspect-square rounded-[inherit]" />
                         {:else}
                             <Icon src={Profile} solid size="32" />

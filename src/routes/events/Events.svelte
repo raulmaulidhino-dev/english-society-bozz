@@ -1,10 +1,8 @@
 <script>
-    export let events;
-    export let pageCount;
-    export let pageNum;
 
     import EventCard from './EventCard.svelte';
-    import Pagination from './Pagination.svelte'; 
+    import Pagination from './Pagination.svelte';
+    let { events, pageCount, pageNum } = $props(); 
 
 </script>
 

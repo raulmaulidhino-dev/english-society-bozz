@@ -1,9 +1,9 @@
 <script>
-    export let event;
     
     import { goto } from '$app/navigation';
 
     import {Icon, MapPin, CalendarDays, Sparkles, Photo as EventThumb} from 'svelte-hero-icons';
+    let { event } = $props();
 
     const event_date = new Date(event.date);
 
@@ -14,7 +14,7 @@
 <article class="bg-white rounded-lg shadow-md flex flex-col">
     <section class="w-full aspect-[3/2] rounded-t-[inherit] relative">
         {#if event.image_url}
-            <!-- svelte-ignore a11y-img-redundant-alt -->
+            <!-- svelte-ignore a11y_img_redundant_alt -->
             <img src={event.image_url} alt={event.title}
             class="rounded-t-[inherit]"/>
         {:else}
@@ -53,7 +53,7 @@
                     </div>
             </section>
         </section>
-        <button on:click={() => goto(`/events/${event.id}/${event.slug}`)} class="text-sm text-white bg-primary font-semibold w-full border-2 border-primary mt-auto hover:bg-secondary hover:text-primary py-2 px-8 rounded-lg self-end">VIEW DETAILS</button>
+        <button onclick={() => goto(`/events/${event.id}/${event.slug}`)} class="text-sm text-white bg-primary font-semibold w-full border-2 border-primary mt-auto hover:bg-secondary hover:text-primary py-2 px-8 rounded-lg self-end">VIEW DETAILS</button>
     </section>
 </article>
 

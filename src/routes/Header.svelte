@@ -1,5 +1,4 @@
 <script>
-    export let userProfile;
 
     import { page } from '$app/stores';
     import { goto } from '$app/navigation';
@@ -12,6 +11,7 @@
     import { isLoggedIn } from '$lib/stores/auth';
     import { isNavShowed, toggleNav } from '$lib/stores/store';
     import { onMount } from'svelte';
+    let { userProfile } = $props();
 
     function login() {
         goto("/login");
@@ -22,7 +22,7 @@
         goto("/user/profile");
     }
 
-    let screenWidth = 0;
+    let screenWidth = $state(0);
 
     onMount(() => {
         screenWidth = window.innerWidth;
@@ -50,20 +50,20 @@
     </section>
     <Navigation />
     {#if screenWidth < 768}
-        <button on:click={toggleNav}><Icon src={
+        <button onclick={toggleNav}><Icon src={
             $isNavShowed? CloseButton : ShowButton
         } size="40" /></button>
     {:else}
         {#if !$isLoggedIn}
             {#if $page.url.pathname === "/login"}
-                <button class="text-white hover:text-primary text-sm border-2 border-primary px-4 py-2 font-bold bg-primary hover:bg-secondary rounded-full inline-block invisible" on:click={login}>LOG IN</button>
+                <button class="text-white hover:text-primary text-sm border-2 border-primary px-4 py-2 font-bold bg-primary hover:bg-secondary rounded-full inline-block invisible" onclick={login}>LOG IN</button>
             {:else}
-                <button class="text-white hover:text-primary text-sm border-2 border-primary px-4 py-2 font-bold bg-primary hover:bg-secondary rounded-full inline-block" on:click={login}>LOG IN</button>
+                <button class="text-white hover:text-primary text-sm border-2 border-primary px-4 py-2 font-bold bg-primary hover:bg-secondary rounded-full inline-block" onclick={login}>LOG IN</button>
             {/if}
         {:else if $page.url.pathname !== "/login"}
-            <button on:click={goToProfile}>
+            <button onclick={goToProfile}>
                 <div class={`text-white bg-primary border-2 border-secondary rounded-[50%] aspect-square ${ userProfile?.avatar_url ? "" : "p-2" }`}>
-                    {#if userProfile?.avatar_url }
+                    {#if userProfile?.avatar_url}
                         <img src={userProfile.avatar_url} alt={`${userProfile?.nickname ?? "User"}'s avatar'`} class="w-12 aspect-square rounded-[inherit]" />
                     {:else}
                         <Icon src={Profile} solid size="32" />
@@ -71,7 +71,7 @@
                 </div>
             </button>
         {:else}
-            <button class="text-white hover:text-primary text-sm border-2 border-primary px-4 py-2 font-bold bg-primary hover:bg-secondary rounded-full inline-block invisible" on:click={login}>LOG IN</button>
+            <button class="text-white hover:text-primary text-sm border-2 border-primary px-4 py-2 font-bold bg-primary hover:bg-secondary rounded-full inline-block invisible" onclick={login}>LOG IN</button>
         {/if}
     {/if}
 </header>

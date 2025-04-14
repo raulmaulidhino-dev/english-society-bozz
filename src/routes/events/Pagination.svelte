@@ -1,9 +1,15 @@
 <script>
-  export let currentPage = 1;
-  export let totalPages = 1;
-  export let delta = 2;
 
   import { Icon, ChevronLeft as Left, ChevronRight as Right, ChevronDoubleLeft as DoubleLeft, ChevronDoubleRight as DoubleRight } from 'svelte-hero-icons';
+  /**
+   * @typedef {Object} Props
+   * @property {number} [currentPage]
+   * @property {number} [totalPages]
+   * @property {number} [delta]
+   */
+
+  /** @type {Props} */
+  let { currentPage = 1, totalPages = 1, delta = 2 } = $props();
 
   const goToPage = (page) => {
     if (page < 1 || page > totalPages) return;
@@ -40,7 +46,7 @@
 <!-- Mobile Compact View -->
 <div class="flex justify-center items-center gap-2 sm:hidden mt-4 text-sm">
   <button
-    on:click={() => goToPage(currentPage - 1)}
+    onclick={() => goToPage(currentPage - 1)}
     class="text-white bg-primary p-1 border-2 border-primary rounded-xl hover:bg-secondary hover:text-primary disabled:opacity-50 disabled:cursor-not-allowed"
     disabled={currentPage === 1}
   >
@@ -50,7 +56,7 @@
   <span class="px-2">Page <span class="text-primary font-bold">{currentPage}</span> of <span class="font-bold">{totalPages}</span></span>
 
   <button
-    on:click={() => goToPage(currentPage + 1)}
+    onclick={() => goToPage(currentPage + 1)}
     class="text-white bg-primary p-1 border-2 border-primary rounded-xl hover:bg-secondary hover:text-primary disabled:opacity-50 disabled:cursor-not-allowed"
     disabled={currentPage === totalPages}
   >
@@ -61,13 +67,13 @@
 <!-- Desktop Full Pagination -->
 <nav class="hidden sm:flex justify-center items-center flex-wrap gap-1 mt-4 text-sm">
   {#if currentPage > delta + 2}
-    <button class="text-white bg-primary px-3 py-1 border-2 border-primary rounded hover:bg-secondary hover:text-primary" on:click={() => goToPage(1)}>
+    <button class="text-white bg-primary px-3 py-1 border-2 border-primary rounded hover:bg-secondary hover:text-primary" onclick={() => goToPage(1)}>
       <Icon mini src={DoubleLeft} size="20" />
     </button>
   {/if}
 
   <button
-    on:click={() => goToPage(currentPage - 1)}
+    onclick={() => goToPage(currentPage - 1)}
     class="text-white font-bold bg-primary px-3 py-1 border-2 border-primary rounded hover:bg-secondary hover:text-primary disabled:opacity-50 disabled:cursor-not-allowed"
     disabled={currentPage === 1}
   >
@@ -81,7 +87,7 @@
       <button
         class={`text-primary font-bold px-3 py-1 rounded border-2 border-primary hover:bg-secondary
                 ${page === currentPage ? 'bg-secondary font-extrabold' : ''}`}
-        on:click={() => goToPage(page)}
+        onclick={() => goToPage(page)}
       >
         {page}
       </button>
@@ -89,7 +95,7 @@
   {/each}
 
   <button
-    on:click={() => goToPage(currentPage + 1)}
+    onclick={() => goToPage(currentPage + 1)}
     class="text-white font-bold bg-primary px-3 py-1 border-2 border-primary rounded hover:bg-secondary hover:text-primary disabled:opacity-50 disabled:cursor-not-allowed"
     disabled={currentPage === totalPages}
   >
@@ -97,7 +103,7 @@
   </button>
 
   {#if currentPage < totalPages - delta - 1}
-    <button class="text-white bg-primary px-3 py-1 border-2 border-primary rounded hover:bg-secondary hover:text-primary" on:click={() => goToPage(totalPages)}>
+    <button class="text-white bg-primary px-3 py-1 border-2 border-primary rounded hover:bg-secondary hover:text-primary" onclick={() => goToPage(totalPages)}>
       <Icon mini src={DoubleRight} size="18" />
     </button>
   {/if}

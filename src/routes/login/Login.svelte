@@ -7,16 +7,16 @@
     import Notification from '../Notification.svelte';
     import {Icon, Eye, EyeSlash} from 'svelte-hero-icons';
 
-    let email = "";
-    let password = "";
-    let errorMsg = null;
+    let email = $state("");
+    let password = $state("");
+    let errorMsg = $state(null);
     
-    let passwordInput;
-    let showPassword = false;
+    let passwordInput = $state();
+    let showPassword = $state(false);
 
-    let showNotification = false;
-    let notificationMessage = "";
-    let notificationType = "success";
+    let showNotification = $state(false);
+    let notificationMessage = $state("");
+    let notificationType = $state("success");
 
     function togglePassword() {
         showPassword = !showPassword;
@@ -72,17 +72,17 @@
 
 <section class="bg-secondary bp:h-[max(calc(100vh-114px),500px)] max-h-[1080px] px-6 py-[3rem] flex flex-col justify-center items-center">
     <section class="p-4">
-        <form on:submit={login} class="bg-white max-w-80 p-8 rounded-[32px] shadow-xl">
+        <form onsubmit={login} class="bg-white max-w-80 p-8 rounded-[32px] shadow-xl">
             <h2 class="text-2xl md:text-3xl text-center font-bold mb-[1em]">Welcome Back!</h2>
             <label for="email">Email :</label>
-            <input id="email" name="email" type="email" bind:value={email} placeholder="you@example.com" autocomplete="email" required aria-required />
+            <input id="email" name="email" type="email" bind:value={email} placeholder="you@example.com" autocomplete="email" required aria-required="true" />
             
             <br />
             
             <label for="password">Password :</label>
             <div class="flex gap-2">
-                <input type="password" id="password" bind:this={passwordInput} bind:value={password} placeholder="•••••••• (no peeking)" autocomplete="current-password" required aria-required />
-                <button type="button" class="text-sm text-primary p-[0.625rem] mb-4 border-secondary border-[1px] rounded-2xl" on:click={togglePassword}><Icon src={showPassword ? Eye : EyeSlash} size=18></Icon></button>
+                <input type="password" id="password" bind:this={passwordInput} bind:value={password} placeholder="•••••••• (no peeking)" autocomplete="current-password" required aria-required="true" />
+                <button type="button" class="text-sm text-primary p-[0.625rem] mb-4 border-secondary border-[1px] rounded-2xl" onclick={togglePassword}><Icon src={showPassword ? Eye : EyeSlash} size=18></Icon></button>
             </div>
             
             <br />

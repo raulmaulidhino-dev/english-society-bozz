@@ -1,7 +1,7 @@
 <script>
-    export let data;
     
     import {Icon, MapPin, CalendarDays, Sparkles, Photo as EventThumb} from 'svelte-hero-icons';
+    let { data } = $props();
 
     const event_date = new Date(data.event.date);
 
@@ -12,7 +12,7 @@
 <article class="bg-white shadow-md max-w-xl mx-auto">
     <section class="w-full aspect-[3/2] relative">
         {#if data.event.image_url}
-            <!-- svelte-ignore a11y-img-redundant-alt -->
+            <!-- svelte-ignore a11y_img_redundant_alt -->
             <img src={data.event.image_url} alt={data.event.title}
             class="rounded-t-[inherit]"/>
         {:else}

@@ -3,7 +3,7 @@
     import { page } from '$app/stores';
     import { goto } from '$app/navigation';
 
-    let screenWidth = 0;
+    let screenWidth = $state(0);
 
     onMount(() => {
         screenWidth = window.innerWidth;
@@ -26,10 +26,10 @@
         { href: '/about-us', text: "About Us"},
     ];
 
-    $: isActive = (href) => {
+    let isActive = $derived((href) => {
         if (href === '/') return $page.url.pathname === href;
         return $page.url.pathname.startsWith(href);
-    };
+    });
 
 </script>
 {#if screenWidth >= 768}
@@ -37,7 +37,7 @@
         <ul class="flex p-4 justify-around items-center gap-6">
             {#each navItems as navItem}
                 <li title={navItem.text} class="font-semibold">
-                    <button on:click={() => goto(navItem.href)} class="nav-item hover:text-primary" class:is-active={isActive(navItem.href)}>{navItem.text}</button>
+                    <button onclick={() => goto(navItem.href)} class="nav-item hover:text-primary" class:is-active={isActive(navItem.href)}>{navItem.text}</button>
                 </li>
             {/each}
         </ul>

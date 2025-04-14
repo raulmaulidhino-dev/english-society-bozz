@@ -1,6 +1,6 @@
 <script>
-    export let data;
     import EditProfile from './EditProfile.svelte';
+    let { data } = $props();
 </script>
 
 <EditProfile userProfile={data.userProfile} />

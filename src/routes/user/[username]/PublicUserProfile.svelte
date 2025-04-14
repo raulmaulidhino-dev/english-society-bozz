@@ -1,7 +1,13 @@
 <script>
-    export let user = null;
 
     import {Icon, User as Profile} from 'svelte-hero-icons';
+    /**
+     * @typedef {Object} Props
+     * @property {any} [user]
+     */
+
+    /** @type {Props} */
+    let { user = null } = $props();
 
 </script>
 

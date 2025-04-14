@@ -1,7 +1,7 @@
 <script>
-    export let data;
 
     import EditAvatar from "./EditAvatar.svelte";
+    let { data } = $props();
 </script>
 
 <EditAvatar avatarUrl={data.avatarUrl} />

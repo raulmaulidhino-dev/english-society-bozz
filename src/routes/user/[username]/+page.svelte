@@ -1,7 +1,7 @@
 <script>
-    export let data;
 
     import PublicUserProfile from './PublicUserProfile.svelte';
+    let { data } = $props();
 
 </script>
 

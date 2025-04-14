@@ -10,6 +10,13 @@
 	
 	import LoadingSpinner from '$lib/components/LoadingSpinner.svelte';
 	import { isLoading } from '$lib/stores/loading';
+	/**
+	 * @typedef {Object} Props
+	 * @property {import('svelte').Snippet} [children]
+	 */
+
+	/** @type {Props} */
+	let { children } = $props();
 
 	beforeNavigate(() => {
 		isLoading.set(true);
@@ -26,7 +33,7 @@
 	<NavigationMobile userProfile={$userProfile} />
 
 	<main>
-		<slot />
+		{@render children?.()}
 	</main>
 
 	<Footer />

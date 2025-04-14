@@ -1,11 +1,11 @@
 <script>
-    export let user;
 
     import { db } from "$lib/supabase";
 
     import { goto } from '$app/navigation';
 
     import {Icon, User as Profile} from 'svelte-hero-icons';
+    let { user } = $props();
 
     function goToProfileEdit() {
         goto('/user/profile/edit');
@@ -42,10 +42,10 @@
                 <p class="text-sm break-words">{user?.bio || "No bio yet."}</p>
             </section>
             <section class="border-t-2 border-slate-200 py-4 px-4 flex flex-col gap-2">
-                <button on:click={goToProfileEdit} class="text-sm text-primary text-center font-semibold w-full sm:w-fit border-2 border-primary py-2 px-8 rounded-full
+                <button onclick={goToProfileEdit} class="text-sm text-primary text-center font-semibold w-full sm:w-fit border-2 border-primary py-2 px-8 rounded-full
                                         hover:bg-secondary sm:absolute sm:top-4 sm:right-4 inline-block">EDIT PROFILE</button>
                 <button class="text-sm text-white bg-red-600 font-semibold w-full sm:w-fit border-2 border-primary py-2 px-8 rounded-full"
-                                        on:click={logout}>LOG OUT</button>
+                                        onclick={logout}>LOG OUT</button>
             </section>
         </section>
     </section>

@@ -1,7 +1,7 @@
 <script>
   import { isLoading } from "../stores/loading.js";
 
-  $: visible = $isLoading;
+  let visible = $derived($isLoading);
 </script>
 
 <div class="spinner" class:active={visible}></div>
