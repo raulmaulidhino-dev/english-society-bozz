@@ -26,7 +26,7 @@
                 </div>
                 <h2 class="text-2xl text-primary font-bold capitalize mt-14 break-words">{user?.full_name || "Full Name"}</h2>
                 <p class="text-sm text-slate-500 break-words">{user?.username || "username" }</p>
-                <p class="text-sm break-words">{user?.bio || "No bio yet."}</p>
+                <p class="text-sm break-words whitespace-pre-wrap">{user?.bio || "No bio yet."}</p>
             </section>
         </section>
     </section>
