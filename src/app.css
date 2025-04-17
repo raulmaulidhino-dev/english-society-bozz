@@ -8,4 +8,98 @@
     body {
         font-family: "Montserrat", serif;
     }
+
+    #description pre {
+        @apply bg-gray-200 text-blue-800 text-sm
+        px-4 py-7 mt-7 ml-2 mr-4
+        overflow-x-hidden
+        mb-3;
+    }
+    
+    #description code {
+        @apply bg-gray-200 text-blue-800
+        p-1 rounded;
+    }
+    
+    #description h1 {
+        @apply text-2xl font-black text-gray-950
+        my-3;
+    }
+    
+    #description h2 {
+        @apply text-xl font-bold
+        my-2;
+    }
+    
+    #description h3 {
+        @apply text-lg font-semibold
+        my-1;
+    }
+    
+    
+    #description img[src] {
+        @apply mb-2;
+    }
+    
+    #description h4,
+    #description h5,
+    #description h6 {
+        @apply text-base font-medium
+        mb-1;
+    }
+    
+    #description p {
+        @apply text-base
+        mb-2;
+    }
+    
+    #description a[href] {
+        @apply text-blue-500 hover:underline
+        hover:text-blue-600;
+    }
+    
+    #description ul {
+        @apply list-disc ml-7;
+    }
+    
+    #description ol {
+        @apply list-decimal ml-7;
+    }
+    
+    #description li {
+        @apply mb-1;
+    }
+    
+    #description blockquote {
+        @apply border-l-4 border-gray-300 pl-2
+        mb-2 ml-2;
+    }
+    
+    #description img {
+        @apply max-w-full;
+    }
+    
+    #description hr {
+        @apply border border-gray-300
+    }
+    
+    #description del {
+        @apply line-through;
+    }
+    
+    #description em {
+        @apply italic;
+    }
+    
+    #description strong {
+        @apply font-bold;
+    }
+    
+    #description .is-empty::before {
+        content: attr(data-placeholder);
+        float: left;
+        height: 0;
+        @apply pointer-events-none text-gray-400
+       
+    }
 }
