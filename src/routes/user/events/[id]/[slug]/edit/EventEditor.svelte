@@ -54,7 +54,7 @@
                         } 
                     }
             );
-            goto("/user/events");
+            goto("/user/events", { replaceState: true });
 
         } catch (error) {
             errorMsg = error?.response?.message || "Unknown Error";
