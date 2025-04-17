@@ -1,14 +1,14 @@
 <script>
 
-    import EventCard from './EventCard.svelte';
-    import Pagination from './Pagination.svelte';
+    import EventCard from '$lib/components/EventCard.svelte';
+    import Pagination from '$lib/components/Pagination.svelte';
     let { events, pageCount, pageNum } = $props(); 
 
 </script>
 
 <section>
     <h1 class="text-3xl sm:text-4xl font-bold px-6 md:px-8 pt-6 mb-[1em]">Latest Events</h1>
-    <section class="bg-slate-200 px-6 md:px-8 py-6 grid grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))] gap-4">
+    <section class="bg-slate-200 px-6 md:px-8 py-6 grid grid-cols-[repeat(auto-fill,_minmax(250px,_1fr))] gap-4">
         {#if events}
             {#each events as event}
                 <EventCard event={event}/>
@@ -25,5 +25,5 @@
             </section>        
         {/if}
     </section>
-    <Pagination currentPage={pageNum} totalPages={pageCount} />
+    <Pagination currentPage={pageNum} totalPages={pageCount} goToPageURL={"/events"} />
 </section>
