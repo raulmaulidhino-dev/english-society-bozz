@@ -23,7 +23,7 @@
     const updateOrInsertNewProfile = async (token) => {
 
         if (!token) {
-            goto('/login');
+            goto('/login', { replaceState: true });
         }
 
         try {
@@ -43,7 +43,7 @@
                     }
                 );
 
-                goto('/user/profile');
+                goto('/user/profile', { replaceState: true });
                 
             } catch(err) {
                 errorMsg = err.response?.data?.message || err;
@@ -70,7 +70,7 @@
                     }
                 );
 
-                goto('/user/profile');
+                goto('/user/profile', { replaceState: true });
 
             } catch(err) {
                 errorMsg = err.response?.data?.message || err;
