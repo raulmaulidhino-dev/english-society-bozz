@@ -13,6 +13,8 @@
     let errorMsg = $state("");
 
     const deleteEvent = async (event_id) => {
+        if (!window.confirm("This action will delete the event. Are you sure you want to proceed?")) return;
+        
         const {
             data: { session }
         } = await db.auth.getSession();
