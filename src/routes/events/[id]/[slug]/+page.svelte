@@ -1,11 +1,16 @@
 <script>
+
+    import DOMPurify from "dompurify";
     
     import {Icon, MapPin, CalendarDays, Sparkles, Photo as EventThumb} from 'svelte-hero-icons';
+    import { browser } from "$app/environment";
+
     let { data } = $props();
 
-    const event_date = new Date(data.event.date);
+    let safeDesc = $state();
+    if (browser) safeDesc = DOMPurify.sanitize(data?.event?.description ?? "");
 
-    // let tags = ["Tag 1", "Tag 2", "Tag 3"];
+    const event_date = new Date(data.event.date);
 
 </script>
 
@@ -23,11 +28,6 @@
         <div class="w-fit h-fit text-center bg-white p-2 rounded-md absolute top-2 left-2 aspect-square shadow-xl flex flex-col justify-center items-center"><span class="text-xl font-bold">{event_date.toLocaleString('en-US', { day: "2-digit" })}</span><span class="text-sm text-primary font-semibold">{event_date.toLocaleString('en-US', { month: "short" }).toUpperCase()}</span></div>
     </section>
     <section class="p-4 flex flex-col gap-4">
-        <!-- <section class="tags flex flex-wrap gap-2">
-            {#each tags as tag}
-                <div>{tag}</div>
-            {/each}
-        </section> -->
         <section>
             <h2 class="text-2xl font-semibold mb-[0.5em]">{data.event.title}</h2>
             <section class="event-data flex flex-col gap-1">
@@ -42,31 +42,23 @@
                     <div class="flex items-center gap-2 pb-4">
                         <Icon solid class="text-purple-600 w-4 h-4" src={Sparkles} />
                         <p class="text-sm">By 
-                            {#if data.event.event_maker_username}
+                            {#if data.event.event_maker_username && !data.event.is_anonymous}
                                 <a href={`/user/${data.event.event_maker_username}`} class="font-bold text-primary">{data.event.event_maker_name}</a>
                             {:else}
                                 <span class="font-bold">Anonymous</span>
                             {/if}
                         </p>
                     </div>
-                    {#if data?.event?.description}
-                        <section class="text-sm border-t-2 border-t-slate-200 pt-4">
-                            {data.event.description}
+                    {#if safeDesc}
+                        <section id="description" class="text-sm border-t-2 border-t-slate-200 pt-4">
+                            {#if browser}
+                                <section>{@html safeDesc}</section>
+                            {:else}
+                                <section>Loading description...</section>
+                            {/if}
                         </section>
                     {/if}
             </section>
         </section>
     </section>
 </article>
-
-<style>
-    /* .tags > * {
-        background-color: #f0f0f0;
-        padding: 3px 8px;
-        border-radius: 4px;
-        font-size: 12px;
-        font-weight: 500;
-        margin-bottom: 4px;
-        transition: background-color 0.2s ease;
-    } */
-</style>
