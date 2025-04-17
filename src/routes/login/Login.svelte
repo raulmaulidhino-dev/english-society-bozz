@@ -64,7 +64,7 @@
         notificationType = "success";
         showNotification = true;
 
-        goto('/user/profile');
+        goto('/user/profile', { replaceState: true });
 
     }
     
