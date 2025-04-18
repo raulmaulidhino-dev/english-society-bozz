@@ -99,12 +99,12 @@
                 <Icon src={EditIcon} size="72" class="text-secondary absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
             </section>
             <section class="grow p-4 flex flex-col gap-4">
-                <section>
+                <form id="event_form" onsubmit={handleSubmit}>
                     <input id="eventTitle" name="eventTitle" type="text" placeholder="Event Title" bind:value={title} minlength="3" maxlength="50" title="" required aria-required="true" autocomplete="off" class="text-2xl w-full border-b-[1px] pb-1 mb-[0.5em] font-semibold focus:border-primary focus:outline-none disabled:text-slate-400" />
                     <section class="event-data flex flex-col gap-4">
                             <div class="flex items-center gap-4">
                                 <Icon solid class="text-red-500 w-6 h-6" src={MapPin} />
-                                <input id="event_location" name="event_location" type="text" placeholder="Location" bind:value={location} minlength="3" maxlength="50" required aria-required="true" autocomplete="off" class="text-md w-full border-b-[1px] pb-1 focus:border-primary focus:outline-none disabled:text-slate-400" />
+                                <input id="event_location" name="event_location" type="text" placeholder="Location" bind:value={location} minlength="3" maxlength="45" required aria-required="true" autocomplete="off" class="text-md w-full border-b-[1px] pb-1 focus:border-primary focus:outline-none disabled:text-slate-400" />
                             </div>
                             <div class="flex items-center gap-4">
                                 <Icon solid class="text-secondary w-6 h-6" src={CalendarDays} />
@@ -121,15 +121,15 @@
                                     </select>
                                 </p>
                             </div>
-                            <section class="border-t-2 border-slate-200 pt-4">
-                                <h2 class="text-xl text-center font-bold mb-[1em]">Event Description</h2>
-                                <Tipex bind:tipex={editor} onupdate={saveDesc} autofocus={false} controls floating focal class="border border-neutral-200 mb-4" />
-                            </section>
                     </section>
+                </form>
+                <section class="border-t-2 border-slate-200 pt-4">
+                    <h2 class="text-xl text-center font-bold mb-[1em]">Event Description</h2>
+                    <Tipex bind:tipex={editor} onupdate={saveDesc} autofocus={false} controls floating focal class="border border-neutral-200 mb-4" />
                 </section>
             </section>
             <section class="p-4">
-                <button  onclick={handleSubmit} class="text-sm text-white bg-primary text-center font-semibold w-full sm:w-fit border-2 border-primary py-2 px-8 rounded-full self-center
+                <button type="submit" form="event_form" class="text-sm text-white bg-primary text-center font-semibold w-full sm:w-fit border-2 border-primary py-2 px-8 rounded-full self-center
                 hover:text-primary hover:bg-secondary">UPDATE EVENT</button>
             </section>
         </section>
