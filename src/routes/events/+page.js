@@ -11,7 +11,7 @@ export async function load({ url }) {
     const offset = (page - 1) * limit;
 
     const meta = {
-        title: "Events | ES-Bozz",
+        title: "Events | English Society-Bozz",
         description: "Stay up-to-date with upcoming ES-Bozz events, workshops, and gatherings. Join us in celebrating milestones, learning new things, and building a vibrant community."
     }
 
@@ -23,7 +23,7 @@ export async function load({ url }) {
         
         if (page > pageCount || page < 1) throw error(404, "Not Found");
 
-        meta.title = `Events - Page ${page} | ES-Bozz`;
+        meta.title = `Events - Page ${page} | English Society-Bozz`;
         
         return { events, pageCount, page, meta };
     } catch (error) {
