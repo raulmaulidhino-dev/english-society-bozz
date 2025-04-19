@@ -6,7 +6,7 @@
 
 	import { afterNavigate, beforeNavigate } from '$app/navigation';
 
-	import { userProfile } from '$lib/stores/auth';
+	import { userProfile, isLoggedIn } from '$lib/stores/auth';
 	
 	import LoadingSpinner from '$lib/components/LoadingSpinner.svelte';
 	import { isLoading } from '$lib/stores/loading';
@@ -29,8 +29,8 @@
 </script>
 
 <div class={`app ${$isLoading ? "hidden" : ""}`}>
-	<Header userProfile={$userProfile} />
-	<NavigationMobile userProfile={$userProfile} />
+	<Header userProfile={$userProfile} isLoggedIn={$isLoggedIn} />
+	<NavigationMobile userProfile={$userProfile} isLoggedIn={$isLoggedIn} />
 
 	<main>
 		{@render children?.()}
