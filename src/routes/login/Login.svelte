@@ -1,4 +1,5 @@
 <script>
+    
     import { db } from '$lib/supabase';
     import { goto } from '$app/navigation';
 
@@ -14,9 +15,9 @@
     let passwordInput = $state();
     let showPassword = $state(false);
 
-    let showNotification = $state(false);
     let notificationMessage = $state("");
-    let notificationType = $state("success");
+    let notificationType = $state("");
+    let showNotification = $state(false);
 
     function togglePassword() {
         showPassword = !showPassword;
@@ -43,7 +44,7 @@
         errorMsg = null;
 
         notificationMessage = "";
-        notificationType = "success";
+        notificationType = "";
         showNotification = false;
 
         event.preventDefault();
@@ -110,11 +111,11 @@
             </button>
         </form>    
     </section>
-
-    {#if showNotification}
-        <Notification message={notificationMessage} type={notificationType} duration={5000} />
-    {/if}
 </section>
+
+{#if showNotification}
+    <Notification bind:message={notificationMessage} bind:type={notificationType} duration={5000} />
+{/if}
 
 <style>
     form input {
