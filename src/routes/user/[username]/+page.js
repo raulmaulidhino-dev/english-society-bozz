@@ -32,7 +32,7 @@ export async function load({ params }) {
         }
 
         const meta = {
-            title: `${user.full_name} (@${user.username}) | ES-Bozz`,
+            title: `${user.full_name} (@${user.username}) | English Society-Bozz`,
             description: `${user.bio}` || "No bio yet."
         };
 
