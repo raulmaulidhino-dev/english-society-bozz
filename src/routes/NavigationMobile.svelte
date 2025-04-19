@@ -4,7 +4,6 @@
     import { page } from '$app/stores';
     import { goto } from '$app/navigation';
 
-    import { isLoggedIn } from '$lib/stores/auth';
     import { isNavShowed, toggleNav } from '$lib/stores/store';
 
     function login() {
@@ -17,7 +16,7 @@
     }
 
     import { Icon, Home, CalendarDays as Events, Trophy as Achievements, InformationCircle as AboutUs, User as Profile } from 'svelte-hero-icons';
-    let { userProfile } = $props();
+    let { userProfile, isLoggedIn } = $props();
 
     let screenWidth = $state(0);
 
@@ -61,7 +60,7 @@
                 </li>
             {/each}
         </ul>
-        {#if !$isLoggedIn}
+        {#if !isLoggedIn}
             {#if $page.url.pathname === "/login"}
                 <div></div>
             {:else}
