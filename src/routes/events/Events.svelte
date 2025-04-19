@@ -2,7 +2,19 @@
 
     import EventCard from '$lib/components/EventCard.svelte';
     import Pagination from '$lib/components/Pagination.svelte';
-    let { events, pageCount, pageNum } = $props(); 
+    import Notification from '$lib/components/Notification.svelte';
+
+    let { events, pageCount, pageNum, error = null } = $props();
+
+    let notificationMessage = $state("");
+    let notificationType = $state("");
+    let showNotification = $state(false);
+
+    if (error) {
+        notificationMessage = error?.response?.data?.message || "Unknown Error";
+        notificationType = "error";
+        showNotification = true;
+    }
 
 </script>
 
@@ -27,3 +39,7 @@
     </section>
     <Pagination currentPage={pageNum} totalPages={pageCount} goToPageURL={"/events"} />
 </section>
+
+{#if showNotification}
+    <Notification bind:message={notificationMessage} bind:type={notificationType} duration={5000} />
+{/if}
