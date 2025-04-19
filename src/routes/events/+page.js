@@ -26,8 +26,9 @@ export async function load({ url }) {
         meta.title = `Events - Page ${page} | English Society-Bozz`;
         
         return { events, pageCount, page, meta };
-    } catch (error) {
-        return { error, meta };
+    } catch (err) {
+        if (err?.response?.status === 404) throw error(404, "Not Found");
+        return { err, meta };
     }
 
 }

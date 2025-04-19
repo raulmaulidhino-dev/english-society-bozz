@@ -11,4 +11,4 @@
 	<meta name="description" content={ data.meta?.description ?? defaultMeta.description } />
 </svelte:head>
 
-<Events events={data.events} pageCount={data.pageCount} pageNum={data.page} error={data.error || null} />
+<Events events={data.events} pageCount={data.pageCount} pageNum={data.page} error={data.err || null} />
