@@ -5,6 +5,8 @@
 
     import EventCard from '$lib/components/EventCard.svelte';
     import Pagination from '$lib/components/Pagination.svelte';
+    import Notification from '$lib/components/Notification.svelte';
+
     import { goto } from '$app/navigation';
 
     import { Icon, BellAlert as AnnounceEventIcon } from 'svelte-hero-icons';
@@ -12,9 +14,17 @@
     let { events, pageCount, pageNum } = $props();
     let errorMsg = $state("");
 
+    let notificationMessage = $state("");
+    let notificationType = $state("");
+    let showNotification = $state(false);
+
     const deleteEvent = async (event_id) => {
         if (!window.confirm("This action will delete the event. Are you sure you want to proceed?")) return;
         
+        notificationMessage = "";
+        notificationType = "";
+        showNotification = false;
+
         const {
             data: { session }
         } = await db.auth.getSession();
@@ -32,7 +42,11 @@
             window.location.replace(window.location.href);
 
         } catch (err) {
-            errorMsg = err?.response?.message || "Unknown Error"
+            errorMsg = err?.response?.message || "Unknown Error";
+
+            notificationMessage = errorMsg;
+            notificationType = "error";
+            showNotification = true;
         }
 
     }
@@ -55,3 +69,7 @@
         <Icon src={AnnounceEventIcon} solid size="42" />
     </button>
 </section>
+
+{#if showNotification}
+    <Notification bind:message={notificationMessage} bind:type={notificationType} duration={5000} />
+{/if}
