@@ -8,7 +8,7 @@ export async function load() {
     if (status) window.location.replace('/user/profile');
         
     const meta = {
-        title: "Login | ES-Bozz",
+        title: "Login | English Society-Bozz",
         description: "Securely log in to you ES-Bozz account to manage your account, settings, data, and resources based on your role(s)"
     }
 
