@@ -3,7 +3,7 @@
 </script>
 
 <svelte:head>
-	<title>About Us | ES-Bozz</title>
+	<title>About Us | English Society-Bozz</title>
 	<meta name="description" content="About English Society-Bozz" />
 </svelte:head>
 
