@@ -8,9 +8,10 @@
 </script>
 
 <svelte:head>
-	<title>ES-Bozz</title>
-	<meta name="description" content="English Society-Bozz Website" />
+	<title>English Society-Bozz</title>
+	<meta name="description" content="Fluent Minds, Global Hearts! • Speak Up, Express Yourself: Join our Community!" />
 </svelte:head>
+
 <Hero />
 <Insights />
 <Numbers />
