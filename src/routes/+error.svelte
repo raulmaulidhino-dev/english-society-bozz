@@ -1,6 +1,12 @@
 <script>
     import { page } from '$app/stores';
+    import { defaultMeta } from '$lib/meta/meta';
 </script>
+
+<svelte:head>
+	<title>{ `${$page.status} - Something went wrong` ?? defaultMeta.title }</title>
+	<meta name="description" content={ `Oops! An unexpected error occurred.` ?? defaultMeta.description } />
+</svelte:head>
 
 <section class="bp:h-[max(calc(100vh-114px),500px)] max-h-[1080px] bg-slate-200 p-4 md:p-8">
     <section class="bg-white pt-16 pb-8 px-4 max-w-xl rounded-2xl mx-auto shadow-lg">
