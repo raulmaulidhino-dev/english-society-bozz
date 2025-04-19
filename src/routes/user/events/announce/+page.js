@@ -48,6 +48,11 @@ export async function load() {
     }
 
     let userProfile = await fetchUserProfile(token);
+
+    const meta = {
+        title: `Announce an Event - Event Editor`,
+        description: `Announce a new event.`
+    };
     
-    return { userProfile };
+    return { userProfile, meta };
 }

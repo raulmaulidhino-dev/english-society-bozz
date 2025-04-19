@@ -24,7 +24,12 @@ export async function load({ params }) {
 
         if (slug !== event.slug) throw redirect(301, `/user/events/${id}/${event.slug}/edit`);
 
-        return { event };
+        const meta = {
+            title: `${event.id} - Event Editor`,
+            description: `Edit your event.`
+        };
+
+        return { event, meta };
     } catch (err) {
         if (err.status === 301) throw redirect(301, `/user/events/${id}/${event.slug}/edit`);
         throw error(err?.response?.status || 404, err?.response?.data?.message || "Not found");

@@ -31,9 +31,14 @@ export async function load({ url }) {
         const count = res.data.count;
         const pageCount = Math.ceil(count / limit);
         
-        if (page > pageCount || page < 1) return {};
+        if (page > pageCount || page < 1) throw error(404, "Not Found");
+
+        const meta = {
+            title: `My Events - Page ${page}`,
+            description: `Manage my ${count} event(s).`
+        }
         
-        return { events, pageCount, page }
+        return { events, pageCount, page, meta }
     } catch (error) {
         throw error(error?.response?.status || 404, error?.response?.message || "Not found");
     }
