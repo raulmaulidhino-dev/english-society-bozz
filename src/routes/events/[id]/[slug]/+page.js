@@ -16,7 +16,14 @@ export async function load({ params }) {
 
         if (slug !== event.slug) throw redirect(301, `/events/${id}/${event.slug}`);
 
-        return { event };
+        const event_date = new Date(event.date).toLocaleString();
+
+        const meta = {
+            title: `${event.title} - Event`,
+            description: `${event.location} • ${event_date} • By ${event.event_maker_name}`,
+        }
+
+        return { event, meta };
     } catch (err) {
         if (err.status === 301) throw redirect(301, `/events/${id}/${event.slug}`);
         throw error(err?.response?.status || 404, err?.response?.data?.message || "Not found");

@@ -5,6 +5,8 @@
     import {Icon, MapPin, CalendarDays, Sparkles, Photo as EventThumb} from 'svelte-hero-icons';
     import { browser } from "$app/environment";
 
+    import { defaultMeta } from "$lib/meta/meta";
+
     let { data } = $props();
 
     let safeDesc = $state();
@@ -13,6 +15,11 @@
     const event_date = new Date(data.event.date);
 
 </script>
+
+<svelte:head>
+	<title>{ data.meta?.title ?? defaultMeta.title }</title>
+	<meta name="description" content={ data.meta?.description ?? defaultMeta.description } />
+</svelte:head>
 
 <article class="bg-white shadow-md max-w-xl mx-auto">
     <section class="w-full aspect-[3/2] relative">
