@@ -31,7 +31,12 @@ export async function load({ params }) {
             throw redirect(302, '/user/profile');
         }
 
-        return { user };
+        const meta = {
+            title: `${user.full_name} (@${user.username}) | ES-Bozz`,
+            description: `${user.bio}` || "No bio yet."
+        };
+
+        return { user, meta };
 
     } catch (err) {
         if (err.status === 302) throw redirect(302, '/user/profile');
