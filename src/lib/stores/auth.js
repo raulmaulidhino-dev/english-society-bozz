@@ -29,9 +29,21 @@ async function loadUserProfile() {
 
             userProfile.set(response.data);
 
-        // eslint-disable-next-line no-unused-vars
         } catch (error) {
             userProfile.set(null);
+
+            if (error.response.status === 404) {
+                userProfile.set(null);
+            }
+
+            if (error.response.status === 401) {
+                
+                db.auth.signOut();
+
+                isLoggedIn.set(false);
+                userData.set(null);
+                userProfile.set(null); 
+            }
         }
 
     } else {
