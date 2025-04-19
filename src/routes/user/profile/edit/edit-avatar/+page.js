@@ -2,5 +2,11 @@ export const ssr = false;
 
 export async function load({ url }) {
     const avatarUrl = url.searchParams?.get('avatarUrl') || null;
-    return { avatarUrl };
+
+    const meta = {
+        title: `Edit Avatar`,
+        description: `Edit and manage my avatar`
+    }
+
+    return { avatarUrl, meta };
 }

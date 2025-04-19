@@ -45,6 +45,11 @@ export async function load() {
 
     const roles = session?.user?.app_metadata?.roles;
     if (roles) userProfile = {...userProfile, roles};
+
+    const meta = {
+        title: `My Profile`,
+        description: `Manage your profile.`
+    }
     
-    return { userProfile: userProfile };
+    return { userProfile: userProfile, meta };
 }
