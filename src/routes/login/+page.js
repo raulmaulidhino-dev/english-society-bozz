@@ -1,11 +1,9 @@
 export const ssr = false;
 
-import { db } from "$lib/supabase";
+import { get } from "svelte/store"; 
+import { isLoggedIn } from "$lib/stores/auth";
 
 export async function load() {
-    const {
-        data: { session }
-    } = await db.auth.getSession();
-
-    if (session?.user) window.location.replace('/user/profile');
+    const status = get(isLoggedIn);
+    if (status) window.location.replace('/user/profile');
 }
