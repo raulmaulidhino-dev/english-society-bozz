@@ -4,6 +4,8 @@
     import { db } from '$lib/supabase';
     import { BACKEND_URL } from '$lib/config/config';
 
+    import Notification from '$lib/components/Notification.svelte';
+
     import { onMount } from "svelte";
     import { goto } from '$app/navigation';
 
@@ -15,6 +17,10 @@
     let compressedBlob = null;
     let publicAvatarUrl = "";
     let errorMsg = $state("");
+
+    let notificationMessage = $state("");
+    let notificationType = $state("");
+    let showNotification = $state(false);
 
     const MAX_SIZE = 300 * 1024;
 
@@ -118,7 +124,13 @@
             publicAvatarUrl = res.data.avatar_url;
             const timestamp = new Date().getTime();
 
-            goto(`/user/profile/edit?newAvatarUrl=${encodeURIComponent(publicAvatarUrl)}?t=${timestamp}`);
+            notificationMessage = res.data.message;
+            notificationType = "success";
+            showNotification = true;
+
+            setTimeout(() => {
+                goto(`/user/profile/edit?newAvatarUrl=${encodeURIComponent(publicAvatarUrl)}?t=${timestamp}`);
+            }, 3000);
 
         } catch (error) {
             errorMsg = error.response?.data?.message || "Unknown error.";
@@ -133,11 +145,15 @@
                     "Authorization": `Bearer ${token}`,
                 },
             });
+
+            notificationMessage = res.data.message;
+            notificationType = "success";
+            showNotification = true;
             
         } catch (error) {
-            errorMsg = error.response?.data?.message || "Unknown error.";
+            errorMsg = error.response?.data?.message || "Unknown Error.";
         }
-    }
+    }   
 
     async function deleteAvatar() {
         const {
@@ -153,8 +169,10 @@
         avatarUrl = null;
 
         const timestamp = new Date().getTime();
-
-        goto(`/user/profile/edit?t=${timestamp}`);
+        
+        setTimeout(() => {
+            goto(`/user/profile/edit?t=${timestamp}`);
+        }, 3000);
     }
 
     onMount(async () => {
@@ -194,3 +212,7 @@
         </section>
     </section>
 </section>
+
+{#if showNotification}
+    <Notification bind:message={notificationMessage} bind:type={notificationType} duration={5000} />
+{/if}
