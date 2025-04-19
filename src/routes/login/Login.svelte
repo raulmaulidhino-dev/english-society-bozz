@@ -4,7 +4,7 @@
 
     import { isLoading } from '$lib/stores/loading';
 
-    import Notification from '../Notification.svelte';
+    import Notification from '$lib/components/Notification.svelte';
     import {Icon, Eye, EyeSlash} from 'svelte-hero-icons';
 
     let email = $state("");
@@ -40,6 +40,12 @@
 
     async function login(event) {
 
+        errorMsg = null;
+
+        notificationMessage = "";
+        notificationType = "success";
+        showNotification = false;
+
         event.preventDefault();
         event.stopPropagation();
 
@@ -64,8 +70,9 @@
         notificationType = "success";
         showNotification = true;
 
-        goto('/user/profile', { replaceState: true });
-
+        setTimeout(() => {
+            goto("/user/profile", { replaceState: true });
+        }, 3000);
     }
     
 </script>
