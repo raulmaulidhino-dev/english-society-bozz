@@ -3,6 +3,8 @@
     import { db } from '$lib/supabase';
     import { BACKEND_URL } from '$lib/config/config';
 
+    import Notification from '$lib/components/Notification.svelte';
+
     import { goto } from '$app/navigation';
     import { onMount, onDestroy } from 'svelte';
     import DOMPurify from 'dompurify';
@@ -39,6 +41,10 @@
 
     let errorMsg = $state("");
 
+    let notificationMessage = $state("");
+    let notificationType = $state("");
+    let showNotification = $state(false);
+
     const updateEvent = async (token) => {
         try {
             const res = await axios.put(`${BACKEND_URL}/user/events/${event.id}`, {
@@ -54,15 +60,29 @@
                         } 
                     }
             );
-            goto("/user/events", { replaceState: true });
+
+            notificationMessage = res.data.message;
+            notificationType = "success";
+            showNotification = true;
+
+            setTimeout(() => {
+                goto("/user/events", { replaceState: true });
+            }, 3000);
 
         } catch (error) {
             errorMsg = error?.response?.message || "Unknown Error";
-            console.log(error);
+
+            notificationMessage = errorMsg;
+            notificationType = "error";
+            showNotification = true;
         }
     };
 
     const handleSubmit = async (e) => {
+        notificationMessage = "";
+        notificationType = "";
+        showNotification = false;
+
         e.preventDefault();
 
         const {
@@ -135,3 +155,7 @@
         </section>
     </article>
 </section>
+
+{#if showNotification}
+    <Notification bind:message={notificationMessage} bind:type={notificationType} duration={5000} />
+{/if}
