@@ -4,8 +4,9 @@
     import { db } from '$lib/supabase';
     import { BACKEND_URL } from '$lib/config/config';
 
-    import { userData } from '$lib/stores/auth';
+    import Notification from '$lib/components/Notification.svelte';
 
+    import { userData } from '$lib/stores/auth';
     import { onMount } from 'svelte';
     import { get } from 'svelte/store';
     import { goto } from '$app/navigation'
@@ -20,7 +21,18 @@
 
     let errorMsg = null;
 
+    let notificationMessage = $state("");
+    let notificationType = $state("");
+    let showNotification = $state(false);
+
     const updateOrInsertNewProfile = async (token) => {
+
+        errorMsg = null;
+
+        notificationMessage = "";
+        notificationType = "";
+        showNotification = false;
+
 
         if (!token) {
             goto('/login', { replaceState: true });
@@ -43,8 +55,14 @@
                     }
                 );
 
-                goto('/user/profile', { replaceState: true });
-                
+                notificationMessage = res.data.message;
+                notificationType = "success";
+                showNotification = true;
+
+                setTimeout(() => {
+                    goto("/user/profile", { replaceState: true });
+                }, 3000);
+
             } catch(err) {
                 errorMsg = err.response?.data?.message || err;
 
@@ -70,10 +88,21 @@
                     }
                 );
 
-                goto('/user/profile', { replaceState: true });
+                notificationMessage = res.data.message;
+                notificationType = "success";
+                showNotification = true;
+
+                setTimeout(() => {
+                    goto("/user/profile", { replaceState: true });
+                }, 3000);
 
             } catch(err) {
-                errorMsg = err.response?.data?.message || err;
+                errorMsg = err.response?.data?.message || "Unknown Error";
+
+                notificationMessage = errorMsg;
+                notificationType = "error";
+                showNotification = true;
+
             }
         }
     };
@@ -146,3 +175,7 @@
         </form>
     </section>
 </section>
+
+{#if showNotification}
+    <Notification bind:message={notificationMessage} bind:type={notificationType} duration={5000} />
+{/if}
