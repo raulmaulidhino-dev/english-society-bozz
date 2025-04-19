@@ -28,14 +28,14 @@
 
     let showNotification = $state(false);
     let notificationMessage = $state("");
-    let notificationType = $state("success");
+    let notificationType = $state("");
 
     const handleChangePassword = async () => {
         
         errorMsg = null;
 
         notificationMessage = "";
-        notificationType = "success";
+        notificationType = "";
         showNotification = false;
 
         const {
