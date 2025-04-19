@@ -6,17 +6,22 @@
 
     import { isNavShowed, toggleNav } from '$lib/stores/store';
 
-    function login() {
+    import { Icon, Home, CalendarDays as Events, Trophy as Achievements, InformationCircle as AboutUs, User as Profile, Cog6Tooth as SettingsIcon } from 'svelte-hero-icons';
+    let { userProfile, isLoggedIn } = $props();
+
+    async function login() {
         goto("/login");
     }
 
-    function goToProfile() {
+    async function goToProfile() {
         toggleNav();
         goto("/user/profile");
     }
 
-    import { Icon, Home, CalendarDays as Events, Trophy as Achievements, InformationCircle as AboutUs, User as Profile } from 'svelte-hero-icons';
-    let { userProfile, isLoggedIn } = $props();
+    async function goToSettings() {
+        toggleNav();
+        goto("/user/settings");
+    }
 
     let screenWidth = $state(0);
 
@@ -68,18 +73,24 @@
             {/if }
         {:else if $page.url.pathname !== "/login"}
             <div>
-                <button onclick={goToProfile} class="w-full h-fit flex items-center gap-4 border-t-2 p-4">
-                    <div class={`text-white bg-primary border-2 border-secondary rounded-[50%] ${ userProfile?.avatar_url ? "" : "p-2" }`}>
+                <section class="w-full h-fit flex items-center gap-4 border-t-2 p-4">
+                    <button onclick={goToProfile} class={`text-white bg-primary border-2 border-secondary rounded-[50%] ${ userProfile?.avatar_url ? "" : "p-2" }`}>
                         {#if userProfile?.avatar_url}
                             <img src={userProfile.avatar_url} alt={`${userProfile?.nickname ?? "User"}'s avatar`} class="w-12 aspect-square rounded-[inherit]" />
                         {:else}
                             <Icon src={Profile} solid size="32" />
                         {/if}
-                    </div>
-                    <div class="font-bold flex items-center justify-center">{ userProfile?.nickname ?? "Me" }</div>
-                </button>
+                    </button>
+                    <button onclick={goToProfile} class="font-bold flex items-center justify-center">{ userProfile?.nickname ?? "Me" }</button>
+                    <button onclick={goToSettings} title="Settings"
+                        class="text-primary bg-secondary aspect-square border-2 border-primary rounded-[50%] p-1 ml-auto"
+                        class:is-active={isActive("/user/settings")}
+                    >
+                        <Icon src={SettingsIcon} solid size="25"/>
+                    </button>
+                </section>
             </div>
-        {/if }
+        {/if}
     </nav>
 {/if}
 
