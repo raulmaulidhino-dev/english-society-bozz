@@ -9,4 +9,11 @@ export async function load() {
     } = await db.auth.getSession();
     
     if (!session?.user) throw error(404, "Not found");
+
+    const meta = {
+        title: `Settings`,
+        description: `Manage your user data and security`
+    }
+    
+    return { meta };
 }
