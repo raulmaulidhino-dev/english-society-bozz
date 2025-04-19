@@ -20,15 +20,13 @@ const fetchUserProfile = async (token) => {
         userProfile = response.data;
 
     } catch (err) {
-        // eslint-disable-next-line no-unused-vars
-        let errorMsg = err.response?.data?.message || err;
-
         if (err.response?.status === 404 && err.response?.data.redirect) {
             throw redirect(302, err.response.data.redirect);
         } else {
             throw error(404, "Not found");
         }
     }
+    
     return userProfile;
 };
 
