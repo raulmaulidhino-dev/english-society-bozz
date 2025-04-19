@@ -44,5 +44,6 @@ export async function load({ url }) {
 
     let userProfile = await fetchUserProfile(token);
     if (newAvatarUrl) userProfile = {...userProfile, new_avatar_url: newAvatarUrl};
+
     return { userProfile };
 }
