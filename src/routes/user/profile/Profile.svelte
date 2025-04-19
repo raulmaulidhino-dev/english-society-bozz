@@ -2,10 +2,17 @@
 
     import { db } from "$lib/supabase";
 
+    import Notification from '$lib/components/Notification.svelte';
+
     import { goto } from '$app/navigation';
 
     import {Icon, User as Profile} from 'svelte-hero-icons';
+
     let { user } = $props();
+
+    let notificationMessage = $state("");
+    let notificationType = $state("");
+    let showNotification = $state(false);
 
     function goToProfileEdit() {
         goto('/user/profile/edit');
@@ -17,9 +24,25 @@
     }
 
     const logout = async () => {
+        notificationMessage = "";
+        notificationType = "success";
+        showNotification = false;
+
         const { error } = db.auth.signOut();
-        if (error) console.error(error.message);
-        else goto('/');
+
+        if (error) {
+            notificationMessage = "Failed to log you out!";
+            notificationType = "error";
+            showNotification = true;
+        } else {
+            notificationMessage = "You have been logged out successfully!";
+            notificationType = "info";
+            showNotification = true;
+
+            setTimeout(() => {
+                goto('/')
+            }, 3000);
+        };
     }
 
 </script>
@@ -57,6 +80,10 @@
         </section>
     </section>
 </section>
+
+{#if showNotification}
+    <Notification bind:message={notificationMessage} bind:type={notificationType} duration={5000} />
+{/if}
 
 <style>
     
