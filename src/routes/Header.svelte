@@ -8,10 +8,9 @@
     import logo_fallback from '$lib/images/logos/es-bozz-logo-transparent.png';
     import { Icon, Bars2 as ShowButton, XMark as CloseButton, User as Profile } from 'svelte-hero-icons';
 
-    import { isLoggedIn } from '$lib/stores/auth';
     import { isNavShowed, toggleNav } from '$lib/stores/store';
     import { onMount } from'svelte';
-    let { userProfile } = $props();
+    let { userProfile, isLoggedIn } = $props();
 
     function login() {
         goto("/login");
@@ -54,7 +53,7 @@
             $isNavShowed? CloseButton : ShowButton
         } size="40" /></button>
     {:else}
-        {#if !$isLoggedIn}
+        {#if !isLoggedIn}
             {#if $page.url.pathname === "/login"}
                 <button class="text-white hover:text-primary text-sm border-2 border-primary px-4 py-2 font-bold bg-primary hover:bg-secondary rounded-full inline-block invisible" onclick={login}>LOG IN</button>
             {:else}
