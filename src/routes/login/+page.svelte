@@ -1,6 +1,8 @@
 <script>
     import Login from './Login.svelte';
     import { defaultMeta } from '$lib/meta/meta';
+
+    let { data } = $props();
 </script>
 
 <svelte:head>
