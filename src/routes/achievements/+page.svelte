@@ -3,7 +3,7 @@
 </script>
 
 <svelte:head>
-	<title>Achievements | ES-Bozz</title>
+	<title>Achievements | English Society-Bozz</title>
 	<meta name="description" content="English Society-Bozz Achievements" />
 </svelte:head>
 
