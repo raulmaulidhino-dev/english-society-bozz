@@ -1,4 +1,5 @@
 <script>
+    import OurPartners from "./OurPartners.svelte";
 
     let numbers = [
         {count: 50, title: 'Active Learners'},
@@ -39,4 +40,5 @@
             Discover our vibrant and enjoyable learning community, where everyone is welcome to learn, grow, and connect.
         </p>
     </section>
+    <OurPartners />
 </section>
