@@ -1,4 +1,5 @@
 <script>
+    import { db } from "$lib/supabase";
     import { goto } from "$app/navigation";
 
     import {
@@ -13,6 +14,8 @@
         ShieldCheck as SecurityIcon,
         Key as ChangePasswordIcon
     } from "svelte-hero-icons";
+
+    import Notification from '$lib/components/Notification.svelte';
 
     let settings = $state([
         {
@@ -34,10 +37,36 @@
         },
     ]);
 
+    let notificationMessage = $state("");
+    let notificationType = $state("");
+    let showNotification = $state(false);
+
+    const logout = async () => {
+        notificationMessage = "";
+        notificationType = "success";
+        showNotification = false;
+
+        const { error } = db.auth.signOut();
+
+        if (error) {
+            notificationMessage = "Failed to log you out!";
+            notificationType = "error";
+            showNotification = true;
+        } else {
+            notificationMessage = "You have been logged out successfully!";
+            notificationType = "info";
+            showNotification = true;
+
+            setTimeout(() => {
+                goto('/')
+            }, 3000);
+        };
+    }
+
 </script>
 
 <section class="bp:h-[max(calc(100vh-114px),500px)] max-h-[1080px] bg-slate-200 p-4 md:p-8">
-    <section class="bg-white py-8 px-6 max-w-xl rounded-2xl mx-auto shadow-lg">
+    <section class="bg-white pt-8 pb-6 px-6 max-w-xl rounded-2xl mx-auto shadow-lg">
         <h1 class="text-3xl text-center sm:text-4xl font-bold px-8 md:px-8 pt-6 mb-[1em]">Settings</h1>
         <article class="max-w-80 mx-auto flex flex-col gap-4">
                 {#each settings as setting}
@@ -58,5 +87,16 @@
                 </section>
                 {/each}
         </article>
+        <article class="bg-red-100 rounded-md p-6 mt-4 flex flex-col gap-2">
+            <h2 class="text-xl text-center font-bold mb-[0.75em]">DANGER ZONE</h2>
+            <button class="text-sm text-white bg-red-600 font-semibold w-full md:max-w-40 border-2 border-primary py-2 px-8 rounded-full mx-auto"
+                    onclick={logout}>
+                    LOG OUT
+            </button>
+        </article>    
     </section>
 </section>
+
+{#if showNotification}
+    <Notification bind:message={notificationMessage} bind:type={notificationType} duration={5000} />
+{/if}
