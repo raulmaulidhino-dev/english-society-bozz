@@ -1,12 +1,8 @@
 <script>
-
-    import { db } from "$lib/supabase";
-
-    import Notification from '$lib/components/Notification.svelte';
-
     import { goto } from '$app/navigation';
 
     import {Icon, User as Profile} from 'svelte-hero-icons';
+    import Notification from '$lib/components/Notification.svelte';
 
     let { user } = $props();
 
@@ -21,28 +17,6 @@
     function formatUserRoles(roles) {
         const formattedRoles = roles.map(r => r.replace(/[-_]/g, " ").replace(/\b\w/g, c => c.toUpperCase()));
         return formattedRoles;
-    }
-
-    const logout = async () => {
-        notificationMessage = "";
-        notificationType = "success";
-        showNotification = false;
-
-        const { error } = db.auth.signOut();
-
-        if (error) {
-            notificationMessage = "Failed to log you out!";
-            notificationType = "error";
-            showNotification = true;
-        } else {
-            notificationMessage = "You have been logged out successfully!";
-            notificationType = "info";
-            showNotification = true;
-
-            setTimeout(() => {
-                goto('/')
-            }, 3000);
-        };
     }
 
 </script>
@@ -64,18 +38,13 @@
                 <p class="text-sm text-slate-500 break-words">{user?.username || "username" } - <span class="font-bold text-secondary">{ user.roles ? formatUserRoles(user.roles).join(" | ") : "User" }</span></p>
                 <p class="text-sm break-words whitespace-pre-wrap">{user?.bio || "No bio yet."}</p>
             </section>
-            <section class="border-t-2 border-slate-200 py-4 px-4 flex flex-col gap-3">
+            <section class="border-t-2 border-slate-200 sm:border-t-0 py-4 px-4 flex flex-col gap-3">
                 <button onclick={goToProfileEdit} class="text-sm text-primary text-center font-semibold w-full sm:w-fit border-2 border-primary py-2 px-8 rounded-full
                                         hover:bg-secondary sm:absolute sm:top-4 sm:right-4 inline-block">EDIT PROFILE</button>
                 {#if user?.roles.includes("event_maker")}
-                    <button onclick={() => goto("/user/events")} class="text-sm text-white bg-primary text-center font-semibold w-full sm:w-fit border-2 border-primary py-2 px-8 rounded-full mx-auto
+                    <button onclick={() => goto("/user/events")} class="text-sm text-white bg-primary text-center font-semibold w-full sm:w-fit sm:ml-0 border-2 border-primary py-2 px-8 rounded-full mx-auto
                                                                 hover:text-primary hover:bg-secondary inline-block">SEE MY EVENTS</button>
                 {/if}
-            </section>
-            <section class="bg-red-100 border-t-2 rounded-[inherit] border-slate-200 py-4 px-4 flex flex-col gap-2">
-                <h2 class="text-xl text-center font-bold mb-[0.75em]">DANGER ZONE</h2>
-                <button class="text-sm text-white bg-red-600 font-semibold w-full max-w-40 border-2 border-primary py-2 px-8 rounded-full mx-auto"
-                                        onclick={logout}>LOG OUT</button>
             </section>
         </section>
     </section>
