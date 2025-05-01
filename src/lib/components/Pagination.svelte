@@ -1,24 +1,24 @@
-<script>
+<script lang="ts">
 
   import { Icon, ChevronLeft as Left, ChevronRight as Right, ChevronDoubleLeft as DoubleLeft, ChevronDoubleRight as DoubleRight } from 'svelte-hero-icons';
-  /**
-   * @typedef {Object} Props
-   * @property {number} [currentPage]
-   * @property {number} [totalPages]
-   * @property {number} [delta]
-   */
 
-  /** @type {Props} */
-  let { currentPage = 1, totalPages = 1, delta = 2, goToPageURL = "/" } = $props();
+  interface Props {
+    currentPage: number;
+    totalPages: number;
+    delta: number;
+    goToPageURL: string;
+  }
 
-  const goToPage = (page) => {
+  let { currentPage = 1, totalPages = 1, delta = 2, goToPageURL = "/" }: Props = $props();
+
+  const goToPage = (page: number) => {
     if (page < 1 || page > totalPages) return;
     window.location.href = `${goToPageURL}?page=${page}`;
   };
 
-  function getPageNumbers(current, total, delta = 2) {
-    const range = [];
-    const rangeWithDots = [];
+  function getPageNumbers(current: number, total: number, delta = 2) {
+    const range: number[] = [];
+    const rangeWithDots: string[] = [];
     let last;
 
     for (let i = 1; i <= total; i++) {
@@ -30,12 +30,12 @@
     for (let i of range) {
       if (last) {
         if (i - last === 2) {
-          rangeWithDots.push(last + 1);
+          rangeWithDots.push(String(last + 1));
         } else if (i - last > 2) {
           rangeWithDots.push("...");
         }
       }
-      rangeWithDots.push(i);
+      rangeWithDots.push(String(i));
       last = i;
     }
 
@@ -86,8 +86,8 @@
     {:else}
       <button
         class={`text-primary font-bold px-3 py-1 rounded border-2 border-primary hover:bg-secondary
-                ${page === currentPage ? 'bg-secondary font-extrabold' : ''}`}
-        onclick={() => goToPage(page)}
+                ${page === String(currentPage) ? 'bg-secondary font-extrabold' : ''}`}
+        onclick={() => goToPage(Number(page))}
       >
         {page}
       </button>
