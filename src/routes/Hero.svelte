@@ -1,7 +1,13 @@
-<script>
+<script lang="ts">
     import { onMount } from 'svelte';
 
-    let landscapePictures = [
+    interface Picture {
+        srcWebp: string;
+        srcJpg: string;
+        alt: string;
+    }
+
+    let landscapePictures: Picture[] = [
         {srcWebp: '/pictures/landscape/UNSOED-Festival-1.webp', srcJpg: '/pictures/landscape/UNSOED-Festival-1.jpg', alt: "UNSOED Festival 1"},
         {srcWebp: '/pictures/landscape/Pic-1.webp', srcJpg: '/pictures/landscape/Pic-1.jpg', alt: "Our Picture Together!"},
         {srcWebp: '/pictures/landscape/Dahuni-F-Event-1.webp', srcJpg: '/pictures/landscape/Dahuni-F-Event-1.jpg', alt: "Dahuni Foundation Event"},
@@ -11,7 +17,7 @@
         {srcWebp: '/pictures/landscape/UNSOED-Festival-2.webp', srcJpg: '/pictures/landscape/UNSOED-Festival-2.jpg', alt: "UNSOED Festival 1"},
     ];
 
-    let squarePictures = [
+    let squarePictures: Picture[] = [
         {srcWebp: '/pictures/square/Competition-1.webp', srcJpg: '/pictures/square/Competition-1.jpg', alt: "Competition Time!"},
         {srcWebp: '/pictures/square/English-Camp-1.webp', srcJpg: '/pictures/square/English-Camp-1.jpg', alt: "English Camp 1"},
         {srcWebp: '/pictures/square/English-Camp-2.webp', srcJpg: '/pictures/square/English-Camp-2.jpg', alt: "English Camp 2"},
@@ -24,52 +30,58 @@
     }
 
     onMount(() => {
-        const collage = document.getElementById('hero_img_collage');
-        const squareImages = document.getElementById('square_images');
-        const landscapeImages = document.getElementById('landscape_images');
+        const collage: HTMLElement | null = document.getElementById('hero_img_collage');
+        const squareImages: HTMLElement | null = document.getElementById('square_images');
+        const landscapeImages: HTMLElement | null = document.getElementById('landscape_images');
 
-        let scrollLengthSq = 0;
-        let scrollDirectionSq = 'top';
-        const scrollSquareImages = setInterval(() => {
-            let collageDistanceFromTop = collage.getBoundingClientRect().top;
-            let squareImagesDistanceFromTop = squareImages.getBoundingClientRect().top;
+        let scrollLengthSq: number = 0;
+        let scrollDirectionSq: string = 'top';
 
-            if ((collageDistanceFromTop + collage.offsetHeight) >= (squareImagesDistanceFromTop + squareImages.offsetHeight - collage.offsetHeight)) {
-                scrollDirectionSq = 'bottom';
-            } else if (collageDistanceFromTop <= (squareImagesDistanceFromTop + collage.offsetHeight)) {
-                scrollDirectionSq = 'top';
-            }
+        if (collage && squareImages) {
+            const scrollSquareImages = setInterval(() => {
+                let collageDistanceFromTop = collage.getBoundingClientRect().top;
+                let squareImagesDistanceFromTop = squareImages.getBoundingClientRect().top;
 
-            if (scrollDirectionSq == 'top') {
-                scrollLengthSq += collage.offsetHeight;
-                squareImages.style.bottom = scrollLengthSq + 'px';
-            } else {
-                scrollLengthSq -= collage.offsetHeight;
-                squareImages.style.bottom = scrollLengthSq + 'px';
-            }
-         }, 2000);
+                if ((collageDistanceFromTop + collage.offsetHeight) >= (squareImagesDistanceFromTop + squareImages.offsetHeight - collage.offsetHeight)) {
+                    scrollDirectionSq = 'bottom';
+                } else if (collageDistanceFromTop <= (squareImagesDistanceFromTop + collage.offsetHeight)) {
+                    scrollDirectionSq = 'top';
+                }
 
-        let scrollLengthLs = 0;
-        let scrollDirectionLs = 'bottom';
-        const scrollLandscapeImages = setInterval(() => {
-            let collageDistanceFromTop = collage.getBoundingClientRect().top;
-            let landscapeImagesDistanceFromTop = landscapeImages.getBoundingClientRect().top;
+                if (scrollDirectionSq == 'top') {
+                    scrollLengthSq += collage.offsetHeight;
+                    squareImages.style.bottom = scrollLengthSq + 'px';
+                } else {
+                    scrollLengthSq -= collage.offsetHeight;
+                    squareImages.style.bottom = scrollLengthSq + 'px';
+                }
+            }, 2000);
+        }
 
-            if ((collageDistanceFromTop + collage.offsetHeight) >= (landscapeImagesDistanceFromTop + landscapeImages.offsetHeight)) {
-                scrollDirectionLs = 'bottom';
-            } else if (collageDistanceFromTop <= (landscapeImagesDistanceFromTop)) {
-                scrollDirectionLs = 'top';
-            }
+        if (collage && landscapeImages) {
+            let scrollLengthLs = 0;
+            let scrollDirectionLs = 'bottom';
+            const scrollLandscapeImages = setInterval(() => {
+                let collageDistanceFromTop = collage.getBoundingClientRect().top;
+                let landscapeImagesDistanceFromTop = landscapeImages.getBoundingClientRect().top;
 
-            if (scrollDirectionLs == 'top') {
-                scrollLengthLs += collage.offsetHeight;
-                landscapeImages.style.bottom = scrollLengthLs + 'px';
-            } else {
-                scrollLengthLs -= collage.offsetHeight;
-                landscapeImages.style.bottom = scrollLengthLs + 'px';
-            }
-         }, 2000);
-     })
+                if ((collageDistanceFromTop + collage.offsetHeight) >= (landscapeImagesDistanceFromTop + landscapeImages.offsetHeight)) {
+                    scrollDirectionLs = 'bottom';
+                } else if (collageDistanceFromTop <= (landscapeImagesDistanceFromTop)) {
+                    scrollDirectionLs = 'top';
+                }
+
+                if (scrollDirectionLs == 'top') {
+                    scrollLengthLs += collage.offsetHeight;
+                    landscapeImages.style.bottom = scrollLengthLs + 'px';
+                } else {
+                    scrollLengthLs -= collage.offsetHeight;
+                    landscapeImages.style.bottom = scrollLengthLs + 'px';
+                }
+            }, 2000);
+        }
+     });
+
 </script>
 
 <section class="bp:h-[max(calc(100vh-114px),500px)] max-h-[1080px] px-6 flex flex-wrap-reverse justify-around items-center gap-10">
@@ -112,6 +124,7 @@
 </section>
 
 <style>
+    
     .hero-img-collage > section{
         @apply transition-all duration-1000 ease-in-out;
     }
