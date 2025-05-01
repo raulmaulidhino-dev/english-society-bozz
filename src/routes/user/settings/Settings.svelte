@@ -1,6 +1,7 @@
-<script>
+<script lang="ts">
     import { db } from "$lib/supabase";
     import { goto } from "$app/navigation";
+    import type { Setting } from "$lib/types/settings/settings";
 
     import {
         Icon,
@@ -17,7 +18,7 @@
 
     import Notification from '$lib/components/Notification.svelte';
 
-    let settings = $state([
+    let settings: Setting[] = $state([
         {
             title: "User",
             icon: UserIcon,
@@ -37,16 +38,16 @@
         },
     ]);
 
-    let notificationMessage = $state("");
-    let notificationType = $state("");
-    let showNotification = $state(false);
+    let notificationMessage: string = $state("");
+    let notificationType: string = $state("");
+    let showNotification: boolean = $state(false);
 
     const logout = async () => {
         notificationMessage = "";
         notificationType = "success";
         showNotification = false;
 
-        const { error } = db.auth.signOut();
+        const { error } = await db.auth.signOut();
 
         if (error) {
             notificationMessage = "Failed to log you out!";
@@ -98,5 +99,5 @@
 </section>
 
 {#if showNotification}
-    <Notification bind:message={notificationMessage} bind:type={notificationType} duration={5000} />
+    <Notification message={notificationMessage} type={notificationType} duration={5000} />
 {/if}
