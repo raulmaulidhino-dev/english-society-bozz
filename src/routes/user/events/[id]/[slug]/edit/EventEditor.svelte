@@ -1,13 +1,13 @@
-<script>
+<script lang="ts">
     import axios from 'axios';
     import { db } from '$lib/supabase';
     import { BACKEND_URL } from '$lib/config/config';
 
-    import Notification from '$lib/components/Notification.svelte';
-
     import { goto } from '$app/navigation';
     import { onMount, onDestroy } from 'svelte';
     import DOMPurify from 'dompurify';
+
+    import Notification from '$lib/components/Notification.svelte';
 
     import { Icon, MapPin, CalendarDays, Sparkles, PencilSquare as EditIcon} from 'svelte-hero-icons';
 
@@ -18,8 +18,16 @@
     import "@friendofsvelte/tipex/styles/Controls.css";
     import "@friendofsvelte/tipex/styles/EditLink.css";
     import "@friendofsvelte/tipex/styles/CodeBlock.css";
+
+    import type { TipexEditor } from '@friendofsvelte/tipex';
+    import type { ErrorResponse } from '$lib/types/error/error';
+    import type { EventResponse } from '$lib/types/event/event';
+
+    interface Props {
+        event: EventResponse;
+    }
     
-    let { event = null } = $props();
+    let { event }: Props = $props();
 
     let title = $state(event?.title ?? "");
     let location = $state(event?.location ?? "");
@@ -29,23 +37,23 @@
     const localDate = new Date(utcDate.getTime() - offsetMs);
     let event_date = $state(new Date(localDate).toISOString().slice(0, 16));
     
-    let description = $state(event?.description ?? "");
+    let description: string = $state(event?.description ?? "");
 
     let isAnonymous = $state(event?.is_anonymous ?? false);
 
-    let editor = $state();
+    let editor: TipexEditor = $state();
 
     function saveDesc() {
-        description = editor.getHTML();
+        if (editor) description = editor.getHTML();
     }
 
     let errorMsg = $state("");
 
-    let notificationMessage = $state("");
-    let notificationType = $state("");
-    let showNotification = $state(false);
+    let notificationMessage: string = $state("");
+    let notificationType: string = $state("");
+    let showNotification: boolean = $state(false);
 
-    const updateEvent = async (token) => {
+    const updateEvent = async (token: string | null) => {
         try {
             const res = await axios.put(`${BACKEND_URL}/user/events/${event.id}`, {
                         title,
@@ -70,15 +78,17 @@
             }, 3000);
 
         } catch (error) {
-            errorMsg = error?.response?.message || "Unknown Error";
+            if (axios.isAxiosError<ErrorResponse>(error)) {
+                errorMsg = error?.response?.data?.message || "Unknown Error";
 
-            notificationMessage = errorMsg;
-            notificationType = "error";
-            showNotification = true;
+                notificationMessage = errorMsg;
+                notificationType = "error";
+                showNotification = true;
+            }
         }
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: SubmitEvent) => {
         notificationMessage = "";
         notificationType = "";
         showNotification = false;
@@ -88,14 +98,14 @@
         const {
             data: { session }
         } = await db.auth.getSession();
-        const token = session?.access_token;
+        const token = session?.access_token ?? null;
         
         await updateEvent(token);
     };
 
     onMount(() => {
         setTimeout(() => {
-            editor.commands.setContent(description);
+            if (editor) editor.commands.setContent(description);
         }, 1000);
     });
 
@@ -109,7 +119,7 @@
     <article class="bg-white rounded-lg shadow-md flex flex-col">
         <section>
             <section class="w-full aspect-[3/2] relative">
-                {#if event.image_url}
+                {#if event?.image_url}
                     <img src={event.image_url} alt={event.title}
                     class="rounded-t-[inherit] opacity-25"/>
                 {:else}
@@ -134,7 +144,7 @@
                                 <Icon solid class="text-purple-600 w-6 h-6" src={Sparkles} />
                                 <p class="text-md">By 
                                     <select bind:value={isAnonymous} id="event_maker_name" class="text-primary font-bold ml-1 p-2 rounded">
-                                        {#if event.event_maker_name}
+                                        {#if event?.event_maker_name}
                                             <option value={false}>{event.event_maker_name}</option>
                                         {/if}
                                         <option value={true}>Anonymous</option>
@@ -157,5 +167,5 @@
 </section>
 
 {#if showNotification}
-    <Notification bind:message={notificationMessage} bind:type={notificationType} duration={5000} />
+    <Notification message={notificationMessage} type={notificationType} duration={5000} />
 {/if}
