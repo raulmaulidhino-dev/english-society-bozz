@@ -1,16 +1,8 @@
-<script>
+<script lang="ts">
     import { Icon, XCircle as CloseBtn } from 'svelte-hero-icons';
-    /**
-     * @typedef {Object} Props
-     * @property {string} [message]
-     * @property {string} [type]
-     * @property {number} [duration]
-     */
-
-    /** @type {Props} */
     let { message = "", type = "success", duration = 5000 } = $props();
 
-    let visible = $state(true);
+    let visible: boolean = $state(true);
 
     const hideNotification = () => {
         visible = false;
