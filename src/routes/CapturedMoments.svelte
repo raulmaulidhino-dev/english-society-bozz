@@ -1,5 +1,12 @@
-<script>
-    let moments = [
+<script lang="ts">
+    
+    interface Moment {
+        src: string;
+        alt: string;
+        title: string;
+    }
+
+    let moments: Moment[] = [
         {src: "https://picsum.photos/900?random=320", alt: "Moment 1", title: "Moment 1"},
         {src: "https://picsum.photos/900?random=321", alt: "Moment 2", title: "Moment 2"},
         {src: "https://picsum.photos/900?random=322", alt: "Moment 3", title: "Moment 3"},
@@ -8,6 +15,7 @@
         {src: "https://picsum.photos/900?random=325", alt: "Moment 6", title: "Moment 6"},
         {src: "https://picsum.photos/1800/900?random=326", alt: "Moment 7", title: "Moment 7"},
     ];
+    
 </script>
 
 <section class="bg-primary px-6 py-[4rem] md:px-10">
