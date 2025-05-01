@@ -1,13 +1,13 @@
-<script>
+<script lang="ts">
 
     import {Icon, User as Profile} from 'svelte-hero-icons';
-    /**
-     * @typedef {Object} Props
-     * @property {any} [user]
-     */
+    import type { UserProfile } from '$lib/types/user/user';
+    
+    interface Props {
+        user: UserProfile;
+    }
 
-    /** @type {Props} */
-    let { user = null } = $props();
+    let { user }: Props = $props();
 
 </script>
 

@@ -1,8 +1,17 @@
-<script>
+<script lang="ts">
     import PublicUserProfile from './PublicUserProfile.svelte';
     import { defaultMeta } from '$lib/meta/meta';
+    import type { UserProfile } from '$lib/types/user/user';
+    import type { Meta } from '$lib/types/meta/meta';
 
-    let { data } = $props();
+    interface Props {
+        data: {
+            user: UserProfile;
+            meta: Meta;
+        }
+    }
+
+    let { data }: Props = $props();
 
 </script>
 
