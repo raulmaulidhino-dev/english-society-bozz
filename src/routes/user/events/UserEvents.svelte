@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     import { db } from '$lib/supabase';
     import axios from 'axios';
     import { BACKEND_URL } from '$lib/config/config';
@@ -9,17 +9,32 @@
 
     import { goto } from '$app/navigation';
 
+    import { isHttpError, error, isRedirect } from '@sveltejs/kit';
+
     import { Icon, BellAlert as AnnounceEventIcon } from 'svelte-hero-icons';
+    
+    import type { EventResponse } from '$lib/types/event/event';
+    import type { ErrorResponse } from '$lib/types/error/error';
 
-    let { events, pageCount, pageNum } = $props();
-    let errorMsg = $state("");
 
-    let notificationMessage = $state("");
-    let notificationType = $state("");
-    let showNotification = $state(false);
+    interface Props {
+        events: EventResponse[];
+        pageCount: number;
+        pageNum: number;
+    }
 
-    const deleteEvent = async (event_id) => {
+    let { events, pageCount, pageNum }: Props = $props();
+
+    let errorMsg: string | null = $state(null);
+
+    let notificationMessage: string = $state("");
+    let notificationType: string = $state("");
+    let showNotification: boolean = $state(false);
+
+    const deleteEvent = async (event_id: string) => {
         if (!window.confirm("This action will delete the event. Are you sure you want to proceed?")) return;
+
+        errorMsg = null;
         
         notificationMessage = "";
         notificationType = "";
@@ -30,6 +45,10 @@
         } = await db.auth.getSession();
 
         const token = session?.access_token;
+
+        if (!token) {
+            throw error(404, "Not found");
+        }
         
         try {
             const res = await axios.delete(`${BACKEND_URL}/user/events/${event_id}`, {
@@ -41,12 +60,18 @@
             window.alert(res.data.message);
             window.location.replace(window.location.href);
 
-        } catch (err) {
-            errorMsg = err?.response?.message || "Unknown Error";
+        } catch (err: unknown) {
+            if (axios.isAxiosError<ErrorResponse>(err)) {
+                errorMsg = err?.response?.data?.message || "Unknown Error";
 
-            notificationMessage = errorMsg;
-            notificationType = "error";
-            showNotification = true;
+                notificationMessage = errorMsg;
+                notificationType = "error";
+                showNotification = true;
+            } else if (isRedirect(err) || isHttpError(err)) {
+                throw err;
+            } else {
+                throw error(500, "Unexpected error");
+            }
         }
 
     }
@@ -64,12 +89,12 @@
             <p>Nothing to see here...</p>        
         {/if}
     </section>
-    <Pagination currentPage={pageNum} totalPages={pageCount} goToPageURL={"/user/events"} />
+    <Pagination currentPage={pageNum} totalPages={pageCount} delta={2} goToPageURL={"/user/events"} />
     <button onclick={() => goto("/user/events/announce")} title="Announce an Event" class="text-primary bg-secondary p-4 border-secondary border-2 rounded-full fixed right-4 bottom-4 shadow-xl hover:bg-primary hover:text-secondary">
         <Icon src={AnnounceEventIcon} solid size="42" />
     </button>
 </section>
 
 {#if showNotification}
-    <Notification bind:message={notificationMessage} bind:type={notificationType} duration={5000} />
+    <Notification message={notificationMessage} type={notificationType} duration={5000} />
 {/if}

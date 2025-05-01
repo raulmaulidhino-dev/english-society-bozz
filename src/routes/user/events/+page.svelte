@@ -1,8 +1,20 @@
-<script>
+<script lang="ts">
     import UserEvents from './UserEvents.svelte';
     import { defaultMeta } from '$lib/meta/meta';
+    import type { EventResponse } from '$lib/types/event/event';
+    import type { Meta } from '$lib/types/meta/meta';
 
-    let { data } = $props();
+    interface Props {
+        data: {
+            meta: Meta;
+            events: EventResponse[];
+            pageCount: number;
+            page: number;
+        }
+    }
+
+    let { data }: Props = $props();
+    
 </script>
 
 <svelte:head>
