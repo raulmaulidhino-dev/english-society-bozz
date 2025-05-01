@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import Hero from './Hero.svelte';
 	import Insights from './Insights.svelte';
 	import Numbers from './Numbers.svelte';
