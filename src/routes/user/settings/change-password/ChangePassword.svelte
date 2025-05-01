@@ -1,34 +1,46 @@
-<script>
+<script lang="ts">
     import axios from 'axios';
     import { db } from '$lib/supabase';
     import { BACKEND_URL } from '$lib/config/config';
     import { goto } from '$app/navigation';
 
+    import { error, isHttpError, isRedirect } from '@sveltejs/kit';
+
     import Notification from '$lib/components/Notification.svelte';
     import {Icon, Eye, EyeSlash} from 'svelte-hero-icons';
 
-    let oldPasswordObj = $state({
-        inputRef: null,
-        content: "",
-        isShowed: false
-    });
+    import type { ErrorResponse } from '$lib/types/error/error';
 
-    let newPasswordObj = $state({
-        inputRef: null,
-        content: "",
-        isShowed: false
-    });
-
-    function togglePassword(passwordObj) {
-        passwordObj.isShowed = !passwordObj.isShowed;
-        passwordObj.inputRef.type = passwordObj.isShowed ? "text" : "password";
+    interface PasswordObj {
+        inputRef: HTMLInputElement | null;
+        content: string;
+        isShowed: boolean;
     }
 
-    let errorMsg = $state();
+    let oldPasswordObj: PasswordObj = $state({
+        inputRef: null,
+        content: "",
+        isShowed: false
+    });
 
-    let showNotification = $state(false);
-    let notificationMessage = $state("");
-    let notificationType = $state("");
+    let newPasswordObj: PasswordObj = $state({
+        inputRef: null,
+        content: "",
+        isShowed: false
+    });
+
+    function togglePassword(passwordObj: PasswordObj) {
+        if (passwordObj.inputRef) {
+            passwordObj.isShowed = !passwordObj.isShowed;
+            passwordObj.inputRef.type = passwordObj.isShowed ? "text" : "password";
+        }
+    }
+
+    let errorMsg: string | null = $state(null);
+
+    let notificationMessage: string = $state("");
+    let notificationType: string = $state("");
+    let showNotification: boolean = $state(false);
 
     const handleChangePassword = async () => {
         
@@ -58,7 +70,7 @@
             console.log(res);
 
             const { data, error } = await db.auth.signInWithPassword({
-                email: session.user.email,
+                email: session?.user?.email ?? "",
                 password: newPasswordObj.content
             });
 
@@ -70,12 +82,19 @@
                 goto("/user/profile", { replaceState: true });
             }, 3000);
 
-        } catch (error) {
-            errorMsg = error?.response?.data?.message || "Unknown Error";
+        } catch (err: unknown) {
+            if (axios.isAxiosError<ErrorResponse>(err)) {
 
-            notificationMessage = errorMsg;
-            notificationType = "error";
-            showNotification = true;
+                errorMsg = err?.response?.data?.message || "Unknown Error";
+
+                notificationMessage = errorMsg;
+                notificationType = "error";
+                showNotification = true;
+            } else if (isRedirect(err) || isHttpError(err)) {
+                throw err;
+            } else {
+                throw error(500, "Unexpected error");
+            }
         }
 
     }

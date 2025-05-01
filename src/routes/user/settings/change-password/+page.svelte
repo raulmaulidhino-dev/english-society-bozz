@@ -1,8 +1,17 @@
-<script>
+<script lang="ts">
     import ChangePassword from './ChangePassword.svelte';
-    import { defaultMeta } from '$lib/meta/meta';
 
-    let { data } = $props();
+    import { defaultMeta } from '$lib/meta/meta';
+    
+    import type { Meta } from '$lib/types/meta/meta';
+
+    interface Props {
+        data: {
+            meta: Meta;
+        }
+    }
+
+    let { data }: Props = $props();
 
 </script>
 
