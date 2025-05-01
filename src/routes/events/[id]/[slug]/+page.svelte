@@ -1,18 +1,28 @@
-<script>
+<script lang="ts">
 
     import DOMPurify from "dompurify";
     
     import {Icon, MapPin, CalendarDays, Sparkles, Photo as EventThumb} from 'svelte-hero-icons';
     import { browser } from "$app/environment";
 
-    import { defaultMeta } from "$lib/meta/meta";
+    import { defaultMeta } from "$lib/meta/meta.js";
 
-    let { data } = $props();
+    import type { EventResponse } from "$lib/types/event/event.js";
+    import type { Meta } from "$lib/types/meta/meta";
 
-    let safeDesc = $state();
-    if (browser) safeDesc = DOMPurify.sanitize(data?.event?.description ?? "");
+    interface Props {
+        data: {
+            event: EventResponse;
+            meta: Meta;
+        }
+    }
 
-    const event_date = new Date(data.event.date);
+    let { data }: Props = $props();
+
+    let safeDesc: string = $state("");
+    if (browser) safeDesc = DOMPurify.sanitize(data.event?.description ?? "");
+
+    const event_date: Date = new Date(data.event.date);
 
 </script>
 
