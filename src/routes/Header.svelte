@@ -1,4 +1,5 @@
-<script>
+<script lang="ts">
+    import { onMount } from 'svelte';
 
     import { page } from '$app/stores';
     import { goto } from '$app/navigation';
@@ -9,8 +10,15 @@
     import { Icon, Bars2 as ShowButton, XMark as CloseButton, User as Profile } from 'svelte-hero-icons';
 
     import { isNavShowed, toggleNav } from '$lib/stores/store';
-    import { onMount } from'svelte';
-    let { userProfile, isLoggedIn } = $props();
+    
+    import type { UserProfile } from '$lib/types/user/user';
+
+    interface Props {
+        userProfile: UserProfile | null;
+        isLoggedIn: boolean;
+    }
+
+    let { userProfile, isLoggedIn }: Props = $props();
 
     function login() {
         goto("/login");
