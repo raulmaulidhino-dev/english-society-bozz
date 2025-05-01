@@ -1,14 +1,25 @@
-<script>
+<script lang="ts">
     import OurPartners from "./OurPartners.svelte";
 
-    let numbers = [
-        {count: 50, title: 'Active Learners'},
-        {count: 100, title: 'Fun Activities'},
-        {count: 10, title: 'Events'},
-        {count: '5+', title: 'Partners'},
+    interface Number {
+        count: string;
+        title: string;
+    }
+
+    interface Doodle {
+        srcWebp: string;
+        srcJpg: string;
+        alt: string;
+    }
+
+    let numbers: Number[] = [
+        {count: "50", title: 'Active Learners'},
+        {count: "100", title: 'Fun Activities'},
+        {count: "10", title: 'Events'},
+        {count: "5+", title: 'Partners'},
     ];
 
-    let doodles = [
+    let doodles: Doodle[] = [
         {srcWebp: '/pictures/square/In-School-Activity-1.webp', srcJpg: '/pictures/square/In-School-Activity-1.jpg', alt: "In-school Activity 1"},
         {srcWebp: '/pictures/square/Outdoor-Activity-1.webp', srcJpg: '/pictures/square/Outdoor-Activity-1.jpg', alt: "Outdoor Activity 1"},
         {srcWebp: '/pictures/square/Outdoor-Activity-2.webp', srcJpg: '/pictures/square/Outdoor-Activity-2.jpg', alt: "Outdoor Activity 2"},
