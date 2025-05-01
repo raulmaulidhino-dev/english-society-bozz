@@ -1,5 +1,12 @@
-<script>
-    let activities = [
+<script lang="ts">
+
+    interface Activity {
+        bg: string;
+        alt: string;
+        title: string;
+    }
+
+    let activities: Activity[] = [
         {bg: "bg-[url('https://picsum.photos/900?random=210')]", alt: "Activty 1", title: "Fun Activty 1"},
         {bg: "bg-[url('https://picsum.photos/900?random=220')]", alt: "Activty 2", title: "Fun Activty 2"},
         {bg: "bg-[url('https://picsum.photos/900?random=230')]", alt: "Activty 3", title: "Fun Activty 3"},
@@ -7,6 +14,7 @@
         {bg: "bg-[url('https://picsum.photos/900?random=250')]", alt: "Activty 5", title: "Fun Activty 5"},
         {bg: "bg-[url('https://picsum.photos/900?random=260')]", alt: "Activty 6", title: "Fun Activty 6"},
     ];
+    
 </script>
 
 <section class="bg-secondary px-6 py-[4rem]">
