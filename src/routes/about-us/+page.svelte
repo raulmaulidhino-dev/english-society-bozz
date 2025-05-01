@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     import UnderDevelopment from "$lib/components/UnderDevelopment.svelte";
 </script>
 
