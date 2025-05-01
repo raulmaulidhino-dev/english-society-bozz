@@ -1,8 +1,17 @@
-<script>
+<script lang="ts">
     import EventEditor from "./EventEditor.svelte";
     import { defaultMeta } from "$lib/meta/meta";
-    
-    let { data } = $props(); 
+    import type { UserProfile } from "$lib/types/user/user";
+    import type { Meta } from "$lib/types/meta/meta";
+
+    interface Props {
+        data: {
+            userProfile: UserProfile;
+            meta: Meta;
+        }
+    }
+
+    let { data }: Props = $props(); 
 
 </script>
 
