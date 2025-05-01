@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 
     import { onMount } from 'svelte';
     import { page } from '$app/stores';
@@ -7,7 +7,15 @@
     import { isNavShowed, toggleNav } from '$lib/stores/store';
 
     import { Icon, Home, CalendarDays as Events, Trophy as Achievements, InformationCircle as AboutUs, User as Profile, Cog6Tooth as SettingsIcon } from 'svelte-hero-icons';
-    let { userProfile, isLoggedIn } = $props();
+    
+    import type { UserProfile } from '$lib/types/user/user';
+
+    interface Props {
+        userProfile: UserProfile | null;
+        isLoggedIn: boolean;
+    }
+
+    let { userProfile, isLoggedIn }: Props = $props();
 
     async function login() {
         goto("/login");
@@ -46,7 +54,7 @@
         { href: '/about-us', icon: AboutUs, text: "About Us"},
     ];
 
-    let isActive = $derived((href) => {
+    let isActive = $derived((href: string) => {
         if (href === '/') return $page.url.pathname === href;
         return $page.url.pathname.startsWith(href);
     });
