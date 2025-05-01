@@ -1,13 +1,21 @@
-<script>
+<script lang="ts">
     import Book from '$lib/images/logo_elements/yellow-book-icon.png';
     import World from '$lib/images/logo_elements/yellow-world-icon.png';
     import Shield from '$lib/images/logo_elements/yellow-es-bozz-shield-icon.png';
+
+    interface Insight {
+        icon: string;
+        alt: string;
+        title: string;
+        description: string;
+    }
     
-    let insights = [
+    let insights: Insight[] = [
         {icon: Book, alt: 'Book Icon', title: 'Educative', description: 'Sharpen your language skills through fun activities, workshops, and discussions.'},
         {icon: World, alt: 'World Icon',  title: 'International', description: 'Connect with like-minded students and explore English from a global perspective.'},
         {icon: Shield, alt: 'English Society-Bozz Shield Icon',  title: 'Supportive', description: 'Be part of a friendly community that helps you grow in confidence and communication!'},
     ];
+
 </script>
 
 <section id="insights" class="text-white bg-primary px-6 py-[6rem]">
