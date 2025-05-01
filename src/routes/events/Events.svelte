@@ -1,16 +1,29 @@
-<script>
+<script lang="ts">
+
+    import axios from 'axios';
 
     import EventCard from '$lib/components/EventCard.svelte';
     import Pagination from '$lib/components/Pagination.svelte';
     import Notification from '$lib/components/Notification.svelte';
 
-    let { events, pageCount, pageNum, error = null } = $props();
+    import type { EventResponse } from '$lib/types/event/event';
+    import type { ErrorResponse } from '$lib/types/error/error';
+    import type { AxiosError } from 'axios';
+
+    interface Props {
+        events?: EventResponse[],
+        pageCount?: number;
+        pageNum?: number;
+        error?: AxiosError;
+    }
+
+    let { events, pageCount, pageNum, error }: Props = $props();
 
     let notificationMessage = $state("");
     let notificationType = $state("");
     let showNotification = $state(false);
 
-    if (error) {
+    if (axios.isAxiosError<ErrorResponse>(error)) {
         notificationMessage = error?.response?.data?.message || "Unknown Error";
         notificationType = "error";
         showNotification = true;
@@ -37,9 +50,9 @@
             </section>        
         {/if}
     </section>
-    <Pagination currentPage={pageNum} totalPages={pageCount} goToPageURL={"/events"} />
+    <Pagination currentPage={pageNum ?? 1} totalPages={pageCount ?? 1} delta={2} goToPageURL={"/events"} />
 </section>
 
 {#if showNotification}
-    <Notification bind:message={notificationMessage} bind:type={notificationType} duration={5000} />
+    <Notification message={notificationMessage} type={notificationType} duration={5000} />
 {/if}
