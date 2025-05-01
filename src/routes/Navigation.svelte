@@ -1,9 +1,26 @@
-<script>
+<script lang="ts">
     import { onMount } from 'svelte';
     import { page } from '$app/stores';
     import { goto } from '$app/navigation';
 
-    let screenWidth = $state(0);
+    let screenWidth: number = $state(0);
+
+    interface NavItem {
+        href: string;
+        text: string;
+    }
+
+    let navItems: NavItem[] = [
+        { href: '/', text: "Home" },
+        { href: '/events', text: "Events" },
+        { href: '/achievements', text: "Achievements"},
+        { href: '/about-us', text: "About Us"},
+    ];
+
+    let isActive = $derived((href: string) => {
+        if (href === '/') return $page.url.pathname === href;
+        return $page.url.pathname.startsWith(href);
+    });
 
     onMount(() => {
         screenWidth = window.innerWidth;
@@ -17,18 +34,6 @@
         return () => {
             window.removeEventListener('resize', handleResize);
         }
-    });
-
-    let navItems = [
-        { href: '/', text: "Home" },
-        { href: '/events', text: "Events" },
-        { href: '/achievements', text: "Achievements"},
-        { href: '/about-us', text: "About Us"},
-    ];
-
-    let isActive = $derived((href) => {
-        if (href === '/') return $page.url.pathname === href;
-        return $page.url.pathname.startsWith(href);
     });
 
 </script>
