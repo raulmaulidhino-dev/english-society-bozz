@@ -16,7 +16,6 @@
     import type { EventResponse } from '$lib/types/event/event';
     import type { ErrorResponse } from '$lib/types/error/error';
 
-
     interface Props {
         events: EventResponse[];
         pageCount: number;
@@ -81,15 +80,17 @@
 <section>
     <h1 class="text-3xl sm:text-4xl text-center font-bold px-6 md:px-8 pt-6 mb-[1em]">My Events</h1>
     <section class="bg-slate-200 px-6 md:px-8 py-6 grid grid-cols-[repeat(auto-fill,_minmax(250px,_1fr))] gap-4">
-        {#if events}
+        {#if events.length > 0}
             {#each events as event}
                 <EventCard event={event} isEditable={true} deleteEvent={() => deleteEvent(event.id)}/>
             {/each}
         {:else}
-            <p>Nothing to see here...</p>        
+            <p>You don't have any events yet...</p>        
         {/if}
     </section>
-    <Pagination currentPage={pageNum} totalPages={pageCount} delta={2} goToPageURL={"/user/events"} />
+    {#if events.length > 0}
+        <Pagination currentPage={pageNum} totalPages={pageCount} delta={2} goToPageURL={"/user/events"} />
+    {/if}
     <button onclick={() => goto("/user/events/announce")} title="Announce an Event" class="text-primary bg-secondary p-4 border-secondary border-2 rounded-full fixed right-4 bottom-4 shadow-xl hover:bg-primary hover:text-secondary">
         <Icon src={AnnounceEventIcon} solid size="42" />
     </button>
