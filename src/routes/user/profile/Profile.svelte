@@ -1,20 +1,26 @@
-<script>
+<script lang="ts">
     import { goto } from '$app/navigation';
 
     import {Icon, User as Profile} from 'svelte-hero-icons';
     import Notification from '$lib/components/Notification.svelte';
 
-    let { user } = $props();
+    import type { UserProfile } from '$lib/types/user/user';
 
-    let notificationMessage = $state("");
-    let notificationType = $state("");
-    let showNotification = $state(false);
+    interface Props {
+        user: UserProfile;
+    }
+
+    let { user }: Props = $props();
+
+    let notificationMessage: string = $state("");
+    let notificationType: string = $state("");
+    let showNotification: boolean = $state(false);
 
     function goToProfileEdit() {
         goto('/user/profile/edit');
     }
 
-    function formatUserRoles(roles) {
+    function formatUserRoles(roles: string[]) {
         const formattedRoles = roles.map(r => r.replace(/[-_]/g, " ").replace(/\b\w/g, c => c.toUpperCase()));
         return formattedRoles;
     }
@@ -41,7 +47,7 @@
             <section class="border-t-2 border-slate-200 sm:border-t-0 py-4 px-4 flex flex-col gap-3">
                 <button onclick={goToProfileEdit} class="text-sm text-primary text-center font-semibold w-full sm:w-fit border-2 border-primary py-2 px-8 rounded-full
                                         hover:bg-secondary sm:absolute sm:top-4 sm:right-4 inline-block">EDIT PROFILE</button>
-                {#if user?.roles.includes("event_maker")}
+                {#if user?.roles?.includes("event_maker")}
                     <button onclick={() => goto("/user/events")} class="text-sm text-white bg-primary text-center font-semibold w-full sm:w-fit sm:ml-0 border-2 border-primary py-2 px-8 rounded-full mx-auto
                                                                 hover:text-primary hover:bg-secondary inline-block">SEE MY EVENTS</button>
                 {/if}
@@ -51,13 +57,11 @@
 </section>
 
 {#if showNotification}
-    <Notification bind:message={notificationMessage} bind:type={notificationType} duration={5000} />
+    <Notification message={notificationMessage} type={notificationType} duration={5000} />
 {/if}
 
 <style>
-    
     .profile-data > *:not(h2) {
         @apply mb-[1em];
     }
-
 </style>
