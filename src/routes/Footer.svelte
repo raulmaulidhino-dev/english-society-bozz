@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     import ESBozzLogo from '$lib/images/logos/es-bozz-logo-transparent.webp';
     import ESBozzLogo_fallback from '$lib/images/logos/es-bozz-logo-transparent.png';
     import SmansaLogo from '$lib/images/logos/sman1bobotsari-logo.webp';
@@ -13,7 +13,8 @@
         { icon: Tiktok, link: 'https://www.tiktok.com/@englishsocietybozz', title: 'TikTok Official Account', primaryColor: 'hover:bg-[#010101] hover:border-[#010101]'},
     ];
 
-    const year = new Date().getFullYear();
+    const year: number = new Date().getFullYear();
+
 </script>
 
 <footer class="py-12 px-10 mb-36 flex flex-wrap justify-between items-center gap-8">
