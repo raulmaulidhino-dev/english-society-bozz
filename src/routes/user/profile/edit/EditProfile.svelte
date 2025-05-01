@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 
     import axios from 'axios';
     import { db } from '$lib/supabase';
@@ -9,23 +9,34 @@
     import { userData } from '$lib/stores/auth';
     import { onMount } from 'svelte';
     import { get } from 'svelte/store';
-    import { goto } from '$app/navigation'
+    import { goto } from '$app/navigation';
+
+    import { error } from '@sveltejs/kit';
 
     import { Icon, PencilSquare as EditIcon, User as Profile } from 'svelte-hero-icons';
-    let { userProfile } = $props();
 
-    let avatarUrl = $state();
+    import type { UserProfile } from '$lib/types/user/user';
+    import type { ErrorResponse } from '$lib/types/error/error';
+
+    interface Props {
+        userProfile: UserProfile;
+    }
+
+    let { userProfile }: Props = $props();
+
+    let avatarUrl: string | null = $state(null);
+
     if (userProfile.new_avatar_url) avatarUrl = userProfile.new_avatar_url;
     else if (userProfile.avatar_url) avatarUrl = userProfile.avatar_url;
     else avatarUrl = null;
 
-    let errorMsg = null;
+    let errorMsg: string | null = null;
 
     let notificationMessage = $state("");
     let notificationType = $state("");
     let showNotification = $state(false);
 
-    const updateOrInsertNewProfile = async (token) => {
+    const updateOrInsertNewProfile = async (token: string) => {
 
         errorMsg = null;
 
@@ -42,10 +53,10 @@
             try {
 
                 const res = await axios.put(`${BACKEND_URL}/user/profile`, {
-                        full_name: document.getElementById('name').value,
-                        nickname: document.getElementById('nickname').value,
-                        username: document.getElementById('username').value,
-                        bio: document.getElementById('bio').value,
+                        full_name: inputs[0].value,
+                        nickname: inputs[1].value,
+                        username: inputs[2].value,
+                        bio: inputs[3].value,
                         avatar_url: avatarUrl,
                     },
                     {
@@ -64,21 +75,24 @@
                 }, 3000);
 
             } catch(err) {
-                errorMsg = err.response?.data?.message || err;
-
-                throw Error(
-                    errorMsg
-                );
+                if (axios.isAxiosError<ErrorResponse>(err)) {
+                    errorMsg = err.response?.data?.message || "Unknown error";
+                    throw Error(errorMsg);
+                } else {
+                    notificationMessage = "Unknown error!";
+                    notificationType = "error";
+                    showNotification = true
+                }
             }
             
-        } catch (err) {
+        } catch (err: unknown) {
             try {
 
                 const res = await axios.post(`${BACKEND_URL}/user/profile`, {
-                        full_name: document.getElementById('name').value,
-                        nickname: document.getElementById('nickname').value,
-                        username: document.getElementById('username').value,
-                        bio: document.getElementById('bio').value,
+                        full_name: inputs[0].value,
+                        nickname: inputs[1].value,
+                        username: inputs[2].value,
+                        bio: inputs[3].value,
                         avatar_url: avatarUrl,
                     },
                     {
@@ -96,23 +110,34 @@
                     goto("/user/profile", { replaceState: true });
                 }, 3000);
 
-            } catch(err) {
-                errorMsg = err.response?.data?.message || "Unknown Error";
+            } catch (err: unknown) {
+                if (axios.isAxiosError<ErrorResponse>(err)) {
+                    errorMsg = err.response?.data?.message || "Unknown error!";
 
-                notificationMessage = errorMsg;
-                notificationType = "error";
-                showNotification = true;
+                    notificationMessage = errorMsg;
+                    notificationType = "error";
+                    showNotification = true
+                } else if (err instanceof Error) {
+                    errorMsg = err.message;
 
+                    notificationMessage = errorMsg;
+                    notificationType = "error";
+                    showNotification = true
+                } else {
+                    notificationMessage = "Unknown error!";
+                    notificationType = "error";
+                    showNotification = true
+                }
             }
         }
     };
 
     let inputs = $state([
-        { label: 'Name', id: 'name', type: 'text', placeholder: 'e.g., John D. O\'Connor', value: '', minlength: '3', maxlength: '100', pattern: "^[A-Za-z.,' ]+(?<!'')$", title: "Only letters, spaces, dots (.), commas (,), and single quote (') allowed. Double single-quotes are not allowed.", required: true },
-        { label: 'Nickname', id: 'nickname', type: 'text', placeholder: 'e.g., Jojo or O\'Neil', value: '', minlength: '2', maxlength: '10', pattern: "^[A-Za-z.,' ]+(?<!'')$", title: "Only letters, spaces, dots (.), commas (,), and single quote (') allowed. Double single-quotes are not allowed.", required: true },
-        { label: 'Username', id: 'username', type: 'text', placeholder: 'e.g., user123 (Just example)', value: '', minlength: '3', maxlength: '20', pattern: "^[a-z0-9._]{3,20}$", title: "Only lowercase letters, numbers, dots (.), and underscores (_).", required: true },
-        { label: 'Bio', id: 'bio', type: 'text', placeholder: 'e.g., Enjoys writing, volunteering, and participating in school events.', value: '', minlength: '0', maxlength: '300', required: false },
-        { label: 'Email', id: 'email', type: 'email', placeholder: 'you@example.com', value: '', minlength: '6', maxlength: '40', required: true },
+        { label: 'Name', id: 'name', type: 'text', placeholder: 'e.g., John D. O\'Connor', value: '', minlength: 3, maxlength: 100, pattern: "^[A-Za-z.,' ]+(?<!'')$", title: "Only letters, spaces, dots (.), commas (,), and single quote (') allowed. Double single-quotes are not allowed.", required: true },
+        { label: 'Nickname', id: 'nickname', type: 'text', placeholder: 'e.g., Jojo or O\'Neil', value: '', minlength: 2, maxlength: 10, pattern: "^[A-Za-z.,' ]+(?<!'')$", title: "Only letters, spaces, dots (.), commas (,), and single quote (') allowed. Double single-quotes are not allowed.", required: true },
+        { label: 'Username', id: 'username', type: 'text', placeholder: 'e.g., user123 (Just example)', value: '', minlength: 3, maxlength: 20, pattern: "^[a-z0-9._]{3,20}$", title: "Only lowercase letters, numbers, dots (.), and underscores (_).", required: true },
+        { label: 'Bio', id: 'bio', type: 'text', placeholder: 'e.g., Enjoys writing, volunteering, and participating in school events.', value: '', minlength: 0, maxlength: 300, required: false },
+        { label: 'Email', id: 'email', type: 'email', placeholder: 'you@example.com', value: '', minlength: 6, maxlength: 40, required: true },
     ]);
 
     if (userProfile) {
@@ -125,22 +150,26 @@
     const user = get(userData);
     if (user) inputs[4].value = user.email ?? "";
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: SubmitEvent) => {
         e.preventDefault();
 
         const {
             data: { session }
         } = await db.auth.getSession();
-        const token = session?.access_token;
-        
+        const token: string | undefined = session?.access_token;
+
+        if (!token) {
+            throw error(404, "Not found");
+        }
+
         await updateOrInsertNewProfile(token);
     };
 
     const goToEditAvatar = () => goto(`/user/profile/edit/edit-avatar${ userProfile?.avatar_url ? `?avatarUrl=${encodeURIComponent(userProfile.avatar_url)}` : "" }`);
 
     onMount( async () => {
-        const emailInput = document.getElementById("email");
-        emailInput.disabled = true;
+        const emailInput = document.getElementById("email") as HTMLInputElement | null ;
+        if (emailInput) emailInput.disabled = true;
     });
 
 </script>
@@ -177,5 +206,5 @@
 </section>
 
 {#if showNotification}
-    <Notification bind:message={notificationMessage} bind:type={notificationType} duration={5000} />
+    <Notification message={notificationMessage} type={notificationType} duration={5000} />
 {/if}
