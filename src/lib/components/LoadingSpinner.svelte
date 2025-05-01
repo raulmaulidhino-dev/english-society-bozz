@@ -1,7 +1,7 @@
-<script>
-  import { isLoading } from "../stores/loading.js";
+<script lang="ts">
+  import { isLoading } from "../stores/loading";
 
-  let visible = $derived($isLoading);
+  let visible: boolean = $derived($isLoading);
 </script>
 
 <div class="spinner" class:active={visible}></div>
