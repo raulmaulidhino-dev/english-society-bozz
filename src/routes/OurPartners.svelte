@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     import SMAN1BOBOTSARI_png from '$lib/images/partner_logos/SMAN-1-BOBOTSARI_logo.png';
     import SMAN1BOBOTSARI_webp from '$lib/images/partner_logos/SMAN-1-BOBOTSARI_logo.webp';
     import OSIS_SMAN1BOBOTSARI_png from '$lib/images/partner_logos/OSIS_logo.png';
@@ -10,7 +10,14 @@
     import SDN1KALAPACUNG_png from '$lib/images/partner_logos/SDN-1-KALAPACUNG.png';
     import SDN1KALAPACUNG_webp from '$lib/images/partner_logos/SDN-1-KALAPACUNG.webp';
 
-    let partners = [
+    interface Partner {
+        title: string;
+        logo_png: string;
+        logo_webp: string;
+        websiteUrl: string;
+    }
+
+    let partners: Partner[] = [
         {title: "SMA Negeri 1 Bobotsari", logo_png: SMAN1BOBOTSARI_png, logo_webp: SMAN1BOBOTSARI_webp, websiteUrl: "http://sman1bobotsari.sch.id/"},
         {title: "OSIS SMA Negeri 1 Bobotsari", logo_png: OSIS_SMAN1BOBOTSARI_png, logo_webp: OSIS_SMAN1BOBOTSARI_webp, websiteUrl: "https://www.instagram.com/osis.sman1bbs"},
         {title: "Dahuni FOundation", logo_png: DahuniFoundation_png, logo_webp: DahuniFoundation_webp, websiteUrl: "https://www.dahunifoundation.com/"},
