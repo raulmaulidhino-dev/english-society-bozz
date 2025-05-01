@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     import { Icon, WrenchScrewdriver as UnDevIcon } from 'svelte-hero-icons';
 </script>
 
