@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     
     import { db } from '$lib/supabase';
     import { goto } from '$app/navigation';
@@ -8,20 +8,22 @@
     import Notification from '$lib/components/Notification.svelte';
     import {Icon, Eye, EyeSlash} from 'svelte-hero-icons';
 
-    let email = $state("");
-    let password = $state("");
-    let errorMsg = $state(null);
+    let email: string = $state("");
+    let password: string = $state("");
+    let errorMsg: string | null = $state(null);
     
-    let passwordInput = $state();
-    let showPassword = $state(false);
+    let passwordInput: HTMLInputElement | null = $state(null);
+    let showPassword: boolean = $state(false);
 
-    let notificationMessage = $state("");
-    let notificationType = $state("");
-    let showNotification = $state(false);
+    let notificationMessage: string = $state("");
+    let notificationType: string = $state("");
+    let showNotification: boolean = $state(false);
 
     function togglePassword() {
-        showPassword = !showPassword;
-        passwordInput.type = showPassword? "text" : "password";
+        if (passwordInput) {
+            showPassword = !showPassword;
+            passwordInput.type = showPassword? "text" : "password";
+        }
     }
 
     function validate() {
@@ -39,7 +41,7 @@
         return true;
     }
 
-    async function login(event) {
+    async function login(event: SubmitEvent) {
 
         errorMsg = null;
 
@@ -114,7 +116,7 @@
 </section>
 
 {#if showNotification}
-    <Notification bind:message={notificationMessage} bind:type={notificationType} duration={5000} />
+    <Notification message={notificationMessage} type={notificationType} duration={5000} />
 {/if}
 
 <style>

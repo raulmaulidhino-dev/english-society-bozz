@@ -1,8 +1,18 @@
-<script>
+<script lang="ts">
     import Login from './Login.svelte';
+
     import { defaultMeta } from '$lib/meta/meta';
 
-    let { data } = $props();
+    import type { Meta } from '$lib/types/meta/meta';
+
+    interface Props {
+        data: {
+            meta: Meta;
+        }
+    }
+
+    let { data }: Props = $props();
+    
 </script>
 
 <svelte:head>
