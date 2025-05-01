@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import Header from './Header.svelte';
 	import NavigationMobile from './NavigationMobile.svelte';
 	import Footer from './Footer.svelte';
@@ -10,12 +10,7 @@
 	
 	import LoadingSpinner from '$lib/components/LoadingSpinner.svelte';
 	import { isLoading } from '$lib/stores/loading';
-	/**
-	 * @typedef {Object} Props
-	 * @property {import('svelte').Snippet} [children]
-	 */
 
-	/** @type {Props} */
 	let { children } = $props();
 
 	beforeNavigate(() => {
