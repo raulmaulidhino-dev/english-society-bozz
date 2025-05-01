@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 
     import axios from "axios";
     import { db } from '$lib/supabase';
@@ -9,34 +9,41 @@
     import { onMount } from "svelte";
     import { goto } from '$app/navigation';
 
+    import { error, isHttpError, isRedirect } from "@sveltejs/kit";
+
     import { Icon, User as Profile } from 'svelte-hero-icons';
+    import type { ErrorResponse } from "$lib/types/error/error";
+    
     let { avatarUrl = $bindable() } = $props();
 
-    let fileInput = $state();
-    let originalImage = $state(null);
-    let compressedBlob = null;
-    let publicAvatarUrl = "";
-    let errorMsg = $state("");
+    let fileInput: HTMLInputElement | null = $state(null);
+    let originalImage: string | null = $state(null);
+    let compressedBlob: Blob | null = $state(null);
+    let publicAvatarUrl: string = "";
+    let errorMsg: string | null = $state(null);
 
-    let notificationMessage = $state("");
-    let notificationType = $state("");
-    let showNotification = $state(false);
+    let notificationMessage: string = $state("");
+    let notificationType: string = $state("");
+    let showNotification: boolean = $state(false);
 
-    const MAX_SIZE = 300 * 1024;
+    const MAX_SIZE: number = 300 * 1024;
 
     function openFilePicker() {
-        fileInput.click();
+        if (fileInput) fileInput.click();
     }
 
-    function handleFileChange(event) {
+    function handleFileChange(event: Event) {
         errorMsg = "";
-        const file = event.target.files[0];
-        if (!file) return;
+        const target = event.target as HTMLInputElement;
+        let file: File;
+        if (target.files && target.files.length > 0) file = target.files[0];
+        else return;
 
         const reader = new FileReader();
         reader.onload = async (e) => {
             const img = new Image();
-            img.src = e.target.result;
+            if (e.target) img.src = e.target.result as string;
+            else return;
 
             img.onload = async () => {
                 const isSquare = img.width === img.height;
@@ -45,11 +52,12 @@
                     return;
                 }
 
-                originalImage = e.target.result;
+                if (e.target) originalImage = e.target.result as string;
+                else return;
 
                 try {
                     compressedBlob = await compressImage(originalImage);
-                } catch (err) {
+                } catch (err: unknown) {
                     errorMsg = `Failed to compress your avatar.`;
                 }
             };
@@ -62,7 +70,7 @@
         reader.readAsDataURL(file);
     }
 
-    async function compressImage(src) {
+    async function compressImage(src: string): Promise<Blob> {
         return new Promise((resolve, reject) => {
             const img = new Image();
             img.src = src;
@@ -86,14 +94,16 @@
                 canvas.height = height;
 
                 const ctx = canvas.getContext('2d');
-                ctx.drawImage(img, 0, 0, width, height);
+                if (ctx) ctx.drawImage(img, 0, 0, width, height);
 
                 const tryCompress = (quality = 0.9) => {
                     canvas.toBlob((blob) => {
-                        if (blob.size <= MAX_SIZE || quality <= 0.3) {
-                            resolve(blob);
-                        } else {
-                            tryCompress(quality - 0.1);
+                        if (blob) {
+                            if (blob.size <= MAX_SIZE || quality <= 0.3) {
+                                resolve(blob);
+                            } else {
+                                tryCompress(quality - 0.1);
+                            }
                         }
                     }, 'image/jpeg', quality);
                 };
@@ -107,10 +117,10 @@
         });
     }
 
-    async function uploadAvatar(token) {
+    async function uploadAvatar(token: string) {
         if (!compressedBlob) return;
 
-        const formData = new FormData();
+        const formData: FormData = new FormData();
         formData.append("avatar", compressedBlob);
 
         try {
@@ -122,7 +132,7 @@
             });
 
             publicAvatarUrl = res.data.avatar_url;
-            const timestamp = new Date().getTime();
+            const timestamp: number = new Date().getTime();
 
             notificationMessage = res.data.message;
             notificationType = "success";
@@ -132,13 +142,19 @@
                 goto(`/user/profile/edit?newAvatarUrl=${encodeURIComponent(publicAvatarUrl)}?t=${timestamp}`);
             }, 3000);
 
-        } catch (error) {
-            errorMsg = error.response?.data?.message || "Unknown error.";
+        } catch (err: unknown) {
+            if (axios.isAxiosError<ErrorResponse>(err)) {
+                errorMsg = err.response?.data?.message || "Unknown error.";
+            } else if (isRedirect(err) || isHttpError(err)) {
+                throw err;
+            } else {
+                errorMsg = "Unknown error!";
+            }
         }
 
     }
 
-    async function deletePublicAvatar(token) {
+    async function deletePublicAvatar(token: string) {
         try {
             const res = await axios.delete(`${BACKEND_URL}/user/profile/edit-avatar`, {
                 headers: {
@@ -150,8 +166,14 @@
             notificationType = "success";
             showNotification = true;
             
-        } catch (error) {
-            errorMsg = error.response?.data?.message || "Unknown Error.";
+        } catch (err: unknown) {
+            if (axios.isAxiosError<ErrorResponse>(err)) {
+                errorMsg = err.response?.data?.message || "Unknown Error.";
+            } else if (isRedirect(err) || isHttpError(err)) {
+                throw err;
+            } else {
+                errorMsg = "Unknown Error.";
+            }
         }
     }   
 
@@ -160,7 +182,11 @@
             data: { session }
         } = await db.auth.getSession();
 
-        const token = session?.access_token;
+        const token: string | undefined = session?.access_token;
+
+        if (!token) {
+            throw error(404, "Not found");
+        }
 
         await deletePublicAvatar(token);
 
@@ -176,15 +202,22 @@
     }
 
     onMount(async () => {
-        document.getElementById("uploadBtn").addEventListener("click", async () => {
-            const {
-                data: { session }
-            } = await db.auth.getSession();
+        const uploadButton = document.getElementById("uploadBtn");
+        if (uploadButton) {
+            uploadButton.addEventListener("click", async () => {
+                const {
+                    data: { session }
+                } = await db.auth.getSession();
 
-            const token = session?.access_token;
+                const token: string | undefined = session?.access_token;
 
-            await uploadAvatar(token);
-        });
+                if (!token) {
+                    throw error(404, "Not found");
+                }
+
+                await uploadAvatar(token);
+            });
+        }
     });
 
 </script>
@@ -214,5 +247,5 @@
 </section>
 
 {#if showNotification}
-    <Notification bind:message={notificationMessage} bind:type={notificationType} duration={5000} />
+    <Notification message={notificationMessage} type={notificationType} duration={5000} />
 {/if}

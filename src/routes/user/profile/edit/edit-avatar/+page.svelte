@@ -1,8 +1,16 @@
-<script>
+<script lang="ts">
     import EditAvatar from "./EditAvatar.svelte";
     import { defaultMeta } from "$lib/meta/meta";
+    import type { Meta } from '$lib/types/meta/meta.js';
 
-    let { data } = $props();
+    interface Props {
+        data: {
+            avatarUrl: string | null;
+            meta: Meta;
+        }
+    }
+
+    let { data }: Props = $props();
 </script>
 
 <svelte:head>
