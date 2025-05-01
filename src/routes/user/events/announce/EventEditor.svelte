@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     import axios from 'axios';
     import { db } from '$lib/supabase';
     import { BACKEND_URL } from '$lib/config/config';
@@ -12,6 +12,7 @@
     import { Icon, MapPin, CalendarDays, Sparkles, PencilSquare as EditIcon} from 'svelte-hero-icons';
 
     import { Tipex } from '@friendofsvelte/tipex';
+    import type { TipexEditor } from '@friendofsvelte/tipex';
 
     import "@friendofsvelte/tipex/styles/Tipex.css";
     import "@friendofsvelte/tipex/styles/ProseMirror.css";
@@ -19,7 +20,14 @@
     import "@friendofsvelte/tipex/styles/EditLink.css";
     import "@friendofsvelte/tipex/styles/CodeBlock.css";
 
-    let { userProfile = null } = $props();
+    import type { UserProfile } from '$lib/types/user/user';
+    import type { ErrorResponse } from '$lib/types/error/error';
+
+    interface Props {
+        userProfile: UserProfile;
+    }
+
+    let { userProfile }: Props = $props();
 
     let title = $state("");
     let location = $state("");
@@ -31,23 +39,26 @@
     
     let description = $state("");
 
-    let editor = $state();
+    let editor: TipexEditor = $state();
 
     function saveDesc() {
-        description = editor.getHTML();
+        if (editor) description = editor.getHTML();
     }
 
-    let image_url = $state();
+    let image_url: string = $state("");
 
     let isAnonymous = $state(false);
 
-    let errorMsg = $state("");
+    let errorMsg: string | null = $state(null);
 
-    let notificationMessage = $state("");
-    let notificationType = $state("");
-    let showNotification = $state(false);
+    let notificationMessage: string = $state("");
+    let notificationType: string = $state("");
+    let showNotification: boolean = $state(false);
 
-    const addEvent = async (token) => {
+    const addEvent = async (token: string | null) => {
+        
+        errorMsg = null;
+
         try {
             const res = await axios.post(`${BACKEND_URL}/user/events`, {
                         title,
@@ -72,15 +83,17 @@
             }, 3000);
 
         } catch (error) {
-            errorMsg = error?.response?.message || "Unknown Error";
+            if (axios.isAxiosError<ErrorResponse>(error)) {
+                errorMsg = error?.response?.data?.message || "Unknown Error";
 
-            notificationMessage = errorMsg;
-            notificationType = "error";
-            showNotification = true;
+                notificationMessage = errorMsg;
+                notificationType = "error";
+                showNotification = true;
+            }
         }
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: SubmitEvent) => {
         notificationMessage = "";
         notificationType = "";
         showNotification = false;
@@ -90,7 +103,7 @@
         const {
             data: { session }
         } = await db.auth.getSession();
-        const token = session?.access_token;
+        const token = session?.access_token ?? null;
         
         await addEvent(token);
     };
@@ -153,5 +166,5 @@
 </section>
 
 {#if showNotification}
-    <Notification bind:message={notificationMessage} bind:type={notificationType} duration={5000} />
+    <Notification message={notificationMessage} type={notificationType} duration={5000} />
 {/if}
