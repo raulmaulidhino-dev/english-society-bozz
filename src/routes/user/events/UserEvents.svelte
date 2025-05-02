@@ -31,8 +31,7 @@
     let showNotification: boolean = $state(false);
 
     const deleteEvent = async (event_id: string) => {
-        if (!window.confirm("This action will delete the event. Are you sure you want to proceed?")) return;
-
+        
         errorMsg = null;
         
         notificationMessage = "";
@@ -56,7 +55,6 @@
                 }
             });
 
-            window.alert(res.data.message);
             window.location.replace(window.location.href);
 
         } catch (err: unknown) {
