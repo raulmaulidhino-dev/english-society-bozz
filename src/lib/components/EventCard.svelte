@@ -4,9 +4,22 @@
 
     import {Icon, MapPin, CalendarDays, Sparkles, Photo as EventThumb} from 'svelte-hero-icons';
 
-    let { event, isEditable = false, deleteEvent = () => {} } = $props();
+    import ConfirmModal from '$lib/components/modals/ConfirmModal.svelte';
+
+    import type { EventResponse } from '$lib/types/event/event';
+    import type { MouseEventHandler } from 'svelte/elements';
+
+    interface Props {
+        event: EventResponse;
+        isEditable: boolean;
+        deleteEvent: (param: string) => void;
+    }
+
+    let { event, isEditable = false, deleteEvent = () => {} }: Props = $props();
 
     const event_date = new Date(event.date);
+
+    let showConfirmModal: boolean = $state(false);
 
 </script>
 
@@ -52,7 +65,17 @@
     {#if isEditable}
         <section class="flex gap-2 bg-neutral-200 p-4 border-2 border-primary border-dashed rounded-b-[inherit]">
             <button onclick={() => goto(`/user/events/${event.id}/${event.slug}/edit`)} class="text-sm text-primary bg-white font-semibold w-full border-2 border-primary mt-auto hover:bg-secondary hover:text-primary py-2 px-8 rounded-lg grow">EDIT</button>
-            <button onclick={() => deleteEvent(event.id)} class="text-sm text-white bg-red-600 font-semibold w-full border-2 border-primary mt-auto hover:bg-red-800 hover:text-white py-2 px-8 rounded-lg grow">DELETE</button>
+            <button onclick={() => showConfirmModal = true} class="text-sm text-white bg-red-600 font-semibold w-full border-2 border-primary mt-auto hover:bg-red-800 hover:text-white py-2 px-8 rounded-lg grow">DELETE</button>
         </section>
     {/if}
 </article>
+
+<ConfirmModal
+    show={showConfirmModal}
+    title={"Are you sure?"}
+    message={"This action will delete the event. Are you sure you want to proceed?"}
+    cancelLabel={"CANCEL"}
+    confirmLabel={"YES, PROCEED"}
+    onCancel={() => showConfirmModal = false}
+    onConfirm={() => deleteEvent(event.id)}
+/>
