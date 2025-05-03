@@ -4,6 +4,5 @@ export interface UserProfile {
     username: string;
     bio: string;
     avatar_url: string;
-    new_avatar_url: string | null;
     roles?: string[];
 }

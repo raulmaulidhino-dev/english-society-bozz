@@ -42,7 +42,7 @@ const fetchUserProfile = async (token: string) => {
     return userProfile;
 };
 
-export async function load({ url }) {
+export async function load() {
     const {
         data: { session }
     } = await db.auth.getSession();
@@ -53,10 +53,7 @@ export async function load({ url }) {
         throw error(404, "Not found");
     }
 
-    const newAvatarUrl: string | null = url.searchParams?.get('newAvatarUrl');
-
     let userProfile = await fetchUserProfile(token);
-    if (userProfile && newAvatarUrl) userProfile = {...userProfile, new_avatar_url: newAvatarUrl};
 
     const meta: Meta = {
         title: `Edit Profile`,
