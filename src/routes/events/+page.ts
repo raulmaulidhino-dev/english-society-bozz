@@ -25,7 +25,7 @@ export async function load({ url }) {
         const count: number = res.data.count;
         const pageCount: number = Math.ceil(count / limit);
         
-        if (page > pageCount || page < 1) throw error(404, "Not Found");
+        if ((page > pageCount && count > 0) || page < 1) throw error(404, "Not Found");
 
         meta.title = `Events - Page ${page} | English Society-Bozz`;
         
