@@ -7,12 +7,11 @@
     import ConfirmModal from '$lib/components/modals/ConfirmModal.svelte';
 
     import type { EventResponse } from '$lib/types/event/event';
-    import type { MouseEventHandler } from 'svelte/elements';
 
     interface Props {
         event: EventResponse;
-        isEditable: boolean;
-        deleteEvent: (param: string) => void;
+        isEditable?: boolean;
+        deleteEvent?: (param: string) => void;
     }
 
     let { event, isEditable = false, deleteEvent = () => {} }: Props = $props();
