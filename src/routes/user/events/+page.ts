@@ -36,6 +36,8 @@ export async function load({ url }) {
         const events = res.data.data;
         const count = res.data.count;
         const pageCount = Math.ceil(count / limit);
+
+        if ((page > pageCount && count > 0) || page < 1) throw error(404, "Not Found");
         
         const meta = {
             title: `My Events - Page ${page}`,
