@@ -40,8 +40,8 @@ export async function load({ url }) {
         if ((page > pageCount && count > 0) || page < 1) throw error(404, "Not Found");
         
         const meta = {
-            title: `My Events - Page ${page}`,
-            description: `Manage my ${count} event(s).`
+            title: `My Event Announcements - Page ${page}`,
+            description: `Manage my ${count} event announcement(s).`
         }
         
         return { events, pageCount, page, meta }
