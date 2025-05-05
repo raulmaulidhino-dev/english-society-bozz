@@ -6,7 +6,7 @@
 
     import { isNavShowed, toggleNav } from '$lib/stores/store';
 
-    import { Icon, Home, CalendarDays as Events, Trophy as Achievements, InformationCircle as AboutUs, User as Profile, Cog6Tooth as SettingsIcon } from 'svelte-hero-icons';
+    import { Icon, Home, CalendarDays as EventsIcon, Trophy as AwardsIcon, InformationCircle as AboutUsIcon, User as ProfileIcon, Cog6Tooth as SettingsIcon } from 'svelte-hero-icons';
     
     import type { UserProfile } from '$lib/types/user/user';
 
@@ -49,9 +49,9 @@
 
     let navItems = [
         { href: '/', icon: Home, text: "Home" },
-        { href: '/events', icon: Events, text: "Events" },
-        { href: '/achievements', icon: Achievements, text: "Achievements"},
-        { href: '/about-us', icon: AboutUs, text: "About Us"},
+        { href: '/events', icon: EventsIcon, text: "Events" },
+        { href: '/awards', icon: AwardsIcon, text: "Awards"},
+        { href: '/about-us', icon: AboutUsIcon, text: "About Us"},
     ];
 
     let isActive = $derived((href: string) => {
@@ -86,7 +86,7 @@
                         {#if userProfile?.avatar_url}
                             <img src={userProfile.avatar_url} alt={`${userProfile?.nickname ?? "User"}'s avatar`} class="w-12 aspect-square rounded-[inherit]" />
                         {:else}
-                            <Icon src={Profile} solid size="32" />
+                            <Icon src={ProfileIcon} solid size="32" />
                         {/if}
                     </button>
                     <button onclick={goToProfile} class="font-bold flex items-center justify-center">{ userProfile?.nickname ?? "Me" }</button>
