@@ -31,14 +31,13 @@
 	<meta name="description" content={ data.meta?.description ?? defaultMeta.description } />
 </svelte:head>
 
-<article class="bg-white shadow-md max-w-xl mx-auto">
-    <section class="w-full aspect-[3/2] relative">
+<article class="bg-white max-w-2xl mx-auto mb-8">
+    <section class="w-full md:mt-8 aspect-[3/2] relative">
         {#if data.event.image_url}
             <!-- svelte-ignore a11y_img_redundant_alt -->
-            <img src={data.event.image_url} alt={data.event.title}
-            class="rounded-t-[inherit]"/>
+            <img src={data.event.image_url} alt={data.event.title} class="w-full md:rounded-lg aspect-[3/2]"/>
         {:else}
-            <div class="bg-primary w-full aspect-[3/2] flex justify-center items-center">
+            <div class="bg-primary w-full md:rounded-lg aspect-[3/2] flex justify-center items-center">
                 <Icon src={EventThumb} size="72" class="text-secondary" />
             </div>
         {/if}
