@@ -1,22 +1,23 @@
-export interface AchievementResponse {
+export interface AwardResponse {
   id: string;
   photo_url: string | null;
-  event_name: string;
-  achievement_event_types: {
-    type: string;
+  name: string;
+  award_categories: {
+    category: string;
   };
   award_titles: {
     title: string;
   };
-  achievement_levels: {
+  award_levels: {
     level: string;
   };
-  achievement_date: string;
+  award_date: string;
   organizer: string;
+  organizer_url: string | null;
   student_name: string;
   student_classes: {
     class: string;
-  }
+  };
   certificate_url: string | null;
   description: string | null;
   slug: string;
@@ -24,7 +25,7 @@ export interface AchievementResponse {
   updated_at: string;
 }
 
-export interface AchievementsResponse {
-  data: AchievementResponse[];
+export interface AwardsResponse {
+  data: AwardResponse[];
   count: number;
 }
