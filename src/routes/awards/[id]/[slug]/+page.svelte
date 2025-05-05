@@ -5,7 +5,7 @@
     import { awardLevelLabelColorMap, awardTitleLabelColorMap, awardCategoryLabelColorMap } from '$lib/styles/colorMaps.js';
     import { awardLevelLabelIconMap, awardTitleLabelIconMap, awardCategoryLabelIconMap } from '$lib/styles/iconMaps.js';
 
-    import { Trophy as TrophyIcon, Building2 as OrganizerIcon, CalendarDays as DateIcon, Crown as TrophierIcon } from '@lucide/svelte';
+    import { Trophy as TrophyIcon, Building2 as OrganizerIcon, CalendarDays as DateIcon, Crown as TrophierIcon, ExternalLink as ExternalLinkIcon, FileBadge as CertificateURL_Icon, UserPen as WriterIcon } from '@lucide/svelte';
     
     import { browser } from "$app/environment";
 
@@ -25,22 +25,22 @@
 
     let { data }: Props = $props();
 
-    let safeDesc: string = $state("");
-    if (browser) safeDesc = DOMPurify.sanitize(data.award?.description ?? "");
-
     let level = $state(data.award.award_levels.level);
     let title = $state(data.award.award_titles.title);
     let award = $state(data.award.award_categories.category);
     let type = $state(data.award.award_categories.category);
     let date = $state(new Intl.DateTimeFormat("en-US", { month: "long", day: "numeric", year: "numeric" }).format(new Date(data.award.award_date)));
 
-    const levelLabelColor = awardLevelLabelColorMap[level.toLowerCase() as AwardLevelColorKey] ?? "text-gray-700 bg-gray-300";
+    let safeDesc: string = $state("");
+    if (browser) safeDesc = DOMPurify.sanitize(data.award?.description ?? "");
+
+    const levelLabelColor = awardLevelLabelColorMap[level.toLowerCase().replace(" ", "-") as AwardLevelColorKey] ?? "text-gray-700 bg-gray-300";
     const titleLabelColor = awardTitleLabelColorMap[title.toLowerCase().replace(" ", "-") as AwardTitleColorKey] ?? "text-gray-700 bg-gray-300";
     const categoryLabelColor = awardCategoryLabelColorMap[award.toLowerCase().replace(" ", "-") as AwardCategoryColorKey] ?? "text-gray-700 bg-gray-300";
 
     const TitleIcon = awardTitleLabelIconMap[title.toLowerCase().replace(" ", "-") as AwardTitleIconKey] ?? awardTitleLabelIconMap["other"];
-    const LevelIcon = awardLevelLabelIconMap[level.toLowerCase() as AwardLevelIconKey] ?? awardLevelLabelIconMap["other"];
-    const CategoryIcon = awardCategoryLabelIconMap[award.toLowerCase() as AwardCategoryIconKey] ?? awardCategoryLabelIconMap["other"];
+    const LevelIcon = awardLevelLabelIconMap[level.toLowerCase().replace(" ", "-") as AwardLevelIconKey] ?? awardLevelLabelIconMap["other"];
+    const CategoryIcon = awardCategoryLabelIconMap[award.toLowerCase().replace(" ", "-") as AwardCategoryIconKey] ?? awardCategoryLabelIconMap["other"];
 
 </script>
 
@@ -52,7 +52,7 @@
 <article class="bg-white max-w-2xl mx-auto mb-8 flex flex-col">
     <section class="w-full md:mt-8 aspect-square relative">
         {#if data?.award?.photo_url}
-        <img src={data.award.photo_url} alt={data.award.name} class="w-full md:rounded-lg aspect-[3/2]" />
+            <img src={data.award.photo_url} alt={data.award.name} class="w-full md:rounded-lg aspect-[3/2]" />
         {:else}
             <div class="bg-secondary w-full aspect-square md:rounded-lg flex justify-center items-center">
               <TrophyIcon size="72" class="text-primary" />
@@ -68,17 +68,59 @@
             <h2 class="text-xl text-primary font-bold mb-[0.75em]">{data.award.name}</h2>
             <div class="text-xs mb-[1em] flex items-center gap-2">
               <OrganizerIcon size="16" class="text-slate-500" />
-              <p>{data.award.organizer}</p>
+              {#if data.award.organizer_url}
+                <a href={data.award.organizer_url} target="_blank" class="flex items-center gap-1">
+                  <span class="text-blue-500">
+                    {data.award.organizer}
+                  </span>
+                  <ExternalLinkIcon size="11" class="hover:text-blue-500" />
+                </a>
+              {:else}
+                <p>{data.award.organizer}</p>
+              {/if}
             </div>
             <div class="text-xs mb-[1em] flex items-center gap-2">
               <DateIcon size="16" class="text-blue-500" />
               <p>{date}</p>
             </div>
+
+            <hr class="mb-4"/>
+
             <div class="text-xs mb-[1em] flex items-center gap-2">
               <TrophierIcon size="16" class="text-yellow-500" />
               <p class="font-semibold">{data.award.student_name} <span class="text-secondary">•</span> {data.award.student_classes.class}</p>
             </div>
+            {#if data.award.certificate_url}
+              <div class="text-xs mb-[1em] flex items-center gap-2">
+                <CertificateURL_Icon size="16" class="text-orange-500" />
+                  <a href={data.award.certificate_url} target="_blank" class="flex items-center gap-1">
+                    <span class="font-semibold text-blue-500">
+                      Certificate
+                    </span>
+                    <ExternalLinkIcon size="11" class="hover:text-blue-500" />
+                  </a>
+              </div>
+            {/if}
+
             <hr class="mb-4"/>
+
+            <div class="text-xs mb-[1em] flex items-center gap-2">
+              <WriterIcon size="16" class="text-orange-800" />
+              <p class="font-medium">
+                <a href={`/user/${data.award.profiles.username}`} class="text-primary">
+                  {data.award.profiles.full_name}
+                </a>
+              </p>
+            </div>
+            
+            <section id="description" class="text-sm pt-4">
+              {#if browser}
+                  <section>{@html safeDesc}</section>
+              {:else}
+                  <section>Loading description...</section>
+              {/if}
+            </section>
+
             <section class="flex flex-wrap gap-2 my-8">
               <div class={` ${ categoryLabelColor } text-xs font-semibold rounded-full py-2 px-4 flex items-center justify-center gap-2`}><CategoryIcon size="16" /><span>{type}</span></div>
               <div class={` ${ levelLabelColor } text-xs font-semibold rounded-full py-2 px-4 flex items-center justify-center gap-2`}><LevelIcon size="16"/><span>{level}</span></div>
