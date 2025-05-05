@@ -13,7 +13,7 @@
     let navItems: NavItem[] = [
         { href: '/', text: "Home" },
         { href: '/events', text: "Events" },
-        { href: '/achievements', text: "Achievements"},
+        { href: '/awards', text: "Awards"},
         { href: '/about-us', text: "About Us"},
     ];
 
