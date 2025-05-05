@@ -257,10 +257,10 @@
 
 </script>
 
-<section>
-    <article class="bg-white rounded-lg shadow-md flex flex-col">
-        <section>
-            <button onclick={() => showUploadImageModal = true} class="w-full aspect-[3/2] relative">
+<section class="max-w-2xl md:rounded-lg mx-auto mb-8">
+    <article class="bg-white rounded-[inherit] md:mt-8 shadow-md flex flex-col">
+        <section class="w-full rounded-t-[inherit] aspect-[3/2] relative">
+            <button onclick={() => showUploadImageModal = true} class="w-full rounded-t-[inherit] aspect-[3/2] relative">
                 {#if originalImage && showImagePreview}
                     <img src={originalImage} alt={event.title}
                     class="rounded-t-[inherit] opacity-25"/>
