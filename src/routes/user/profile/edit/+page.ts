@@ -1,7 +1,6 @@
 export const ssr = false;
 
 import axios from "axios";
-import type { AxiosResponse, AxiosError } from "axios";
 import { db } from "$lib/supabase.js";
 import { BACKEND_URL } from "$lib/config/config";
 
