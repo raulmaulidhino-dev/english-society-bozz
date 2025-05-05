@@ -1,6 +1,7 @@
 export const ssr = false;
 
 import axios from "axios";
+import type { AxiosResponse, AxiosError } from "axios";
 import { db } from "$lib/supabase.js";
 import { BACKEND_URL } from "$lib/config/config";
 
@@ -27,7 +28,8 @@ const fetchUserProfile = async (token: string) => {
     } catch (err: unknown) {
         if (axios.isAxiosError<ErrorResponse>(err)) {
             if (err.response?.status === 404) {
-                throw error(404, "Not found");
+                if (err.response?.data?.redirect) return userProfile;
+                else throw error(404, "Not found");
             } else {
                 throw error(500, "Unexpected error");
             }
@@ -37,8 +39,7 @@ const fetchUserProfile = async (token: string) => {
         } else {
             throw error(500, "Unexpected error");
         }
-    }
-    
+    }    
     return userProfile;
 };
 
