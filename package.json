@@ -33,6 +33,7 @@
 	"type": "module",
 	"dependencies": {
 		"@friendofsvelte/tipex": "^0.0.8-dev.0",
+		"@lucide/svelte": "^0.507.0",
 		"@supabase/ssr": "^0.6.1",
 		"@supabase/supabase-js": "^2.49.4",
 		"@tiptap/core": "^2.11.7",
