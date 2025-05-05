@@ -28,6 +28,10 @@
 
     // Request Packet
     const profileDataReq: FormData = new FormData();
+    profileDataReq.append("full_name", "");
+    profileDataReq.append("nickname", "");
+    profileDataReq.append("username", "");
+    profileDataReq.append("bio", "");
 
     // Profile Avatar Management
     let fileInput: HTMLInputElement | null = $state(null);
@@ -152,10 +156,10 @@
         try {
             try {
 
-                profileDataReq.append("full_name", inputs[0].value);
-                profileDataReq.append("nickname", inputs[1].value);
-                profileDataReq.append("username", inputs[2].value);
-                profileDataReq.append("bio", inputs[3].value);
+                profileDataReq.set("full_name", inputs[0].value);
+                profileDataReq.set("nickname", inputs[1].value);
+                profileDataReq.set("username", inputs[2].value);
+                profileDataReq.set("bio", inputs[3].value);
                 if (avatarUrl) profileDataReq.append("avatar_url", avatarUrl);
 
                 const res = await axios.put(`${BACKEND_URL}/user/profile`,
@@ -192,11 +196,12 @@
         } catch (err: unknown) {
             try {
 
-                profileDataReq.append("full_name", inputs[0].value);
-                profileDataReq.append("nickname", inputs[1].value);
-                profileDataReq.append("username", inputs[2].value);
-                profileDataReq.append("bio", inputs[3].value);
-                if (avatarUrl) profileDataReq.append("avatar_url", avatarUrl);
+                profileDataReq.set("full_name", inputs[0].value);
+                profileDataReq.set("nickname", inputs[1].value);
+                profileDataReq.set("username", inputs[2].value);
+                profileDataReq.set("bio", inputs[3].value);
+                if (profileDataReq.has("avatar_url") && avatarUrl) profileDataReq.set("avatar_url", avatarUrl);
+                else if (avatarUrl) profileDataReq.append("avatar_url", avatarUrl);
 
                 const res = await axios.post(`${BACKEND_URL}/user/profile`,
                     profileDataReq,
