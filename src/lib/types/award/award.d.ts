@@ -21,6 +21,10 @@ export interface AwardResponse {
   certificate_url: string | null;
   description: string | null;
   slug: string;
+  profiles: {
+    full_name: string;
+    username: string;
+  }
   created_at: string;
   updated_at: string;
 }
@@ -28,4 +32,24 @@ export interface AwardResponse {
 export interface AwardsResponse {
   data: AwardResponse[];
   count: number;
+}
+
+export type AwardCategory = {
+  id: string;
+  category: string;
+}
+
+export type AwardLevel = {
+  id: string;
+  level: string;
+}
+
+export type AwardTitle = {
+  id: string;
+  title: string;
+}
+
+export type StudentClass = {
+  id: string;
+  class: string;
 }
