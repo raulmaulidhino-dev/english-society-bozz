@@ -48,8 +48,12 @@
                 <button onclick={goToProfileEdit} class="text-sm text-primary text-center font-semibold w-full sm:w-fit border-2 border-primary py-2 px-8 rounded-full
                                         hover:bg-secondary sm:absolute sm:top-4 sm:right-4 inline-block">EDIT PROFILE</button>
                 {#if user?.roles?.includes("event_maker")}
-                    <button onclick={() => goto("/user/events")} class="text-sm text-white bg-primary text-center font-semibold w-full sm:w-fit sm:ml-0 border-2 border-primary py-2 px-8 rounded-full mx-auto
-                                                                hover:text-primary hover:bg-secondary inline-block">SEE MY EVENTS</button>
+                <section class="w-full flex flex-col sm:flex-row gap-2">
+                    <button onclick={() => goto("/user/events")} class="text-sm text-white bg-primary text-center font-semibold border-2 border-primary py-2 px-8 rounded-full
+                        hover:text-primary hover:bg-secondary inline-block">MANAGE MY EVENTS</button>
+                    <button onclick={() => goto("/user/awards")} class="text-sm text-primary bg-secondary text-center font-semibold border-2 border-secondary py-2 px-8 rounded-full
+                        hover:text-secondary hover:bg-primary inline-block">MANAGE MY AWARDS</button>
+                </section>
                 {/if}
             </section>
         </section>
