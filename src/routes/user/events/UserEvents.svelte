@@ -76,14 +76,14 @@
 </script>
 
 <section>
-    <h1 class="text-3xl sm:text-4xl text-center font-bold px-6 md:px-8 pt-6 mb-[1em]">My Events</h1>
+    <h1 class="text-3xl sm:text-4xl text-center font-bold px-6 md:px-8 pt-6 mb-[1em]">My Event Announcements</h1>
     <section class="bg-slate-200 px-6 md:px-8 py-6 grid grid-cols-[repeat(auto-fill,_minmax(250px,_1fr))] gap-4">
         {#if events.length > 0}
             {#each events as event}
                 <EventCard event={event} isEditable={true} deleteEvent={() => deleteEvent(event.id)}/>
             {/each}
         {:else}
-            <p>You don't have any events yet...</p>        
+            <p>You don't have any event announcements yet...</p>        
         {/if}
     </section>
     {#if events.length > 0}
