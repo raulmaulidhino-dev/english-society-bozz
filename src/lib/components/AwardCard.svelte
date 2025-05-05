@@ -7,7 +7,7 @@
       import { awardLevelLabelColorMap, awardTitleLabelColorMap, awardCategoryLabelColorMap } from '$lib/styles/colorMaps.js';
       import { awardLevelLabelIconMap, awardTitleLabelIconMap, awardCategoryLabelIconMap } from '$lib/styles/iconMaps.js';
 
-      import { Trophy as TrophyIcon, Building2 as OrganizerIcon, CalendarDays as DateIcon, Crown as TrophierIcon } from '@lucide/svelte';
+      import { Trophy as TrophyIcon, Building2 as OrganizerIcon, CalendarDays as DateIcon, Crown as TrophierIcon, ExternalLink as ExternalLinkIcon } from '@lucide/svelte';
 
       import type { AwardResponse } from '$lib/types/award/award.js';
       import type { AwardLevelColorKey, AwardTitleColorKey, AwardCategoryColorKey } from '$lib/styles/colorMaps.js';
@@ -29,13 +29,13 @@
       let type = $state(award.award_categories.category);
       let date = $state(new Intl.DateTimeFormat("en-US", { month: "long", day: "numeric", year: "numeric" }).format(new Date(award.award_date)));
 
-      const levelLabelColor = awardLevelLabelColorMap[level.toLowerCase() as AwardLevelColorKey] ?? "text-gray-700 bg-gray-300";
+      const levelLabelColor = awardLevelLabelColorMap[level.toLowerCase().replace(" ", "-") as AwardLevelColorKey] ?? "text-gray-700 bg-gray-300";
       const titleLabelColor = awardTitleLabelColorMap[title.toLowerCase().replace(" ", "-") as AwardTitleColorKey] ?? "text-gray-700 bg-gray-300";
       const categoryLabelColor = awardCategoryLabelColorMap[category.toLowerCase().replace(" ", "-") as AwardCategoryColorKey] ?? "text-gray-700 bg-gray-300";
 
       const TitleIcon = awardTitleLabelIconMap[title.toLowerCase().replace(" ", "-") as AwardTitleIconKey] ?? awardTitleLabelIconMap["other"];
-      const LevelIcon = awardLevelLabelIconMap[level.toLowerCase() as AwardLevelIconKey] ?? awardLevelLabelIconMap["other"];
-      const CategoryIcon = awardCategoryLabelIconMap[category.toLowerCase() as AwardCategoryIconKey] ?? awardCategoryLabelIconMap["other"];
+      const LevelIcon = awardLevelLabelIconMap[level.toLowerCase().replace(" ", "-") as AwardLevelIconKey] ?? awardLevelLabelIconMap["other"];
+      const CategoryIcon = awardCategoryLabelIconMap[category.toLowerCase().replace(" ", "-") as AwardCategoryIconKey] ?? awardCategoryLabelIconMap["other"];
 
 </script>
 
@@ -63,7 +63,16 @@
           <h2 class="text-xl text-primary font-bold mb-[0.75em]">{award.name}</h2>
           <div class="text-xs mb-[1em] flex items-center gap-2">
             <OrganizerIcon size="16" class="text-slate-500" />
-            <p>{award.organizer}</p>
+            {#if award?.organizer_url}
+                <a href={award.organizer_url} target="_blank" class="flex items-center gap-1">
+                  <span class="text-blue-500">
+                    {award.organizer}
+                  </span>
+                  <ExternalLinkIcon size="11" class="hover:text-blue-500" />
+                </a>
+              {:else}
+                <p>{award.organizer}</p>
+              {/if}
           </div>
           <div class="text-xs mb-[1em] flex items-center gap-2">
             <DateIcon size="16" class="text-blue-500" />
@@ -90,9 +99,9 @@
 <ConfirmModal
     show={showConfirmModal}
     title={"Are you sure?"}
-    message={"This action will delete the event. Are you sure you want to proceed?"}
+    message={"This action will delete the award. Are you sure you want to proceed?"}
     cancelLabel={"CANCEL"}
     confirmLabel={"YES, PROCEED"}
     onCancel={() => showConfirmModal = false}
-    onConfirm={() => showConfirmModal = false}
+    onConfirm={() => deleteAward(award.id)}
 />
