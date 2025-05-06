@@ -5,6 +5,14 @@
 	import FunActivities from './FunActivities.svelte';
 	import CapturedMoments from './CapturedMoments.svelte';
 
+	interface Props {
+		data: {
+			join_now_url: string | null;
+		}
+	}
+
+	let { data }: Props = $props();
+
 </script>
 
 <svelte:head>
@@ -12,7 +20,7 @@
 	<meta name="description" content="Fluent Minds, Global Hearts! • Speak Up, Express Yourself: Join our Community!" />
 </svelte:head>
 
-<Hero />
+<Hero join_now_url ={data.join_now_url} />
 <Insights />
 <Numbers />
 <FunActivities />
