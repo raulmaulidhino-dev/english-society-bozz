@@ -7,7 +7,7 @@
     import Navigation from './Navigation.svelte';
     import logo from '$lib/images/logos/es-bozz-logo-transparent.webp';
     import logo_fallback from '$lib/images/logos/es-bozz-logo-transparent.png';
-    import { Icon, Bars2 as ShowButton, XMark as CloseButton, User as Profile } from 'svelte-hero-icons';
+    import { Icon, Bars2 as ShowButton, XMark as CloseButton, User as Profile, Cog6Tooth as SettingsIcon } from 'svelte-hero-icons';
 
     import { isNavShowed, toggleNav } from '$lib/stores/store';
     
@@ -30,6 +30,7 @@
     }
 
     let screenWidth = $state(0);
+    let showProfileMiniWindow: boolean = $state(false);
 
     onMount(() => {
         screenWidth = window.innerWidth;
@@ -68,7 +69,7 @@
                 <button class="text-white hover:text-primary text-sm border-2 border-primary px-4 py-2 font-bold bg-primary hover:bg-secondary rounded-full inline-block" onclick={login}>LOG IN</button>
             {/if}
         {:else if $page.url.pathname !== "/login"}
-            <button onclick={goToProfile}>
+            <button onclick={goToProfile} class="relative" onmouseenter={() => showProfileMiniWindow = true} onmouseleave={() => showProfileMiniWindow = false}>
                 <div class={`text-white bg-primary border-2 border-secondary rounded-[50%] aspect-square ${ userProfile?.avatar_url ? "" : "p-2" }`}>
                     {#if userProfile?.avatar_url}
                         <img src={userProfile.avatar_url} alt={`${userProfile?.nickname ?? "User"}'s avatar'`} class="w-12 aspect-square rounded-[inherit]" />
@@ -77,6 +78,14 @@
                     {/if}
                 </div>
             </button>
+            {#if showProfileMiniWindow}
+                <div class="bg-white border-2 rounded-lg p-4 right-4 top-[100px] shadow-lg absolute">
+                    <div class="font-semibold text-sm hover:text-primary hover:font flex items-center gap-2">
+                        <Icon src={SettingsIcon} size="18" />
+                        <button onclick={() => goto("/user/settings")}>Settings</button>
+                    </div>
+                </div>
+            {/if}
         {:else}
             <button class="text-white hover:text-primary text-sm border-2 border-primary px-4 py-2 font-bold bg-primary hover:bg-secondary rounded-full inline-block invisible" onclick={login}>LOG IN</button>
         {/if}
