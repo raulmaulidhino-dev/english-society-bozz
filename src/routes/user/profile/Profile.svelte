@@ -47,12 +47,16 @@
             <section class="border-t-2 border-slate-200 sm:border-t-0 py-4 px-4 flex flex-col gap-3">
                 <button onclick={goToProfileEdit} class="text-sm text-primary text-center font-semibold w-full sm:w-fit border-2 border-primary py-2 px-8 rounded-full
                                         hover:bg-secondary sm:absolute sm:top-4 sm:right-4 inline-block">EDIT PROFILE</button>
-                {#if user?.roles?.includes("event_maker")}
+                {#if user?.roles?.includes("teacher") || user?.roles?.includes("officer") || user?.roles?.includes("event_maker")}
                 <section class="w-full flex flex-col sm:flex-row gap-2">
+                    {#if user?.roles?.includes("teacher") || user?.roles?.includes("event_maker")}
                     <button onclick={() => goto("/user/events")} class="text-sm text-white bg-primary text-center font-semibold border-2 border-primary py-2 px-8 rounded-full
                         hover:text-primary hover:bg-secondary inline-block">MANAGE MY EVENTS</button>
-                    <button onclick={() => goto("/user/awards")} class="text-sm text-primary bg-secondary text-center font-semibold border-2 border-secondary py-2 px-8 rounded-full
+                    {/if}
+                    {#if user?.roles?.includes("teacher") || user?.roles?.includes("officer")}
+                        <button onclick={() => goto("/user/awards")} class="text-sm text-primary bg-secondary text-center font-semibold border-2 border-secondary py-2 px-8 rounded-full
                         hover:text-secondary hover:bg-primary inline-block">MANAGE MY AWARDS</button>
+                    {/if}
                 </section>
                 {/if}
             </section>
