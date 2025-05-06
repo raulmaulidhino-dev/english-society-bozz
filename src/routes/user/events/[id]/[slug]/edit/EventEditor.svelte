@@ -172,6 +172,7 @@
         eventDataReq.append("date", new Date(event_date).toISOString());
         if (description) eventDataReq.append("description", DOMPurify.sanitize(description));
         eventDataReq.append("is_anonymous", String(isAnonymous));
+        if (eventImageUrl) eventDataReq.append("image_url", eventImageUrl);
 
         errorMsg = null;
 
