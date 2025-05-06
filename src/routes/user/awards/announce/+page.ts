@@ -74,7 +74,7 @@ export async function load() {
 
     const meta = {
         title: `Announce an Award - Award Editor`,
-        description: `Announce a new award.`
+        description: `Announce a new award announcement.`
     };
     
     return { userProfile, awardCategories, awardLevels, awardTitles, studentClasses, meta };
