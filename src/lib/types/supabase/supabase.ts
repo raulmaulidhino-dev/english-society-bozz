@@ -184,6 +184,108 @@ export type Database = {
           },
         ]
       }
+      esbozz_data: {
+        Row: {
+          activities: string[] | null
+          created_at: string
+          focus: string | null
+          id: string
+          join_us_url: string | null
+          mission: string | null
+          updated_at: string
+        }
+        Insert: {
+          activities?: string[] | null
+          created_at?: string
+          focus?: string | null
+          id?: string
+          join_us_url?: string | null
+          mission?: string | null
+          updated_at?: string
+        }
+        Update: {
+          activities?: string[] | null
+          created_at?: string
+          focus?: string | null
+          id?: string
+          join_us_url?: string | null
+          mission?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      esbozz_officers: {
+        Row: {
+          created_at: string
+          id: string
+          it_manager_1: string | null
+          it_manager_2: string | null
+          officers: string[] | null
+          president: string | null
+          secretary_1: string | null
+          secretary_2: string | null
+          treasurer_1: string | null
+          treasurer_2: string | null
+          updated_at: string
+          vice_president: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          it_manager_1?: string | null
+          it_manager_2?: string | null
+          officers?: string[] | null
+          president?: string | null
+          secretary_1?: string | null
+          secretary_2?: string | null
+          treasurer_1?: string | null
+          treasurer_2?: string | null
+          updated_at?: string
+          vice_president?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          it_manager_1?: string | null
+          it_manager_2?: string | null
+          officers?: string[] | null
+          president?: string | null
+          secretary_1?: string | null
+          secretary_2?: string | null
+          treasurer_1?: string | null
+          treasurer_2?: string | null
+          updated_at?: string
+          vice_president?: string | null
+        }
+        Relationships: []
+      }
+      esbozz_partners: {
+        Row: {
+          created_at: string
+          id: string
+          logo: string
+          name: string
+          updated_at: string
+          website: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          logo?: string
+          name?: string
+          updated_at?: string
+          website?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          logo?: string
+          name?: string
+          updated_at?: string
+          website?: string | null
+        }
+        Relationships: []
+      }
       events: {
         Row: {
           created_at: string
