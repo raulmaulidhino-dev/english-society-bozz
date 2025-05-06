@@ -1,6 +1,13 @@
 <script lang="ts">
     import { onMount } from 'svelte';
 
+    import InfoModal from '$lib/components/modals/InfoModal.svelte';
+
+    interface Props {
+        join_now_url: string | null;
+    }
+
+    let { join_now_url }: Props = $props();
     interface Picture {
         srcWebp: string;
         srcJpg: string;
@@ -25,9 +32,11 @@
         {srcWebp: '/pictures/square/English-Camp-4.webp', srcJpg: '/pictures/square/English-Camp-4.jpg', alt: "English Camp 4"},
     ];
 
-    function login() {
+    function joinNow() {
         window.location.href = "\login";
     }
+
+    let showInfoModal: boolean = $state(false);
 
     onMount(() => {
         const collage: HTMLElement | null = document.getElementById('hero_img_collage');
@@ -93,7 +102,11 @@
             <span class="text-primary font-semibold">English Society-Bozz!</span>
         </p>
         <section class="flex gap-4 mb-[1em]">
-            <button class="text-white text-sm px-4 py-2 font-bold bg-primary hover:bg-primary_hover rounded-full inline-block" onclick={login}>JOIN NOW</button>
+            {#if join_now_url}
+                <a class="text-white text-sm px-4 py-2 font-bold bg-primary hover:bg-primary_hover rounded-full inline-block" href={join_now_url}>JOIN NOW</a>
+            {:else}
+                <button class="text-white text-sm px-4 py-2 font-bold bg-primary hover:bg-primary_hover rounded-full inline-block" onclick={() => showInfoModal = true}>JOIN NOW</button>
+            {/if}
             <button class="text-primary text-sm px-4 py-2 font-bold bg-secondary hover:bg-secondary_hover rounded-full inline-block"
             onclick={() => document.getElementById('insights')?.scrollIntoView({ behavior: 'smooth' })}>EXPLORE</button>
         </section>
@@ -122,6 +135,14 @@
         </section>
     </section>
 </section>
+
+<InfoModal
+  show={showInfoModal}
+  title={"Information"}
+  message={"Thank you for your interest. At this time, we're not accepting new members. Please check back at the start of the new school year for future opportunities! 💙"}
+  OK_label={"OK, GOT IT!"}
+  OK_event={() => showInfoModal = false}
+/>
 
 <style>
     
