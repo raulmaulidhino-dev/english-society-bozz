@@ -17,6 +17,7 @@
     } from "svelte-hero-icons";
 
     import Notification from '$lib/components/Notification.svelte';
+    import ConfirmModal from "$lib/components/modals/ConfirmModal.svelte";
 
     let settings: Setting[] = $state([
         {
@@ -42,12 +43,16 @@
     let notificationType: string = $state("");
     let showNotification: boolean = $state(false);
 
+    let showConfirmModal: boolean = $state(false);
+
     const logout = async () => {
         notificationMessage = "";
         notificationType = "success";
         showNotification = false;
 
         const { error } = await db.auth.signOut();
+
+        showConfirmModal = false;
 
         if (error) {
             notificationMessage = "Failed to log you out!";
@@ -91,7 +96,7 @@
         <article class="bg-red-100 rounded-md p-6 mt-4 flex flex-col gap-2">
             <h2 class="text-xl text-center font-bold mb-[0.75em]">DANGER ZONE</h2>
             <button class="text-sm text-white bg-red-600 font-semibold w-full md:max-w-40 border-2 border-primary py-2 px-8 rounded-full mx-auto"
-                    onclick={logout}>
+                    onclick={() => showConfirmModal = true}>
                     LOG OUT
             </button>
         </article>    
@@ -101,3 +106,13 @@
 {#if showNotification}
     <Notification message={notificationMessage} type={notificationType} duration={5000} />
 {/if}
+
+<ConfirmModal
+    show={showConfirmModal}
+    title={"Confirm Logout"}
+    message={"Do you want to log out now?"}
+    cancelLabel={"NO, GO BACK"}
+    confirmLabel={"YES, LOG OUT"}
+    onCancel={() => showConfirmModal = false}
+    onConfirm={logout}
+/>
