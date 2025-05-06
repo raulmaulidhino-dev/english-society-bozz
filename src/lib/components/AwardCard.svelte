@@ -42,7 +42,7 @@
 <article class="bg-white rounded-lg shadow-md flex flex-col">
   <section class="w-full aspect-square rounded-t-[inherit] relative">
       {#if award?.photo_url}
-      <img src={award.photo_url} alt={award.name} class="rounded-t-[inherit]" />
+        <img src={award.photo_url} alt={award.name} class="rounded-t-[inherit]" />
       {:else}
           <div class="bg-secondary w-full aspect-square rounded-t-[inherit] flex justify-center items-center">
             <TrophyIcon size="72" class="text-primary" />
@@ -64,15 +64,13 @@
           <div class="text-xs mb-[1em] flex items-center gap-2">
             <OrganizerIcon size="16" class="text-slate-500" />
             {#if award?.organizer_url}
-                <a href={award.organizer_url} target="_blank" class="flex items-center gap-1">
-                  <span class="text-blue-500">
-                    {award.organizer}
-                  </span>
-                  <ExternalLinkIcon size="11" class="hover:text-blue-500" />
+                <a href={award.organizer_url} target="_blank" class="text-blue-500 flex items-center gap-1">
+                {award.organizer}
+                  <ExternalLinkIcon size="11" class="inline h-[1em] w-[1em] align-middle text-black hover:text-blue-500" />
                 </a>
-              {:else}
+            {:else}
                 <p>{award.organizer}</p>
-              {/if}
+            {/if}
           </div>
           <div class="text-xs mb-[1em] flex items-center gap-2">
             <DateIcon size="16" class="text-blue-500" />
@@ -90,7 +88,7 @@
   </section>
   {#if isEditable}
       <section class="flex gap-2 bg-neutral-200 p-4 border-2 border-primary border-dashed rounded-b-[inherit]">
-          <button onclick={() => {}} class="text-sm text-primary bg-white font-semibold w-full border-2 border-primary mt-auto hover:bg-secondary hover:text-primary py-2 px-8 rounded-lg grow">EDIT</button>
+          <button onclick={() => goto(`/user/awards/${award.id}/${award.slug}/edit`)} class="text-sm text-primary bg-white font-semibold w-full border-2 border-primary mt-auto hover:bg-secondary hover:text-primary py-2 px-8 rounded-lg grow">EDIT</button>
           <button onclick={() => showConfirmModal = true} class="text-sm text-white bg-red-600 font-semibold w-full border-2 border-primary mt-auto hover:bg-red-800 hover:text-white py-2 px-8 rounded-lg grow">DELETE</button>
       </section>
   {/if}
