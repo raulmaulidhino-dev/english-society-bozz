@@ -52,7 +52,7 @@
 <article class="bg-white max-w-2xl mx-auto mb-8 flex flex-col">
     <section class="w-full md:mt-8 aspect-square relative">
         {#if data?.award?.photo_url}
-            <img src={data.award.photo_url} alt={data.award.name} class="w-full md:rounded-lg aspect-[3/2]" />
+            <img src={data.award.photo_url} alt={data.award.name} class="w-full md:rounded-lg aspect-square" />
         {:else}
             <div class="bg-secondary w-full aspect-square md:rounded-lg flex justify-center items-center">
               <TrophyIcon size="72" class="text-primary" />
