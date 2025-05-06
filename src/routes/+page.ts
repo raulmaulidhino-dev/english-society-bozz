@@ -1,3 +1,11 @@
-// since there's no dynamic data here, we can prerender
-// it so that it gets served as a static asset in production
-export const prerender = true;
+export const ssr = false;
+
+import { db } from '$lib/supabase';
+
+export async function load() {
+    const { data, error } = await db.from("esbozz_data").select("join_us_url");    
+
+    if (error) return { join_now_url: null };
+    
+    return { join_now_url: data[0].join_us_url };
+}
