@@ -223,7 +223,7 @@
     {#if isOpenRegist}
       <div class="flex items-center gap-2">
         <Icon src={URL_Icon} size="26" class="text-blue-600 hover:scale-125 hover:text-blue-900 transition-all duration-300 ease-in-out" />
-        <input type="url" bind:value={joinUsUrl} placeholder="Enter registartion link..." required aria-required="true" autocomplete="off" class="text-sm w-full border-[1px] rounded-sm p-2 focus:border-primary focus:outline-none disabled:text-slate-400" />
+        <input type="url" bind:value={joinUsUrl} placeholder="Enter registration url..." required aria-required="true" autocomplete="off" class="text-sm w-full border-[1px] rounded-sm p-2 focus:border-primary focus:outline-none disabled:text-slate-400" />
       </div>
     {/if}
     <label class="text-sm flex gap-1 items-center"><input type="radio" bind:group={isOpenRegist} value={false} />
