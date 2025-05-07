@@ -62,7 +62,7 @@
 </script>
 
 {#if screenWidth < 768}
-    <nav class={`bg-white shadow-lg sticky top-0 overflow-hidden transition-all duration-500 ease-in-out ${ $isNavShowed ? 'z-[99] max-h-full' : 'z-[-1] max-h-0 -translate-y-full'}`}>
+    <nav class={`bg-white shadow-lg sticky top-0 overflow-hidden transition-all duration-500 ease-in-out ${ $isNavShowed ? 'z-[999] max-h-full' : 'z-[-1] max-h-0 -translate-y-full'}`}>
         <ul class="p-4 flex justify-center gap-2">
             {#each navItems as navItem}
                 <li title={navItem.text}

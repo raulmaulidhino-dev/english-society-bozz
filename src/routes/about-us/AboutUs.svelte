@@ -101,7 +101,7 @@
     {/if}
   </div>
   {#if roles.includes("teacher") || roles.includes("officer")}
-    <button onclick={() => goto("/about-us/edit")} title="Edit Page" class={`text-primary bg-secondary p-4 border-secondary border-2 rounded-full fixed z-[99] right-4 bottom-4 shadow-xl hover:bg-primary hover:text-secondary z- ${ true ? "" : "hidden" }`}>
+    <button onclick={() => goto("/about-us/edit")} title="Edit Page" class={`text-primary bg-secondary p-4 border-secondary border-2 rounded-full fixed z-[999] right-4 bottom-4 shadow-xl hover:bg-primary hover:text-secondary z- ${ true ? "" : "hidden" }`}>
       <Icon src={EditIcon} size="40" />
     </button>
   {/if}
