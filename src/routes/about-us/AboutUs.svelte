@@ -43,13 +43,14 @@
     </p>
   </div>
 
-  <div data-aos="zoom-in" class="text-center bg-white py-8 px-6 max-w-sm rounded-2xl mx-auto shadow-lg">
+  <div data-aos="zoom-in" class="text-center bg-white pt-8 pb-6 px-6 max-w-sm rounded-2xl mx-auto shadow-lg space-y-6">
     <a href="/">
       <picture>
           <source type="image/webp" srcset={ESBozzLogo} />
           <img src={ESBozzLogo_fallback} alt="English Society-Bozz logo" loading="lazy" class="w-full">
       </picture>
     </a>
+    <a href={"/download-assets"} class="text-sm text-white text-center bg-primary font-bold w-full sm:w-fit border-2 border-primary py-2 px-8 rounded-full hover:text-primary hover:bg-secondary inline-block">DOWNLOAD LOGO ASSETS</a>
   </div>
 
   <div data-aos="zoom-in" class="bg-white py-8 px-6 max-w-xl rounded-2xl mx-auto shadow-lg">
