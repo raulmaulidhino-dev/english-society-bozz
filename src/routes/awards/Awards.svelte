@@ -2,6 +2,11 @@
 
   import axios from 'axios';
 
+  import { onMount } from 'svelte';
+
+  import AOS from 'aos';
+  import 'aos/dist/aos.css';
+
   import AwardCard from "$lib/components/AwardCard.svelte";
   import Pagination from "$lib/components/Pagination.svelte";
   import Notification from '$lib/components/Notification.svelte';
@@ -29,21 +34,25 @@
       showNotification = true;
   }
 
+  onMount(() => {
+    AOS.init({ duration: 1200 });
+  });
+
 </script>
 
 <section>
-  <h1 class="text-3xl sm:text-4xl font-bold px-6 md:px-8 pt-6 mb-[1em]">Our Recent Awards</h1>
+  <h1 data-aos="fade-right" class="text-3xl sm:text-4xl font-bold px-6 md:px-8 pt-6 mb-[1em]">Our Recent Awards</h1>
   <section class="bg-slate-200 px-6 md:px-8 py-6 grid grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] gap-4">
     {#if awards}
       {#if awards.length > 0}
         {#each awards as award}
           <AwardCard award={award} isEditable={false} />
         {/each}
-      {:else }
+      {:else}
         <p>It looks like there aren't any awards here yet...</p>   
       {/if}
     {:else}
-        <section class="bg-white pt-16 pb-8 px-4 max-w-xl rounded-2xl mx-auto shadow-lg col-span-4">
+        <section data-aos="zoom-in" class="bg-white pt-16 pb-8 px-4 max-w-xl rounded-2xl mx-auto shadow-lg col-span-4">
             <div class="mx-auto px-4 max-w-screen-sm text-center flex flex-col justify-center items-center">
                 <h1 class="text-8xl tracking-tight font-extrabold text-primary lg:text-9xl animate-bounce">4<span class="text-secondary">0</span>4</h1>
                 <div class="bg-slate-200 h-[2px] w-full rounded-full mb-4"></div>

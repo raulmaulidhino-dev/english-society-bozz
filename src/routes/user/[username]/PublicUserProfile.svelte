@@ -1,4 +1,8 @@
 <script lang="ts">
+    import { onMount } from 'svelte';
+
+    import AOS from 'aos';
+    import 'aos/dist/aos.css';
 
     import {Icon, User as Profile} from 'svelte-hero-icons';
     import type { UserProfile } from '$lib/types/user/user';
@@ -9,10 +13,14 @@
 
     let { user }: Props = $props();
 
+    onMount(() => {
+        AOS.init({ duration: 1200 });
+    });
+
 </script>
 
 <section class={`bg-slate-200 p-4 md:p-8`}>
-    <section class="bg-white max-w-xl rounded-2xl mx-auto shadow-lg flex flex-col justify-center">
+    <section data-aos="zoom-in" class="bg-white max-w-xl rounded-2xl mx-auto shadow-lg flex flex-col justify-center">
         <section class="bg-secondary w-full h-40 rounded-t-[inherit]">
         </section>
         <section class="rounded-b-[inherit] relative">
