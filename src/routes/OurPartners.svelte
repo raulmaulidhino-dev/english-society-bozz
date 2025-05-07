@@ -10,6 +10,11 @@
     import SDN1KALAPACUNG_png from '$lib/images/partner_logos/SDN-1-KALAPACUNG.png';
     import SDN1KALAPACUNG_webp from '$lib/images/partner_logos/SDN-1-KALAPACUNG.webp';
 
+    import { onMount } from 'svelte';
+
+    import AOS from 'aos';
+    import 'aos/dist/aos.css';
+
     interface Partner {
         title: string;
         logo_png: string;
@@ -25,13 +30,17 @@
         {title: "SD Negeri 1 Kalapacung", logo_png: SDN1KALAPACUNG_png, logo_webp: SDN1KALAPACUNG_webp, websiteUrl: "https://dapo.dikdasmen.go.id/sekolah/1FFBC2870A0C15754506"},
     ];
 
+    onMount(() => {
+        AOS.init({ duration: 1200 });
+    });
+
 </script>
 
 <section class="max-w-xl">
-    <h3 class="text-xl text-primary font-bold">Our Partners :</h3>
+    <h3 data-aos="fade-right" class="text-xl text-primary font-bold">Our Partners :</h3>
     <section class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 p-4">
         {#each partners as partner}
-            <a href={partner.websiteUrl} title={partner.title} target="_blank" class="flex items-center justify-center w-30 h-30 p-2 bg-white rounded">
+            <a data-aos="zoom-in" href={partner.websiteUrl} title={partner.title} target="_blank" class="flex items-center justify-center w-30 h-30 p-2 bg-white rounded">
                 <picture>
                     <source srcSet={partner.logo_webp} type="image/webp">
                     <img src={partner.logo_png} alt={partner.title} class="object-contain h-full w-full drop-shadow" />

@@ -1,5 +1,10 @@
 <script lang="ts">
-    
+
+    import { onMount } from 'svelte';
+
+    import AOS from 'aos';
+    import 'aos/dist/aos.css';
+
     interface Moment {
         src: string;
         alt: string;
@@ -15,22 +20,26 @@
         {src: "https://picsum.photos/900?random=325", alt: "Moment 6", title: "Moment 6"},
         {src: "https://picsum.photos/1800/900?random=326", alt: "Moment 7", title: "Moment 7"},
     ];
+
+    onMount(() => {
+        AOS.init({ duration: 1200 });
+    });
     
 </script>
 
 <section class="bg-primary px-6 py-[4rem] md:px-10">
-    <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white text-center font-bold mx-auto mb-[4rem]">Some Captured Moments!</h2>
+    <h2 data-aos="fade-down" class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white text-center font-bold mx-auto mb-[4rem]">Some Captured Moments!</h2>
     <section class="moment-collage min-w-80 w-[75%] max-w-4xl mx-auto grid grid-rows-6 grid-cols-2 lg:grid-rows-2 lg:grid-cols-6 gap-3">
-        <div class="aspect-square"><img src={moments[0].src} alt={moments[0].alt} title={moments[0].title} /></div>
-        <div class="aspect-square row-start-2"><img src={moments[1].src} alt={moments[1].alt} title={moments[1].title} /></div>
-        <div class="row-span-2"><img src={moments[2].src} alt={moments[2].alt} title={moments[2].title} /></div>
-        <div class="row-span-2 col-span-2"><img src={moments[3].src} alt={moments[3].alt} title={moments[3].title} /></div>
-        <div><img src={moments[4].src} alt={moments[4].alt} title={moments[4].title} /></div>
-        <div><img src={moments[5].src} alt={moments[5].alt} title={moments[5].title} /></div>
-        <div class="col-span-2"><img src={moments[6].src} alt={moments[6].alt} title={moments[6].title} /></div>
+        <div data-aos="zoom-in" class="aspect-square"><img src={moments[0].src} alt={moments[0].alt} title={moments[0].title} /></div>
+        <div data-aos="zoom-in" class="aspect-square row-start-2"><img src={moments[1].src} alt={moments[1].alt} title={moments[1].title} /></div>
+        <div data-aos="zoom-in" class="row-span-2"><img src={moments[2].src} alt={moments[2].alt} title={moments[2].title} /></div>
+        <div data-aos="zoom-in" class="row-span-2 col-span-2"><img src={moments[3].src} alt={moments[3].alt} title={moments[3].title} /></div>
+        <div data-aos="zoom-in"><img src={moments[4].src} alt={moments[4].alt} title={moments[4].title} /></div>
+        <div data-aos="zoom-in"><img src={moments[5].src} alt={moments[5].alt} title={moments[5].title} /></div>
+        <div data-aos="zoom-in" class="col-span-2"><img src={moments[6].src} alt={moments[6].alt} title={moments[6].title} /></div>
     </section>
     <section class="flex justify-center items-center">
-        <button class="text-primary text-sm px-4 py-2 font-bold bg-secondary hover:bg-secondary_hover rounded-full mt-[4rem] mx-auto">SEE MORE!</button>
+        <button data-aos="zoom-in" class="text-primary text-sm px-4 py-2 font-bold bg-secondary hover:bg-secondary_hover rounded-full mt-[4rem] mx-auto">SEE MORE!</button>
     </section>
 </section>
 

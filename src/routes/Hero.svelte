@@ -1,6 +1,9 @@
 <script lang="ts">
     import { onMount } from 'svelte';
 
+    import AOS from 'aos';
+    import 'aos/dist/aos.css';
+
     import InfoModal from '$lib/components/modals/InfoModal.svelte';
 
     interface Props {
@@ -31,10 +34,6 @@
         {srcWebp: '/pictures/square/English-Camp-3.webp', srcJpg: '/pictures/square/English-Camp-3.jpg', alt: "English Camp 3"},
         {srcWebp: '/pictures/square/English-Camp-4.webp', srcJpg: '/pictures/square/English-Camp-4.jpg', alt: "English Camp 4"},
     ];
-
-    function joinNow() {
-        window.location.href = "\login";
-    }
 
     let showInfoModal: boolean = $state(false);
 
@@ -89,30 +88,34 @@
                 }
             }, 2000);
         }
+
+        AOS.init({
+            duration: 1200,
+        });
      });
 
 </script>
 
 <section class="bp:h-[max(calc(100vh-114px),500px)] max-h-[1080px] px-6 flex flex-wrap-reverse justify-around items-center gap-10">
     <section class="max-w-xl pb-4">
-        <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-[0.5em]">Speak Up, Express Yourself: Join our Community!</h1>
-        <p class="text-[12px] sm:text-sm md:text-[16px] text-gray-600 font-medium mb-[1em]">
+        <h1 data-aos="fade-right" class="text-3xl sm:text-4xl md:text-5xl font-bold mb-[0.5em]">Speak Up, Express Yourself: Join our Community!</h1>
+        <p data-aos="fade-right" class="text-[12px] sm:text-sm md:text-[16px] text-gray-600 font-medium mb-[1em]">
             Don't be shy about speaking English! - 
             Try speaking up here in one of the most active extracurriculars at SMA Negeri 1 Bobotsari, the
             <span class="text-primary font-semibold">English Society-Bozz!</span>
         </p>
         <section class="flex gap-4 mb-[1em]">
             {#if join_now_url}
-                <a class="text-white text-sm px-4 py-2 font-bold bg-primary hover:bg-primary_hover rounded-full inline-block" href={join_now_url}>JOIN NOW</a>
+                <a data-aos="zoom-in" class="text-white text-sm px-4 py-2 font-bold bg-primary hover:bg-primary_hover rounded-full inline-block" href={join_now_url}>JOIN NOW</a>
             {:else}
-                <button class="text-white text-sm px-4 py-2 font-bold bg-primary hover:bg-primary_hover rounded-full inline-block" onclick={() => showInfoModal = true}>JOIN NOW</button>
+                <button data-aos="zoom-in" class="text-white text-sm px-4 py-2 font-bold bg-primary hover:bg-primary_hover rounded-full inline-block" onclick={() => showInfoModal = true}>JOIN NOW</button>
             {/if}
-            <button class="text-primary text-sm px-4 py-2 font-bold bg-secondary hover:bg-secondary_hover rounded-full inline-block"
+            <button data-aos="zoom-in" class="text-primary text-sm px-4 py-2 font-bold bg-secondary hover:bg-secondary_hover rounded-full inline-block"
             onclick={() => document.getElementById('insights')?.scrollIntoView({ behavior: 'smooth' })}>EXPLORE</button>
         </section>
-        <p class="text-[10px] md:text-[12px]">*Before joining, make sure you are an active student at SMA Negeri 1 Bobotsari</p>
+        <p data-aos="fade-right" class="text-[10px] md:text-[12px]">*Before joining, make sure you are an active student at SMA Negeri 1 Bobotsari</p>
     </section>
-    <section id="hero_img_collage" class="hero-img-collage max-w-lg aspect-[4/3] border-y-[1rem] border-t-secondary border-double border-b-primary p-2 mt-8 lg:mt-0 overflow-hidden flex items-center gap-2">
+    <section data-aos="zoom-in" id="hero_img_collage" class="hero-img-collage max-w-lg aspect-[4/3] border-y-[1rem] border-t-secondary border-double border-b-primary p-2 mt-8 lg:mt-0 overflow-hidden flex items-center gap-2">
         <section id="square_images" class="flex flex-col gap-2 relative">
             {#each squarePictures as squarePicture}
                 <div>
