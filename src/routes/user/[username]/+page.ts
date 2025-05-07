@@ -22,20 +22,18 @@ export async function load({ params }) {
         const { data } = await db.auth.getSession();
         const token: string | undefined = data?.session?.access_token;
 
-        if (!token) {
-            throw error(404, "Not found");
-        }
+        if (token) {
+            const response = await axios.get<UserProfile>(`${BACKEND_URL}/user/profile`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
 
-        const response = await axios.get<UserProfile>(`${BACKEND_URL}/user/profile`, {
-            headers: {
-                Authorization: `Bearer ${token}`
+            const userProfile: UserProfile = response?.data;
+
+            if (username === userProfile?.username) {
+                throw redirect(302, '/user/profile');
             }
-        });
-
-        const userProfile: UserProfile = response?.data;
-
-        if (username === userProfile?.username) {
-            throw redirect(302, '/user/profile');
         }
 
         const meta: Meta = {
