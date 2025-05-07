@@ -89,7 +89,7 @@
     {#if awards.length > 0}
         <Pagination currentPage={pageNum} totalPages={pageCount} delta={2} goToPageURL={"/user/events"} />
     {/if}
-    <button onclick={() => goto("/user/awards/announce")} title="Announce an Award" class="text-primary bg-secondary p-4 border-secondary border-2 rounded-full fixed right-4 bottom-4 shadow-xl hover:bg-primary hover:text-secondary">
+    <button onclick={() => goto("/user/awards/announce")} title="Announce an Award" class="text-primary bg-secondary p-4 border-secondary border-2 rounded-full fixed z-[99] right-4 bottom-4 shadow-xl hover:bg-primary hover:text-secondary">
         <Icon src={AnnounceAwardIcon} solid size="42" />
     </button>
 </section>

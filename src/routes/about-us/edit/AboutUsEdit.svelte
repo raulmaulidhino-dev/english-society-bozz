@@ -231,7 +231,7 @@
     </label>
   </div>
 </div>
-<button type="submit" title="Submit Changes" class="text-primary bg-secondary p-4 border-secondary border-2 rounded-full fixed right-4 bottom-4 shadow-xl hover:bg-primary hover:text-secondary">
+<button type="submit" title="Submit Changes" class="text-primary bg-secondary p-4 border-secondary border-2 rounded-full fixed z-[99] right-4 bottom-4 shadow-xl hover:bg-primary hover:text-secondary">
   <Icon src={SubmitIcon} size="40" />
 </button>
 </form>
