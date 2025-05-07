@@ -7,6 +7,7 @@
 		data: {
 			esbozzData: ESBozzData;
 			esbozzOfficers: ESBozzOfficers;
+			roles: string[];
 		}
 	}
 
@@ -19,4 +20,4 @@
 	<meta name="description" content="About English Society-Bozz" />
 </svelte:head>
 
-<AboutUs esbozzData={data.esbozzData} esbozzOfficers={data.esbozzOfficers} />
+<AboutUs esbozzData={data.esbozzData} esbozzOfficers={data.esbozzOfficers} roles={data.roles} />
