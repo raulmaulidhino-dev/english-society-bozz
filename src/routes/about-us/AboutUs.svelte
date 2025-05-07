@@ -16,7 +16,7 @@
     interface Props {
       esbozzData: ESBozzData;
       esbozzOfficers: ESBozzOfficers;
-      roles: string;
+      roles: string[];
     }
 
     let { esbozzData, esbozzOfficers, roles }: Props = $props();
