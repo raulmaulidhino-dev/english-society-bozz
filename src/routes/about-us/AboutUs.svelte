@@ -1,4 +1,6 @@
 <script lang="ts">
+    import { goto } from '$app/navigation';
+
     import ESBozzLogo from '$lib/images/logos/es-bozz-logo-transparent.webp';
     import ESBozzLogo_fallback from '$lib/images/logos/es-bozz-logo-transparent.png';
     import SmansaLogo from '$lib/images/logos/sman1bobotsari-logo.webp';
@@ -6,15 +8,18 @@
 
     import InfoModal from '$lib/components/modals/InfoModal.svelte';
 
+    import { Icon, PencilSquare as EditIcon } from 'svelte-hero-icons';
+
     import type { ESBozzData } from "$lib/types/esbozz/data/esbozz";
   	import type { ESBozzOfficers } from "$lib/types/esbozz/officer/officers";
 
     interface Props {
       esbozzData: ESBozzData;
       esbozzOfficers: ESBozzOfficers;
+      roles: string;
     }
 
-    let { esbozzData, esbozzOfficers }: Props = $props();
+    let { esbozzData, esbozzOfficers, roles }: Props = $props();
 
     let showModal: boolean = $state(false);
 
@@ -87,6 +92,11 @@
         <button onclick={() => showModal = true} class="text-sm text-white text-center bg-primary font-bold w-full sm:w-fit border-2 border-primary py-2 px-8 rounded-full hover:text-primary hover:bg-secondary inline-block">JOIN US</button>
     {/if}
   </div>
+  {#if roles.includes("teacher") || roles.includes("officer")}
+    <button onclick={() => goto("/about-us/edit")} title="Edit Page" class={`text-primary bg-secondary p-4 border-secondary border-2 rounded-full fixed right-4 bottom-4 shadow-xl hover:bg-primary hover:text-secondary ${ true ? "" : "hidden" }`}>
+      <Icon src={EditIcon} size="40" />
+    </button>
+  {/if}
 </section>
 
 <InfoModal
