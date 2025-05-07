@@ -79,7 +79,7 @@
                 </div>
             </button>
             {#if showProfileMiniWindow}
-                <div class="bg-white border-2 rounded-lg p-4 right-4 top-[100px] shadow-lg absolute">
+                <div class="bg-white border-2 rounded-lg p-4 right-4 shadow-lg absolute">
                     <div class="font-semibold text-sm hover:text-primary hover:font flex items-center gap-2">
                         <Icon src={SettingsIcon} size="18" />
                         <button onclick={() => goto("/user/settings")}>Settings</button>
