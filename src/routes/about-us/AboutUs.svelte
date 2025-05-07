@@ -1,5 +1,9 @@
 <script lang="ts">
     import { goto } from '$app/navigation';
+    import { onMount } from 'svelte';
+
+    import AOS from 'aos';
+    import 'aos/dist/aos.css';
 
     import ESBozzLogo from '$lib/images/logos/es-bozz-logo-transparent.webp';
     import ESBozzLogo_fallback from '$lib/images/logos/es-bozz-logo-transparent.png';
@@ -25,17 +29,21 @@
 
     const capitalized = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
 
+    onMount(() => {
+      AOS.init({ duration: 1200 });
+    });
+
 </script>
 
 <section class="bg-slate-200 md:p-8 mx-auto px-4 py-8 md:py-12 md:px-10 space-y-8">
-  <div class="text-center bg-white pt-16 pb-8 px-6 max-w-xl rounded-2xl mx-auto shadow-lg">
+  <div data-aos="zoom-in" class="text-center bg-white pt-16 pb-8 px-6 max-w-xl rounded-2xl mx-auto shadow-lg">
     <h1 class="text-4xl font-bold text-gray-800 mb-6">About Us</h1>
     <p class="text-lg text-gray-600">
       Welcome to <strong class="font-semibold">English Society</strong>, a passionate group of English learners dedicated to <span class="italic text-primary font-medium">{esbozzData.focus}</span>
     </p>
   </div>
 
-  <div class="text-center bg-white py-8 px-6 max-w-sm rounded-2xl mx-auto shadow-lg">
+  <div data-aos="zoom-in" class="text-center bg-white py-8 px-6 max-w-sm rounded-2xl mx-auto shadow-lg">
     <a href="/">
       <picture>
           <source type="image/webp" srcset={ESBozzLogo} />
@@ -44,14 +52,14 @@
     </a>
   </div>
 
-  <div class="bg-white py-8 px-6 max-w-xl rounded-2xl mx-auto shadow-lg">
+  <div data-aos="zoom-in" class="bg-white py-8 px-6 max-w-xl rounded-2xl mx-auto shadow-lg">
     <h2 class="text-2xl font-semibold text-gray-800 mb-2">Our Mission</h2>
     <p class="text-gray-600 text-base">
       Our mission is to <span class="font-medium">{esbozzData.mission}</span>. We aim to foster a culture of collaboration, leadership, and meaningful growth.
     </p>
   </div>
 
-  <div class="bg-white py-8 px-6 max-w-xl rounded-2xl mx-auto shadow-lg">
+  <div data-aos="zoom-in" class="bg-white py-8 px-6 max-w-xl rounded-2xl mx-auto shadow-lg">
     <h2 class="text-2xl font-semibold text-gray-800 mb-2">What We Do</h2>
     <ul class="list-disc list-inside text-gray-600 space-y-1">
       {#each esbozzData.activities as activity}
@@ -60,7 +68,7 @@
     </ul>
   </div>
 
-  <div class="bg-white py-8 px-6 max-w-xl rounded-2xl mx-auto shadow-lg">
+  <div data-aos="zoom-in" class="bg-white py-8 px-6 max-w-xl rounded-2xl mx-auto shadow-lg">
     <h2 class="text-2xl font-semibold text-gray-800 mb-2">Our Recent Officers</h2>
     <ul class="text-gray-600 space-y-1">
       <li><span class="font-medium">President:</span> {esbozzOfficers.president}</li>
@@ -72,7 +80,7 @@
     </ul>
   </div>
 
-  <div class="text-center bg-white max-w-sm py-8 px-6 md:py-12 md:px-10 rounded-2xl mx-auto shadow-lg">
+  <div data-aos="zoom-in" class="text-center bg-white max-w-sm py-8 px-6 md:py-12 md:px-10 rounded-2xl mx-auto shadow-lg">
     <a href="http://sman1bobotsari.sch.id" target="_blank">
       <picture>
           <source type="image/webp" srcset={SmansaLogo} />
@@ -81,7 +89,7 @@
     </a>
   </div>
 
-  <div class="text-center bg-white py-8 px-6 max-w-xl rounded-2xl mx-auto shadow-lg">
+  <div data-aos="zoom-in" class="text-center bg-white py-8 px-6 max-w-xl rounded-2xl mx-auto shadow-lg">
     <h2 class="text-2xl font-semibold text-gray-800 mb-2">Get Involved</h2>
     <p class="text-gray-600 mb-4">
       We’re always excited to welcome new members. Reach out through our <a href="https://www.instagram.com/englishsocietybozz/" target="_blank" class="text-blue-600 hover:underline">Instagram</a> and connect with us on social media!
