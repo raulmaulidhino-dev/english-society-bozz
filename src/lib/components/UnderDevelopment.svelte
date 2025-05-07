@@ -1,8 +1,18 @@
 <script lang="ts">
+    import { onMount } from 'svelte';
+
     import { Icon, WrenchScrewdriver as UnDevIcon } from 'svelte-hero-icons';
+
+    import AOS from 'aos';
+    import 'aos/dist/aos.css';
+
+    onMount(() => {
+        AOS.init({ duration: 1200 });
+    });
+
 </script>
 
-<section class="bg-slate-200 p-4 md:p-8">
+<section data-aos="zoom-in" class="bg-slate-200 p-4 md:p-8">
     <section class="bg-white pt-16 pb-8 px-4 max-w-xl rounded-2xl mx-auto shadow-lg">
         <div class="mx-auto px-4 max-w-screen-sm text-center flex flex-col justify-center items-center">
             <div class="text-secondary aspect-ratio border-4 border-dashed border-primary rounded-full p-6 mb-8 animate-pulse"><Icon src={UnDevIcon} size="108" /></div>

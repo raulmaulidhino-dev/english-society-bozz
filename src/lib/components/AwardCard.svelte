@@ -2,7 +2,12 @@
 
       import { goto } from '$app/navigation';
 
+      import { onMount } from 'svelte';
+
       import ConfirmModal from '$lib/components/modals/ConfirmModal.svelte';
+
+      import AOS from 'aos';
+      import 'aos/dist/aos.css';
 
       import { awardLevelLabelColorMap, awardTitleLabelColorMap, awardCategoryLabelColorMap } from '$lib/styles/colorMaps.js';
       import { awardLevelLabelIconMap, awardTitleLabelIconMap, awardCategoryLabelIconMap } from '$lib/styles/iconMaps.js';
@@ -37,9 +42,13 @@
       const LevelIcon = awardLevelLabelIconMap[level.toLowerCase().replace(" ", "-") as AwardLevelIconKey] ?? awardLevelLabelIconMap["other"];
       const CategoryIcon = awardCategoryLabelIconMap[category.toLowerCase().replace(" ", "-") as AwardCategoryIconKey] ?? awardCategoryLabelIconMap["other"];
 
+      onMount(() => {
+        AOS.init({ duration: 1200 });
+      });
+
 </script>
 
-<article class="bg-white rounded-lg shadow-md flex flex-col">
+<article data-aos="zoom-in" class="bg-white rounded-lg shadow-md flex flex-col">
   <section class="w-full aspect-square rounded-t-[inherit] relative">
       {#if award?.photo_url}
         <img src={award.photo_url} alt={award.name} class="rounded-t-[inherit]" />

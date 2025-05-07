@@ -1,10 +1,14 @@
 <script lang="ts">
     
     import { goto } from '$app/navigation';
+    import { onMount } from 'svelte';
 
     import {Icon, MapPin, CalendarDays, Sparkles, Photo as EventThumb} from 'svelte-hero-icons';
 
     import ConfirmModal from '$lib/components/modals/ConfirmModal.svelte';
+
+    import AOS from 'aos';
+    import 'aos/dist/aos.css';
 
     import type { EventResponse } from '$lib/types/event/event';
 
@@ -20,9 +24,13 @@
 
     let showConfirmModal: boolean = $state(false);
 
+    onMount(() => {
+        AOS.init({ duration: 1200  });
+    });
+
 </script>
 
-<article class="bg-white rounded-lg shadow-md flex flex-col">
+<article data-aos="zoom-in" class="bg-white rounded-lg shadow-md flex flex-col">
     <section class="w-full aspect-[3/2] rounded-t-[inherit] relative">
         {#if event.image_url}
             <!-- svelte-ignore a11y_img_redundant_alt -->
