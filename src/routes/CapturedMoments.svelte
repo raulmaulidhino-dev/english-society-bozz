@@ -39,7 +39,7 @@
         <div data-aos="zoom-in" class="col-span-2"><img src={moments[6].src} alt={moments[6].alt} title={moments[6].title} /></div>
     </section>
     <section class="flex justify-center items-center">
-        <button data-aos="zoom-in" class="text-primary text-sm px-4 py-2 font-bold bg-secondary hover:bg-secondary_hover rounded-full mt-[4rem] mx-auto">SEE MORE!</button>
+        <a data-aos="zoom-in" href="https://www.instagram.com/englishsocietybozz/" class="text-primary text-sm px-4 py-2 font-bold border-2 border-secondary bg-secondary hover:bg-primary hover:text-secondary rounded-full mt-[4rem] mx-auto">SEE MORE!</a>
     </section>
 </section>
 
