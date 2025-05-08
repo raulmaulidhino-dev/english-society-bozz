@@ -13,6 +13,9 @@ export async function load({ url }) {
     const page: number = parseInt(url.searchParams.get("page") ?? "1");
     const limit: number = 12;
     const offset: number = (page - 1) * limit;
+    const sortBy: string = url.searchParams.get("sortBy") ?? "date"; 
+    const sortOrder: string = url.searchParams.get("sortOrder") ?? "desc";
+    const search: string = url.searchParams.get("search") ?? "";
 
     const meta: Meta = {
         title: "Events | English Society-Bozz",
@@ -20,7 +23,7 @@ export async function load({ url }) {
     }
 
     try {
-        const res = await axios.get<EventsResponse>(`${BACKEND_URL}/events?limit=${limit}&offset=${offset}`);
+        const res = await axios.get<EventsResponse>(`${BACKEND_URL}/events?search=${encodeURIComponent(search)}&sortBy=${encodeURIComponent(sortBy)}&sortOrder=${encodeURIComponent(sortOrder)}&limit=${limit}&offset=${offset}`);
         const events: EventResponse[] = res.data.data;
         const count: number = res.data.count;
         const pageCount: number = Math.ceil(count / limit);
@@ -29,7 +32,7 @@ export async function load({ url }) {
 
         meta.title = `Events - Page ${page} | English Society-Bozz`;
         
-        return { events, pageCount, page, meta };
+        return { events, pageCount, page, meta, limit, search, sortBy, sortOrder };
     } catch (err: unknown) {
         if (axios.isAxiosError<ErrorResponse>(err)) {
             if (err?.response?.status === 404) throw error(404, "Not Found");
