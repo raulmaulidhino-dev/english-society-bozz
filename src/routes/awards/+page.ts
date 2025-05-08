@@ -13,6 +13,9 @@ export async function load({ url }) {
   const page: number = parseInt(url.searchParams.get('page') ?? '1');
   const limit: number = 8;
   const offset: number = (page - 1) * limit;
+  const sortBy: string = url.searchParams.get("sortBy") ?? "award_date"; 
+  const sortOrder: string = url.searchParams.get("sortOrder") ?? "desc";
+  const search: string = url.searchParams.get("search") ?? "";
 
   const meta: Meta = {
     title: 'Awards | English Society-Bozz',
@@ -22,7 +25,7 @@ export async function load({ url }) {
 
   try {
     const res = await axios.get<AwardsResponse>(
-      `${BACKEND_URL}/awards?limit=${limit}&offset=${offset}`
+      `${BACKEND_URL}/awards?search=${encodeURIComponent(search)}&sortBy=${encodeURIComponent(sortBy)}&sortOrder=${encodeURIComponent(sortOrder)}&limit=${limit}&offset=${offset}`
     );
     const awards: AwardResponse[] = res.data.data;
     const count: number = res.data.count;
@@ -33,7 +36,7 @@ export async function load({ url }) {
 
     meta.title = `Awards - Page ${page} | English Society-Bozz`;
 
-    return { awards, pageCount, page, meta };
+    return { awards, pageCount, page, meta, limit, search, sortBy, sortOrder };
   } catch (err: unknown) {
     if (axios.isAxiosError<ErrorResponse>(err)) {
       if (err?.response?.status === 404) throw error(404, 'Not Found');
