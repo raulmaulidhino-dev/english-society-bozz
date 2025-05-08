@@ -2,6 +2,7 @@
 	import Hero from './Hero.svelte';
 	import Insights from './Insights.svelte';
 	import Numbers from './Numbers.svelte';
+	import WordOfTheDay from './WordOfTheDay.svelte';
 	import FunActivities from './FunActivities.svelte';
 	import CapturedMoments from './CapturedMoments.svelte';
 
@@ -23,5 +24,6 @@
 <Hero join_now_url ={data.join_now_url} />
 <Insights />
 <Numbers />
+<WordOfTheDay />
 <FunActivities />
 <CapturedMoments />
