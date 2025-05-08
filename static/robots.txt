@@ -1,6 +1,6 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Disallow: /user/profile
-Disallow: /user/settings
-Disallow: /user/events
-Disallow: /user/awards
+Disallow: /user/profile/
+Disallow: /user/settings/
+Disallow: /user/events/
+Disallow: /user/awards/
