@@ -84,7 +84,7 @@
                 <section class="w-full h-fit flex items-center gap-4 border-t-2 p-4">
                     <button onclick={goToProfile} class={`text-white bg-primary border-2 border-secondary rounded-[50%] ${ userProfile?.avatar_url ? "" : "p-2" }`}>
                         {#if userProfile?.avatar_url}
-                            <img src={userProfile.avatar_url} alt={`${userProfile?.nickname ?? "User"}'s avatar`} class="w-12 aspect-square rounded-[inherit]" />
+                            <img src={userProfile.avatar_url} alt={`${userProfile?.nickname ?? "User"}'s avatar`} class="w-12 aspect-square rounded-[inherit]" loading="lazy" />
                         {:else}
                             <Icon src={ProfileIcon} solid size="32" />
                         {/if}

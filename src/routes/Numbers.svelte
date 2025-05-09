@@ -51,7 +51,7 @@
             {#each doodles as doodle, i}
                 <picture data-aos="zoom-in">
                     <source srcSet="{doodle.srcWebp}" type="image/webp">
-                    <img class={`border-4 ${i % 2 == 0 ? "border-primary" : "border-secondary"} object-cover w-32 rounded-full`} src={doodle.srcJpg} alt={doodle.alt} />
+                    <img class={`border-4 ${i % 2 == 0 ? "border-primary" : "border-secondary"} object-cover w-32 rounded-full`} src={doodle.srcJpg} alt={doodle.alt} loading="lazy" />
                 </picture>
             {/each}
         </div>

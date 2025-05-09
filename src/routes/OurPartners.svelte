@@ -43,7 +43,7 @@
             <a data-aos="zoom-in" href={partner.websiteUrl} title={partner.title} target="_blank" class="flex items-center justify-center w-30 h-30 p-2 bg-white rounded">
                 <picture>
                     <source srcSet={partner.logo_webp} type="image/webp">
-                    <img src={partner.logo_png} alt={partner.title} class="object-contain h-full w-full drop-shadow" />
+                    <img src={partner.logo_png} alt={partner.title} class="object-contain h-full w-full drop-shadow" loading="lazy" />
                 </picture>
             </a>
         {/each}

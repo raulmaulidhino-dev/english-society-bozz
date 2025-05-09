@@ -34,7 +34,7 @@
     <section class="flex flex-wrap gap-16 md:px-10 justify-around items-center">
         {#each insights as insight}
             <div class="basis-[75%] md:basis-1/4 shrink-0 flex flex-col items-center justify-center">
-                <img data-aos="zoom-in" src={insight.icon} alt={insight.alt} class="h-[8rem]"/>
+                <img data-aos="zoom-in" src={insight.icon} alt={insight.alt} class="h-[8rem]" loading="lazy" />
                 <h3 data-aos="zoom-in" class="text-2xl md:text-3xl font-semibold mb-6">{insight.title}</h3>
                 <p data-aos="fade-down" class="text-center md:text-lg">{insight.description}</p>
             </div>

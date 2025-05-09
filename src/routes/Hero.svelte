@@ -121,7 +121,7 @@
                 <div>
                     <picture>
                         <source srcset="{squarePicture.srcWebp}" type="image/webp">
-                        <img src="{squarePicture.srcJpg}" alt="{squarePicture.alt}" class="aspect-square block object-cover object-center" />
+                        <img src="{squarePicture.srcJpg}" alt="{squarePicture.alt}" class="aspect-square block object-cover object-center" loading="lazy" />
                     </picture>
                 </div>
             {/each}
@@ -131,7 +131,7 @@
                 <div>
                     <picture>
                         <source srcSet="{landscapePicture.srcWebp}" type="image/webp">
-                        <img src="{landscapePicture.srcJpg}" alt="{landscapePicture.alt}" class="aspect-video block object-cover object-center" />
+                        <img src="{landscapePicture.srcJpg}" alt="{landscapePicture.alt}" class="aspect-video block object-cover object-center" loading="lazy" />
                     </picture>
                 </div>
             {/each}

@@ -69,7 +69,7 @@
     <section class="logo max-w-48 flex justify-center items-center gap-4">
         <picture>
             <source type="image/webp" srcset={logo} />
-            <img src={logo_fallback} alt="English Society-Bozz logo" class="h-12" />
+            <img src={logo_fallback} alt="English Society-Bozz logo" class="h-12" loading="lazy" />
         </picture>
         <p class="font-montserrat font-bold text-sm">ENGLISH<br /> SOCIETY-BOZZ</p>
     </section>
@@ -89,7 +89,7 @@
             <button bind:this={profileButtonRef} onclick={toggleShowProfileMiniWindow} class="relative">
                 <div class={`text-white bg-primary border-2 border-secondary rounded-[50%] aspect-square ${ userProfile?.avatar_url ? "" : "p-2" }`}>
                     {#if userProfile?.avatar_url}
-                        <img src={userProfile.avatar_url} alt={`${userProfile?.nickname ?? "User"}'s avatar'`} class="w-12 aspect-square rounded-[inherit]" />
+                        <img src={userProfile.avatar_url} alt={`${userProfile?.nickname ?? "User"}'s avatar'`} class="w-12 aspect-square rounded-[inherit]" loading="lazy" />
                     {:else}
                         <Icon src={ProfileIcon} solid size="32" />
                     {/if}
@@ -100,7 +100,7 @@
                     <section class="w-full h-fit flex items-center gap-3">
                         <button onclick={goToProfile} class={`text-white bg-primary border-2 border-secondary rounded-[50%] ${ userProfile?.avatar_url ? "" : "p-2" }`}>
                             {#if userProfile?.avatar_url}
-                                <img src={userProfile.avatar_url} alt={`${userProfile?.nickname ?? "User"}'s avatar`} class="w-8 aspect-square rounded-[inherit]" />
+                                <img src={userProfile.avatar_url} alt={`${userProfile?.nickname ?? "User"}'s avatar`} class="w-8 aspect-square rounded-[inherit]" loading="lazy" />
                             {:else}
                                 <Icon src={ProfileIcon} solid size="32" />
                             {/if}
