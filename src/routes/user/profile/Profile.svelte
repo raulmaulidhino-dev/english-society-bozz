@@ -3,6 +3,7 @@
 
     import {Icon, User as Profile} from 'svelte-hero-icons';
     import Notification from '$lib/components/Notification.svelte';
+    import AvatarViewModal from '$lib/components/modals/AvatarViewModal.svelte';
 
     import type { UserProfile } from '$lib/types/user/user';
 
@@ -15,6 +16,8 @@
     let notificationMessage: string = $state("");
     let notificationType: string = $state("");
     let showNotification: boolean = $state(false);
+
+    let showAvatarViewModal = $state(false);
 
     function goToProfileEdit() {
         goto('/user/profile/edit');
@@ -35,7 +38,9 @@
             <section class="pb-10 px-6 profile-data">
                 <div class={`text-white bg-primary h-24 w-24 border-2 border-white rounded-full ${ user.avatar_url ? "" : "p-2" } absolute top-[-48px] left-8 flex justify-center items-center`}>
                     {#if user.avatar_url}
-                        <img src={user.avatar_url} alt={`${user?.nickname || "User"}'s Avatar`} class="w-full rounded-[inherit]" />
+                        <button onclick={() => showAvatarViewModal = !showAvatarViewModal} class="w-full rounded-[inherit]">
+                            <img src={user.avatar_url} alt={`${user?.nickname || "User"}'s Avatar`} class="w-full rounded-[inherit]" />
+                        </button>
                     {:else}
                         <Icon src={Profile} solid size="52" />
                     {/if}
@@ -66,6 +71,13 @@
 
 {#if showNotification}
     <Notification message={notificationMessage} type={notificationType} duration={5000} />
+{/if}
+
+{#if user.avatar_url}
+    <AvatarViewModal
+        bind:show={showAvatarViewModal}
+        avatar={user.avatar_url}
+    />
 {/if}
 
 <style>

@@ -4,6 +4,8 @@
     import AOS from 'aos';
     import 'aos/dist/aos.css';
 
+    import AvatarViewModal from '$lib/components/modals/AvatarViewModal.svelte';
+
     import {Icon, User as Profile} from 'svelte-hero-icons';
     import type { UserProfile } from '$lib/types/user/user';
     
@@ -12,6 +14,8 @@
     }
 
     let { user }: Props = $props();
+
+    let showAvatarViewModal = $state(false);
 
     onMount(() => {
         AOS.init({ duration: 1200 });
@@ -27,8 +31,10 @@
             <section class="pb-10 px-6 profile-data">
                 <div class={`text-white bg-primary h-24 w-24 border-2 border-white rounded-full ${ user?.avatar_url ? "" : "p-2" } absolute top-[-48px] left-8 flex justify-center items-center`}>
                     {#if user?.avatar_url}
+                    <button onclick={() => showAvatarViewModal = !showAvatarViewModal} class="w-full rounded-[inherit]">
                         <img src={user.avatar_url} alt={`${user?.nickname || "User"}'s Avatar`} class="w-full rounded-[inherit]" />
-                    {:else}
+                    </button>
+                {:else}
                         <Icon src={Profile} solid size="52" />
                     {/if}
                 </div>
@@ -39,3 +45,10 @@
         </section>
     </section>
 </section>
+
+{#if user.avatar_url}
+    <AvatarViewModal
+        bind:show={showAvatarViewModal}
+        avatar={user.avatar_url}
+    />
+{/if}
