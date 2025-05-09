@@ -359,7 +359,7 @@
                         <!-- Certificate URL Input -->
                         <div class="flex items-center gap-4">
                             <CertificateURL_Icon class="text-orange-500 w-6 h-6" />
-                            <input id="certificate_url" name="certificate_url" type="url" pattern="https?://.*" title="Please enter a valid URL starting with http:// or https://" placeholder="Certificate URL (Optional)" bind:value={certificateUrl} minlength="3" maxlength="45" autocomplete="off" class="text-md w-full border-b-[1px] pb-1 focus:border-primary focus:outline-none disabled:text-slate-400" />
+                            <input id="certificate_url" name="certificate_url" type="url" pattern="https?://.*" title="Please enter a valid URL starting with http:// or https://" placeholder="Certificate URL (Optional)" bind:value={certificateUrl} minlength="3" autocomplete="off" class="text-md w-full border-b-[1px] pb-1 focus:border-primary focus:outline-none disabled:text-slate-400" />
                         </div>
                     </section>
                 </form>
