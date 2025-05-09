@@ -35,7 +35,7 @@
         {#if event.image_url}
             <!-- svelte-ignore a11y_img_redundant_alt -->
             <img src={event.image_url} alt={event.title}
-            class="rounded-t-[inherit]"/>
+            class="rounded-t-[inherit]" loading="lazy" />
         {:else}
             <div class="bg-primary w-full aspect-[3/2] rounded-t-[inherit] flex justify-center items-center">
                 <Icon src={EventThumb} size="72" class="text-secondary" />

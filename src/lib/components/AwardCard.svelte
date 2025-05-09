@@ -51,7 +51,7 @@
 <article data-aos="zoom-in" class="bg-white rounded-lg shadow-md flex flex-col">
   <section class="w-full aspect-square rounded-t-[inherit] relative">
       {#if award?.photo_url}
-        <img src={award.photo_url} alt={award.name} class="rounded-t-[inherit]" />
+        <img src={award.photo_url} alt={award.name} class="rounded-t-[inherit]" loading="lazy" />
       {:else}
           <div class="bg-secondary w-full aspect-square rounded-t-[inherit] flex justify-center items-center">
             <TrophyIcon size="72" class="text-primary" />
