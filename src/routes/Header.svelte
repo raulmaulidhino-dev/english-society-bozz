@@ -30,10 +30,19 @@
     }
 
     let screenWidth = $state(0);
+    let profileMiniWindowRef: HTMLDivElement | undefined = $state();
+    let profileButtonRef: HTMLButtonElement | undefined = $state();
+
     let showProfileMiniWindow: boolean = $state(false);
 
     const toggleShowProfileMiniWindow = () => {
         showProfileMiniWindow = !showProfileMiniWindow;
+    }
+
+    const handleClickOutside = (e: MouseEvent) => {
+        if (!profileMiniWindowRef?.contains(e.target as Node) && !profileButtonRef?.contains(e.target as Node)) {
+            showProfileMiniWindow = false;
+        }
     }
 
     onMount(() => {
@@ -44,10 +53,14 @@
         }
 
         window.addEventListener('resize', handleResize);
+        document.addEventListener('click', handleClickOutside);
 
         return () => {
             window.removeEventListener('resize', handleResize);
+            document.removeEventListener('click', handleClickOutside);
+
         }
+
     });
 
 </script>
@@ -73,7 +86,7 @@
                 <button class="text-white hover:text-primary text-sm border-2 border-primary px-4 py-2 font-bold bg-primary hover:bg-secondary rounded-full inline-block" onclick={login}>LOG IN</button>
             {/if}
         {:else if $page.url.pathname !== "/login"}
-            <button onclick={toggleShowProfileMiniWindow} class="relative">
+            <button bind:this={profileButtonRef} onclick={toggleShowProfileMiniWindow} class="relative">
                 <div class={`text-white bg-primary border-2 border-secondary rounded-[50%] aspect-square ${ userProfile?.avatar_url ? "" : "p-2" }`}>
                     {#if userProfile?.avatar_url}
                         <img src={userProfile.avatar_url} alt={`${userProfile?.nickname ?? "User"}'s avatar'`} class="w-12 aspect-square rounded-[inherit]" />
@@ -95,7 +108,7 @@
                         <button onclick={goToProfile} class="font-bold text-sm flex items-center justify-center hover:text-primary hover:underline hover:decoration-secondary">{ userProfile?.nickname ?? "Me" }</button>
                     </section>
                     <hr />
-                    <div class="font-semibold text-sm hover:text-primary hover:font flex items-center gap-2">
+                    <div bind:this={profileMiniWindowRef} class="font-semibold text-sm hover:text-primary hover:font flex items-center gap-2">
                         <Icon src={SettingsIcon} size="18" />
                         <button onclick={() => goto("/user/settings")}>Settings</button>
                     </div>
