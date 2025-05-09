@@ -3,12 +3,15 @@
 	import Insights from './Insights.svelte';
 	import Numbers from './Numbers.svelte';
 	import WordOfTheDay from './WordOfTheDay.svelte';
-	import FunActivities from './FunActivities.svelte';
+	import LatestAwards from './LatestAwards.svelte';
 	import CapturedMoments from './CapturedMoments.svelte';
+
+	import type { AwardResponse } from '$lib/types/award/award';
 
 	interface Props {
 		data: {
 			join_now_url: string | null;
+			awards: AwardResponse[];
 		}
 	}
 
@@ -25,5 +28,5 @@
 <Insights />
 <Numbers />
 <WordOfTheDay />
-<FunActivities />
+<LatestAwards awards={data.awards} />
 <CapturedMoments />
