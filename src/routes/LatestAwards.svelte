@@ -23,7 +23,7 @@
 
 <section class="bg-secondary px-6 py-[4rem]">
     <h2 data-aos="fade-down" class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-primary text-center font-bold mx-auto mb-[4rem]">See Our Most Recent Awards!</h2>
-    <section class="flex flex-wrap justify-center gap-4 md:flex-nowrap md:justify-start md:overflow-scroll">
+    <section class="grid grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] gap-4">
         {#if awards}
             {#if awards.length > 0}
                 {#each awards as award}
