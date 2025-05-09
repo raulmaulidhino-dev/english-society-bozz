@@ -59,14 +59,14 @@
 <section>
     <h1 data-aos="fade-right" class="text-3xl sm:text-4xl font-bold px-6 md:px-8 pt-6 mb-[1em]">Latest Events</h1>
     <section class="bg-slate-200 px-6 md:px-8 py-6 grid grid-cols-[repeat(auto-fill,_minmax(250px,_1fr))] gap-4">
-        <section class="relative bg-white w-full max-w-lg mb-6 rounded-full shadow-lg col-span-full mx-auto">
+        <section class="relative bg-white w-full max-w-lg mb-6 rounded-full shadow-lg col-span-full mx-auto flex px-9">
             <SearchIcon size="24" strokeWidth="4" class="text-primary absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none" />
             <input
                 type="input"
                 bind:value={search}
                 placeholder="Search events..."
                 onkeydown={(e) => e.key === 'Enter' && submitSearch()}
-                class="h-full ml-9 p-4 rounded-[inherit] font-semibold focus:outline-none"
+                class="h-full p-4 rounded-[inherit] font-semibold focus:outline-none grow"
             />
         </section>
         {#if events}
