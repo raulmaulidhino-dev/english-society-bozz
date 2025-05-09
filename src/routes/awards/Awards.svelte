@@ -78,7 +78,7 @@
         <p>It looks like there aren't any awards here yet...</p>   
       {/if}
     {:else}
-        <section data-aos="zoom-in" class="bg-white pt-16 pb-8 px-4 max-w-xl rounded-2xl mx-auto shadow-lg col-span-2 mx-auto">
+        <section data-aos="zoom-in" class="bg-white pt-16 pb-8 px-4 max-w-xl rounded-2xl mx-auto shadow-lg col-span-2">
             <div class="mx-auto px-4 max-w-screen-sm text-center flex flex-col justify-center items-center">
                 <h1 class="text-8xl tracking-tight font-extrabold text-primary lg:text-9xl animate-bounce">4<span class="text-secondary">0</span>4</h1>
                 <div class="bg-slate-200 h-[2px] w-full rounded-full mb-4"></div>
