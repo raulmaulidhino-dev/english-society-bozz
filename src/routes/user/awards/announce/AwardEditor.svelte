@@ -401,7 +401,7 @@
         </button>
 
         <input type="file" accept="image/*" bind:this={fileInput} onchange={handleFileChange} class="hidden" />
-        <small class="text-sm text-slate-400 text-center mb-[1.5em]">Please choose a photo with ratio 3:2</small>
+        <small class="text-sm text-slate-400 text-center mb-[1.5em]">Please choose a photo with ratio 1:1</small>
         <p class="text-sm text-primary font-semibold mb-[1.5em]">Tap the photo to add or change your award photo</p>
         <p role="alert" class={`text-red-500 mb-[1.5em] ${ errorMsg ? "" : "hidden" }`}>{errorMsg ?? ""}</p>
 
