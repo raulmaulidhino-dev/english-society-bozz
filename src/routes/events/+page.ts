@@ -27,12 +27,14 @@ export async function load({ url }) {
         const events: EventResponse[] = res.data.data;
         const count: number = res.data.count;
         const pageCount: number = Math.ceil(count / limit);
+
+        const showPagination: boolean = count > limit;    
         
         if ((page > pageCount && count > 0) || page < 1) throw error(404, "Not Found");
 
         meta.title = `Events - Page ${page} | English Society-Bozz`;
         
-        return { events, pageCount, page, meta, limit, search, sortBy, sortOrder };
+        return { events, pageCount, page, meta, showPagination, search, sortBy, sortOrder };
     } catch (err: unknown) {
         if (axios.isAxiosError<ErrorResponse>(err)) {
             if (err?.response?.status === 404) throw error(404, "Not Found");

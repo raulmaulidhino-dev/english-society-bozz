@@ -22,13 +22,13 @@
         pageCount?: number;
         pageNum?: number;
         error?: AxiosError;
-        limit: number;
+        showPagination: boolean;
         search: string;
         sortBy: string;
         sortOrder: string;
     }
 
-    let { events, pageCount, pageNum, error, limit = 12, search = '', sortBy = 'date', sortOrder = 'desc' }: Props = $props();
+    let { events, pageCount, pageNum, error, showPagination = true, search = '', sortBy = 'date', sortOrder = 'desc' }: Props = $props();
 
     let notificationMessage = $state("");
     let notificationType = $state("");
@@ -89,7 +89,7 @@
             </section>        
         {/if}
     </section>
-    {#if events && events.length > limit}
+    {#if showPagination}
         <Pagination currentPage={pageNum ?? 1} totalPages={pageCount ?? 1} delta={2} goToPageURL={"/events"} />
     {/if}
 </section>
