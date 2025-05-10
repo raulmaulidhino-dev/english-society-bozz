@@ -12,7 +12,7 @@ export async function load() {
 
     let awards: AwardResponse[] | null = null;
 
-    const limit: number = 8;
+    const limit: number = 6;
     const sortBy: string = "award_date"; 
     const sortOrder: string = "desc";
     
