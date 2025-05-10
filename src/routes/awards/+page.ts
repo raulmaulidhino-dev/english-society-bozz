@@ -31,12 +31,14 @@ export async function load({ url }) {
     const count: number = res.data.count;
     const pageCount: number = Math.ceil(count / limit);
 
+    const showPagination: boolean = count > limit;
+
     if ((page > pageCount && count > 0) || page < 1)
       throw error(404, 'Not Found');
 
     meta.title = `Awards - Page ${page} | English Society-Bozz`;
 
-    return { awards, pageCount, page, meta, limit, search, sortBy, sortOrder };
+    return { awards, pageCount, page, meta, showPagination, search, sortBy, sortOrder };
   } catch (err: unknown) {
     if (axios.isAxiosError<ErrorResponse>(err)) {
       if (err?.response?.status === 404) throw error(404, 'Not Found');

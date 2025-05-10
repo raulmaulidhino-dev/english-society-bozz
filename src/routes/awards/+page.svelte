@@ -15,7 +15,7 @@
 					pageCount?: number;
 					page?: number;
 					err?: AxiosError;
-					limit: number;
+					showPagination: boolean;
 					search: string;
 					sortBy: string;
 					sortOrder: string;
@@ -31,4 +31,4 @@
 	<meta name="description" content={ data.meta?.description ?? defaultMeta.description } />
 </svelte:head>
 
-<Awards awards={data.awards} pageCount={data.pageCount} pageNum={data.page} error={data.err} limit={data.limit} search={data.search} sortBy={data.sortBy} sortOrder={data.sortOrder} />
+<Awards awards={data.awards} pageCount={data.pageCount} pageNum={data.page} error={data.err} showPagination={data.showPagination} search={data.search} sortBy={data.sortBy} sortOrder={data.sortOrder} />
