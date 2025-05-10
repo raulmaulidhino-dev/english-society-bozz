@@ -68,6 +68,8 @@
                 <li title={navItem.text}
                     class="text-primary bg-secondary border-2 border-primary rounded-[50%] p-2"
                     class:is-active={isActive(navItem.href)}
+                    class:text-secondary={isActive(navItem.href)}
+                    class:border-secondary={isActive(navItem.href)}
                 >
                     <a href={navItem.href}><Icon src={navItem.icon} size="32" /></a>
                 </li>
@@ -104,6 +106,6 @@
 
 <style>
     .is-active {
-        @apply text-secondary bg-primary border-2 border-secondary;
+        @apply bg-primary;
     }
 </style>
