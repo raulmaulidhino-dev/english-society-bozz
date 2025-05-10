@@ -10,6 +10,7 @@
             awards: AwardResponse[];
             pageCount: number;
             page: number;
+            showPagination: boolean;
         }
     }
 
@@ -22,4 +23,4 @@
 	<meta name="description" content={ data.meta?.description ?? defaultMeta.description } />
 </svelte:head>
 
-<UserAwards awards={data.awards} pageCount={data.pageCount} pageNum={data.page} />
+<UserAwards awards={data.awards} pageCount={data.pageCount} pageNum={data.page} showPagination={data.showPagination} />

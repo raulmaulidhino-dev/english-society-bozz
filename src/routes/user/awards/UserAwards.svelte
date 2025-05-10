@@ -20,9 +20,10 @@
         awards: AwardResponse[];
         pageCount: number;
         pageNum: number;
+        showPagination: boolean;
     }
 
-    let { awards, pageCount, pageNum }: Props = $props();
+    let { awards, pageCount, pageNum, showPagination = true }: Props = $props();
 
     let errorMsg: string | null = $state(null);
 
@@ -86,7 +87,7 @@
             <p>You don't have any award announcements yet...</p>   
         {/if}
     </section>
-    {#if awards.length > 0}
+    {#if showPagination}
         <Pagination currentPage={pageNum} totalPages={pageCount} delta={2} goToPageURL={"/user/events"} />
     {/if}
     <button onclick={() => goto("/user/awards/announce")} title="Announce an Award" class="text-primary bg-secondary p-4 border-secondary border-2 rounded-full fixed z-[999] right-4 bottom-4 shadow-xl hover:bg-primary hover:text-secondary">
