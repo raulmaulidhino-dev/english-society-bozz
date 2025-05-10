@@ -37,6 +37,8 @@ export async function load({ url }) {
         const count = res.data.count;
         const pageCount = Math.ceil(count / limit);
 
+        const showPagination: boolean = count > limit;    
+
         if ((page > pageCount && count > 0) || page < 1) throw error(404, "Not Found");
         
         const meta = {
@@ -44,7 +46,7 @@ export async function load({ url }) {
             description: `Manage my ${count} event announcement(s).`
         }
         
-        return { events, pageCount, page, meta }
+        return { events, pageCount, page, showPagination, meta }
     } catch (err: unknown) {
         if (axios.isAxiosError<ErrorResponse>(err)) {
             throw error(err?.response?.status || 404, err?.response?.data?.message || "Not found");

@@ -10,6 +10,7 @@
             events: EventResponse[];
             pageCount: number;
             page: number;
+            showPagination: boolean;
         }
     }
 
@@ -22,4 +23,4 @@
 	<meta name="description" content={ data.meta?.description ?? defaultMeta.description } />
 </svelte:head>
 
-<UserEvents events={data.events} pageCount={data.pageCount} pageNum={data.page} />
+<UserEvents events={data.events} pageCount={data.pageCount} pageNum={data.page} showPagination={data.showPagination} />
