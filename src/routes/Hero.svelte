@@ -116,22 +116,22 @@
         <p data-aos="fade-right" class="text-[10px] md:text-[12px]">*Before joining, make sure you are an active student at SMA Negeri 1 Bobotsari</p>
     </section>
     <section data-aos="zoom-in" id="hero_img_collage" class="hero-img-collage max-w-lg aspect-[4/3] border-y-[1rem] border-t-secondary border-double border-b-primary p-2 mt-8 lg:mt-0 overflow-hidden flex items-center gap-2">
-        <section id="square_images" class="flex flex-col gap-2 relative">
+        <section id="square_images" class="flex flex-col gap-2 relative transition-all duration-1000 ease-in-out">
             {#each squarePictures as squarePicture}
                 <div>
                     <picture>
-                        <source srcset="{squarePicture.srcWebp}" type="image/webp">
-                        <img src="{squarePicture.srcJpg}" alt="{squarePicture.alt}" class="aspect-square block object-cover object-center" loading="lazy" />
+                        <source srcset={squarePicture.srcWebp} type="image/webp">
+                        <img src={squarePicture.srcJpg} alt={squarePicture.alt} class="aspect-square block rounded-lg object-cover object-center" loading="eager" />
                     </picture>
                 </div>
             {/each}
         </section>
-        <section id="landscape_images" class="flex flex-col gap-2 relative">
+        <section id="landscape_images" class="flex flex-col gap-2 relative transition-all duration-1000 ease-in-out">
             {#each landscapePictures as landscapePicture}
                 <div>
                     <picture>
-                        <source srcSet="{landscapePicture.srcWebp}" type="image/webp">
-                        <img src="{landscapePicture.srcJpg}" alt="{landscapePicture.alt}" class="aspect-video block object-cover object-center" loading="lazy" />
+                        <source srcSet={landscapePicture.srcWebp} type="image/webp">
+                        <img src={landscapePicture.srcJpg} alt={landscapePicture.alt} class="aspect-video block rounded-lg object-cover object-center" loading="lazy" />
                     </picture>
                 </div>
             {/each}
@@ -146,15 +146,3 @@
   OK_label={"OK, GOT IT!"}
   OK_event={() => showInfoModal = false}
 />
-
-<style>
-    
-    .hero-img-collage > section{
-        @apply transition-all duration-1000 ease-in-out;
-    }
-
-    .hero-img-collage img {
-        @apply rounded-lg;
-    }
-    
-</style>
