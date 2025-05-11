@@ -128,7 +128,7 @@
           <div class="flex flex-col gap-1 grow">
               <label for="award_category" class="text-sm">Category :</label>
               <select bind:value={category} id="award_category" required aria-required="true" class="text-sm font-semibold ml-1 p-2 rounded">
-                <option value={null} disabled selected hidden>All</option>
+                <option value={null} selected>All</option>
                   {#each awardCategories as c}
                       <option value={c.category}>{c.category}</option>
                   {/each}
@@ -139,7 +139,7 @@
           <div class="flex flex-col gap-2 grow">
               <label for="award_title" class="text-sm">Title :</label>
               <select bind:value={title} id="award_title" required aria-required="true" class="text-sm font-semibold ml-1 p-2 rounded">
-                <option value={null} disabled selected hidden>All</option>
+                <option value={null} selected>All</option>
                   {#each awardTitles as t}
                       <option value={t.title}>{t.title}</option>
                   {/each}
@@ -150,7 +150,7 @@
           <div class="flex flex-col gap-2 grow">
               <label for="award_level" class="text-sm">Level :</label>
               <select bind:value={level} id="award_level" required aria-required="true" class="text-sm font-semibold ml-1 p-2 rounded">
-                <option value={null} disabled selected hidden>All</option>
+                <option value={null} selected>All</option>
                   {#each awardLevels as l}
                       <option value={l.level}>{l.level}</option>
                   {/each}
