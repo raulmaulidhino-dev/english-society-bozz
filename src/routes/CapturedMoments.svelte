@@ -33,7 +33,7 @@
 
 <section class="bg-primary px-6 py-[4rem] md:px-10">
     <h2 data-aos="fade-down" class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white text-center font-bold mx-auto mb-[4rem]">Some Captured Moments!</h2>
-    <section class="moment-collage min-w-80 w-[75%] max-w-4xl mx-auto grid grid-rows-6 grid-cols-2 lg:grid-rows-2 lg:grid-cols-6 gap-4 md:gap-6">
+    <section class="moment-collage min-w-80 w-[80%] max-w-5xl mx-auto grid grid-rows-6 grid-cols-2 lg:grid-rows-2 lg:grid-cols-6 gap-4 md:gap-6">
 
         {#each moments as moment}
             <div data-aos="zoom-in" class={`bg-white rounded-[1.5rem] text-center ${moment.divClass}`}>
