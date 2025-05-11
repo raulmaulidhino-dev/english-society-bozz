@@ -21,7 +21,9 @@ export async function load({ url, params }) {
         const meta = {
             title: `${event.title} - Event`,
             description: `${event.location} • ${event_date} • By ${event.event_maker_name}`,
-            url: url.href
+            url: url.href,
+            ogImage: event?.image_url ?? undefined
+
         }
 
         return { event, meta };
