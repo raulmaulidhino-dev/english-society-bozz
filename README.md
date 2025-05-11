@@ -5,8 +5,10 @@ A dynamic, full-featured website built to support and showcase the activities of
 
 ## 🚀 Live Demo
 
-🔗 [Live Site](https://english-society-bozz.vercel.app)
-📸 [Web Homepage Screenshot](/docs/previews/Homepage-Preview.webp)
+### 📸 Homepage Screenshot 
+![Web Homepage Screenshot](/docs/previews/Homepage-Preview.webp)
+
+🔗 See the [Live Site](https://english-society-bozz.vercel.app)
 
 
 ## 🧠 Features
@@ -58,19 +60,19 @@ A dynamic, full-featured website built to support and showcase the activities of
 
 ## 📸 Screenshots
 ### Events Page
-[Events Page Screenshot](/docs/previews/Event-Page-Preview.webp)
+![Events Page Screenshot](/docs/previews/Event-Page-Preview.webp)
 
 ### Awards Page
-[Awards Page Screenshot](/docs/previews/Awards-Page-Preview.webp)
+![Awards Page Screenshot](/docs/previews/Awards-Page-Preview.webp)
 
 ### About Us
-[About Us Screenshot](/docs/previews/About-Us-Page-Preview.webp)
+![About Us Screenshot](/docs/previews/About-Us-Page-Preview.webp)
 
 ### Login Page
-[Awards Page Screenshot](/docs/previews/Login-Page-Preview.webp)
+![Awards Page Screenshot](/docs/previews/Login-Page-Preview.webp)
 
 ### Public User Profile Page
-[Awards Page Screenshot](/docs/previews/Public-Profile-Preview.webp)
+![Public Profile Page Screenshot](/docs/previews/Public-Profile-Preview.webp)
 
 	
 ## 📌 Lessons Learned
@@ -84,5 +86,7 @@ A dynamic, full-featured website built to support and showcase the activities of
 ## 🙋‍♀️ About Me
 
 I'm Raul, a 2025 graduated high school student passionate about web development and building tools that make an impact for society. 
+
+Made with ❤️ in Indonesia 🇮🇩
 
 📫 Connect with me on [LinkedIn](https://linkedin.com/in/raulahmadm) or visit [rauldev.my.id](https://rauldev.my.id) to explore anything about my works!
