@@ -1,5 +1,3 @@
-export const ssr = false;
-
 import axios from "axios";
 import { isHttpError, error, isRedirect, redirect } from "@sveltejs/kit";
 
@@ -7,7 +5,7 @@ import { BACKEND_URL } from "$lib/config/config";
 
 import type { EventResponse } from "$lib/types/event/event.js";
 
-export async function load({ params }) {
+export async function load({ url, params }) {
     const { id, slug } = params;
 
     let event: EventResponse | null = null;
@@ -23,6 +21,7 @@ export async function load({ params }) {
         const meta = {
             title: `${event.title} - Event`,
             description: `${event.location} • ${event_date} • By ${event.event_maker_name}`,
+            url: url.href
         }
 
         return { event, meta };
