@@ -4,7 +4,7 @@ import { db } from '$lib/supabase';
 
 import type { Meta } from '$lib/types/meta/meta';
 
-export async function load() {
+export async function load({ url }) {
     const {
         data: { session }
     } = await db.auth.getSession();
@@ -13,7 +13,8 @@ export async function load() {
         
     const meta: Meta = {
         title: "Login | English Society-Bozz",
-        description: "Securely log in to you ES-Bozz account to manage your account, settings, data, and resources based on your role(s)"
+        description: "Securely log in to you ES-Bozz account to manage your account, settings, data, and resources based on your role(s)",
+        url: url.href
     }
 
     return { meta };
