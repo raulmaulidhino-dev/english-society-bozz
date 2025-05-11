@@ -1,5 +1,3 @@
-export const ssr = false;
-
 import { db } from '$lib/supabase';
 import { error } from '@sveltejs/kit';
 
