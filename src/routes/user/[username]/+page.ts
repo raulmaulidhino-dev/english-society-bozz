@@ -50,7 +50,8 @@ export async function load({ url, params }) {
                 const meta: Meta = {
                     title: `${user.full_name} (@${user.username}) | English Society-Bozz`,
                     description: `${user.bio}` || "No bio yet.",
-                    url: url.href
+                    url: url.href,
+                    ogImage: user?.avatar_url ?? undefined
                 };
         
                 return { user, meta };
