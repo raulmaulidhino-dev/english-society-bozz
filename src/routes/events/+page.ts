@@ -1,5 +1,3 @@
-export const ssr = false;
-
 import axios from "axios";
 import { error, isHttpError, isRedirect } from "@sveltejs/kit";
 
@@ -19,7 +17,8 @@ export async function load({ url }) {
 
     const meta: Meta = {
         title: "Events | English Society-Bozz",
-        description: "Stay up-to-date with upcoming ES-Bozz events, workshops, and gatherings. Join us in celebrating milestones, learning new things, and building a vibrant community."
+        description: "Stay up-to-date with upcoming ES-Bozz events, workshops, and gatherings. Join us in celebrating milestones, learning new things, and building a vibrant community.",
+        url: url.href
     }
 
     try {
