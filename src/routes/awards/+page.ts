@@ -1,5 +1,3 @@
-export const ssr = false;
-
 import axios from 'axios';
 import { error, isHttpError, isRedirect } from '@sveltejs/kit';
 
@@ -21,6 +19,7 @@ export async function load({ url }) {
     title: 'Awards | English Society-Bozz',
     description:
       "From awards to major milestones, see how far we've come. This section showcases our proudest moments and the progress we've made over time.",
+    url: url.href
   };
 
   try {
