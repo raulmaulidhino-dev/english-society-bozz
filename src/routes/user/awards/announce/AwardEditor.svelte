@@ -352,17 +352,6 @@
                             <input id="certificate_url" name="certificate_url" type="url" pattern="https?://.*" title="Please enter a valid URL starting with http:// or https://" placeholder="Certificate URL (Optional)" bind:value={certificateUrl} minlength="3" autocomplete="off" class="text-md w-full border-b-[1px] pb-1 focus:border-primary focus:outline-none disabled:text-slate-400" />
                         </div>
 
-                        <!-- <div class="flex items-center gap-4">
-                            <Icon solid class="text-purple-600 w-6 h-6" src={Sparkles} />
-                            <p class="text-md">By 
-                                <select bind:value={isAnonymous} id="event_maker_name" class="text-primary font-bold ml-1 p-2 rounded">
-                                    {#if userProfile?.full_name}
-                                        <option value={false}>{userProfile.full_name}</option>
-                                    {/if}
-                                    <option value={true}>Anonymous</option>
-                                </select>
-                            </p>
-                        </div> -->
                     </section>
                 </form>
                 <hr class="border-primary mt-4"/>
