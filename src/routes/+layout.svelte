@@ -23,6 +23,10 @@
 
 </script>
 
+<svelte:head>
+	<meta name="google-site-verification" content="ynznCbuU24ZnjY4nXrKg8T2maDTLpNpPiDdz2GdGZbM" />
+</svelte:head>
+
 <div class={`app ${$isLoading ? "hidden" : ""}`}>
 	<Header userProfile={$userProfile} isLoggedIn={$isLoggedIn} />
 	<NavigationMobile userProfile={$userProfile} isLoggedIn={$isLoggedIn} />
