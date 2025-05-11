@@ -19,7 +19,8 @@ export async function load({ url, params }) {
         const meta = {
             title: `${award.name} - Award`,
             description: `${award.award_categories.category} • ${award.award_levels.level} • Awarded by ${award.student_name}`,
-            url: url.href
+            url: url.href,
+            ogImage: award?.photo_url ?? undefined
         }
 
         return { award, meta };
