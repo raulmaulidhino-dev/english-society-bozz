@@ -12,7 +12,7 @@ import type { Meta } from "$lib/types/meta/meta.js";
 
 let user: UserProfile | null = null;
 
-export async function load({ params }) {
+export async function load({ url, params }) {
     const { username } = params;
 
     try {
@@ -38,7 +38,8 @@ export async function load({ params }) {
 
         const meta: Meta = {
             title: `${user.full_name} (@${user.username}) | English Society-Bozz`,
-            description: `${user.bio}` || "No bio yet."
+            description: `${user.bio}` || "No bio yet.",
+            url: url.href
         };
 
         return { user, meta };
@@ -48,7 +49,8 @@ export async function load({ params }) {
             if (err.status === 401 && user) {
                 const meta: Meta = {
                     title: `${user.full_name} (@${user.username}) | English Society-Bozz`,
-                    description: `${user.bio}` || "No bio yet."
+                    description: `${user.bio}` || "No bio yet.",
+                    url: url.href
                 };
         
                 return { user, meta };
