@@ -16,9 +16,15 @@
 					page?: number;
 					err?: AxiosError;
 					showPagination: boolean;
+					awardCategories: { category: string }[];
+					awardLevels: { level: string }[];
+					awardTitles: { title: string }[];
 					search: string;
 					sortBy: string;
 					sortOrder: string;
+					category: string | null;
+					level: string	| null;
+					title: string	| null;
 			}
 	}
 
@@ -47,4 +53,4 @@
 	<meta property="twitter:image" content={ data.meta?.ogImage ?? defaultMeta.ogImage } />
 </svelte:head>
 
-<Awards awards={data.awards} pageCount={data.pageCount} pageNum={data.page} error={data.err} showPagination={data.showPagination} search={data.search} sortBy={data.sortBy} sortOrder={data.sortOrder} />
+<Awards awards={data.awards} pageCount={data.pageCount} pageNum={data.page} error={data.err} showPagination={data.showPagination} awardCategories={data.awardCategories} awardLevels={data.awardLevels} awardTitles={data.awardTitles} search={data.search} sortBy={data.sortBy} sortOrder={data.sortOrder} category={data.category} level={data.level} title={data.title} />

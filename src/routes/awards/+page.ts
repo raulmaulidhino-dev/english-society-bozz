@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { db } from '$lib/supabase';
 import { error, isHttpError, isRedirect } from '@sveltejs/kit';
 
 import { BACKEND_URL } from '$lib/config/config';
@@ -14,6 +15,9 @@ export async function load({ url }) {
   const sortBy: string = url.searchParams.get("sortBy") ?? "award_date"; 
   const sortOrder: string = url.searchParams.get("sortOrder") ?? "desc";
   const search: string = url.searchParams.get("search") ?? "";
+  const category: string | null = url.searchParams.get("category") ?? null;
+  const level: string | null = url.searchParams.get("level") ?? null;
+  const title: string | null = url.searchParams.get("title") ?? null;
 
   const meta: Meta = {
     title: 'Awards | English Society-Bozz',
@@ -22,9 +26,26 @@ export async function load({ url }) {
     url: url.href
   };
 
+  const { data: awardCategories, error: awardCategoriesFetchingError } = await db.from("award_categories").select("category");
+  const { data: awardLevels, error: awardLevelsFetchingError } = await db.from("award_levels").select("level");
+  const { data: awardTitles, error: awardTitlesFetchingError } = await db.from("award_titles").select("title");
+
+  if (
+      awardCategoriesFetchingError ||
+      awardLevelsFetchingError ||
+      awardTitlesFetchingError
+  ) {
+      throw error(500, "Internal Server Error");
+  }
+
+  let urlRequest: string = `${BACKEND_URL}/awards?search=${encodeURIComponent(search)}&sortBy=${encodeURIComponent(sortBy)}&sortOrder=${encodeURIComponent(sortOrder)}&limit=${limit}&offset=${offset}`;
+  if (category) urlRequest = `${urlRequest}&category=${category}`;
+  if (level) urlRequest = `${urlRequest}&level=${level}`;
+  if (title) urlRequest = `${urlRequest}&title=${title}`;
+
   try {
     const res = await axios.get<AwardsResponse>(
-      `${BACKEND_URL}/awards?search=${encodeURIComponent(search)}&sortBy=${encodeURIComponent(sortBy)}&sortOrder=${encodeURIComponent(sortOrder)}&limit=${limit}&offset=${offset}`
+      urlRequest
     );
     const awards: AwardResponse[] = res.data.data;
     const count: number = res.data.count;
@@ -37,7 +58,7 @@ export async function load({ url }) {
 
     meta.title = `Awards - Page ${page} | English Society-Bozz`;
 
-    return { awards, pageCount, page, meta, showPagination, search, sortBy, sortOrder };
+    return { awards, pageCount, page, meta, showPagination, awardCategories, awardLevels, awardTitles, search, sortBy, sortOrder, category, level, title };
   } catch (err: unknown) {
     if (axios.isAxiosError<ErrorResponse>(err)) {
       if (err?.response?.status === 404) throw error(404, 'Not Found');
