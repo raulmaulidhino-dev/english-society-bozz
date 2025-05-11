@@ -1,5 +1,3 @@
-export const ssr = false;
-
 import axios from "axios";
 import { isHttpError, error, isRedirect, redirect } from "@sveltejs/kit";
 
@@ -7,7 +5,7 @@ import { BACKEND_URL } from "$lib/config/config";
 
 import type { AwardResponse } from "$lib/types/award/award.js";
 
-export async function load({ params }) {
+export async function load({ url, params }) {
     const { id, slug } = params;
 
     let award: AwardResponse | null = null;
@@ -21,6 +19,7 @@ export async function load({ params }) {
         const meta = {
             title: `${award.name} - Award`,
             description: `${award.award_categories.category} • ${award.award_levels.level} • Awarded by ${award.student_name}`,
+            url: url.href
         }
 
         return { award, meta };
