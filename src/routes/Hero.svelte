@@ -102,7 +102,7 @@
         <p data-aos="fade-right" class="text-[12px] sm:text-sm md:text-[16px] text-gray-600 font-medium mb-[1em]">
             Don't be shy about speaking English! - 
             Try speaking up here in one of the most active extracurriculars at SMA Negeri 1 Bobotsari, the
-            <span class="text-primary font-semibold">English Society-Bozz!</span>
+            <span class="text-primary font-semibold" translate="no">English Society-Bozz!</span>
         </p>
         <section class="flex gap-4 mb-[1em]">
             {#if join_now_url}
