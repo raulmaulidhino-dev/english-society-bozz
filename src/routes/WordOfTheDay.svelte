@@ -59,7 +59,7 @@
     <p>Loading the word...</p>
   {:else}
     <p class="text-2xl font-semibold italic mb-1 flex items-center gap-2">
-      <a href={data.sourceUrls[0]} target="_blank" class="hover:underline hover:decoration-secondary" title="Open source link">{data.word}</a>
+      <a href={data.sourceUrls[0]} target="_blank" class="hover:underline hover:decoration-secondary" title="Open source link" translate="no">{data.word}</a>
       <button onclick={toggleAudio} class="text-gray-500 hover:text-blue-500"><Icon src={SpeakerIcon} size="24" /></button>
     </p>
     <p class="text-gray-600 mb-2">{data.phonetics?.[0]?.text}</p>
