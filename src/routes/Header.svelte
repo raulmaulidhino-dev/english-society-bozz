@@ -71,7 +71,7 @@
             <source type="image/webp" srcset={logo} />
             <img src={logo_fallback} alt="English Society-Bozz logo" class="h-12" loading="lazy" />
         </picture>
-        <p class="font-montserrat font-bold text-sm">ENGLISH<br /> SOCIETY-BOZZ</p>
+        <p class="font-montserrat font-bold text-sm" translate="no">ENGLISH<br /> SOCIETY-BOZZ</p>
     </section>
     <Navigation />
     {#if screenWidth < 768}
