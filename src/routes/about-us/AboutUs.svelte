@@ -39,7 +39,7 @@
   <div data-aos="zoom-in" class="text-center bg-white pt-16 pb-8 px-6 max-w-xl rounded-2xl mx-auto shadow-lg">
     <h1 class="text-4xl font-bold text-gray-800 mb-6">About Us</h1>
     <p class="text-lg text-gray-600">
-      Welcome to <strong class="font-semibold">English Society</strong>, a passionate group of English learners dedicated to <span class="italic text-primary font-medium">{esbozzData.focus}</span>
+      Welcome to <strong class="font-semibold" translate="no">English Society</strong>, a passionate group of English learners dedicated to <span class="italic text-primary font-medium">{esbozzData.focus}</span>
     </p>
   </div>
 
