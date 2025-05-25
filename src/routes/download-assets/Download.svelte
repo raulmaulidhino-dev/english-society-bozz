@@ -68,7 +68,7 @@
 
   <div data-aos="zoom-in" class="text-center bg-white pt-16 pb-8 px-6 max-w-xl rounded-2xl mx-auto shadow-lg">
     <h1 class="text-4xl font-bold text-gray-800 mb-6">Download Assets</h1>
-    <p class="text-lg text-gray-600">Download English Society-Bozz logos and components in various formats ✨</p>
+    <p class="text-lg text-gray-600">Download <span translate="no">English Society-Bozz</span> logos and components in various formats ✨</p>
   </div>
 
   <div data-aos="zoom-in" class="text-center bg-white py-8 px-6 max-w-sm rounded-2xl mx-auto shadow-lg">
