@@ -106,9 +106,9 @@
         </p>
         <section class="flex gap-4 mb-[1em]">
             {#if join_now_url}
-                <a data-aos="zoom-in" class="text-white text-sm px-4 py-2 font-bold bg-primary hover:bg-primary_hover rounded-full inline-block" href={join_now_url}>JOIN NOW</a>
+                <a data-aos="zoom-in" class="text-white text-sm px-4 py-2 font-bold bg-primary hover:bg-secondary hover:text-primary rounded-full inline-block" href={join_now_url}>JOIN NOW</a>
             {:else}
-                <button data-aos="zoom-in" class="text-white text-sm px-4 py-2 font-bold bg-primary hover:bg-primary_hover rounded-full inline-block" onclick={() => showInfoModal = true}>JOIN NOW</button>
+                <button data-aos="zoom-in" class="text-white text-sm px-4 py-2 font-bold bg-primary hover:bg-secondary hover:text-primary rounded-full inline-block" onclick={() => showInfoModal = true}>JOIN NOW</button>
             {/if}
             <button data-aos="zoom-in" class="text-primary text-sm px-4 py-2 font-bold bg-secondary hover:bg-secondary_hover rounded-full inline-block"
             onclick={() => document.getElementById('insights')?.scrollIntoView({ behavior: 'smooth' })}>EXPLORE</button>
