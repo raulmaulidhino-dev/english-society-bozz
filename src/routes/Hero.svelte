@@ -110,7 +110,7 @@
             {:else}
                 <button data-aos="zoom-in" class="text-white text-sm px-4 py-2 font-bold bg-primary hover:bg-secondary hover:text-primary rounded-full inline-block" onclick={() => showInfoModal = true}>JOIN NOW</button>
             {/if}
-            <button data-aos="zoom-in" class="text-primary text-sm px-4 py-2 font-bold bg-secondary hover:bg-secondary_hover rounded-full inline-block"
+            <button data-aos="zoom-in" class="text-primary text-sm px-4 py-2 font-bold bg-secondary hover:bg-primary hover:text-secondary rounded-full inline-block"
             onclick={() => document.getElementById('insights')?.scrollIntoView({ behavior: 'smooth' })}>EXPLORE</button>
         </section>
         <p data-aos="fade-right" class="text-[10px] md:text-[12px]">*Before joining, make sure you are an active student at SMA Negeri 1 Bobotsari</p>
