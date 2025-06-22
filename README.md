@@ -25,10 +25,11 @@ A dynamic, full-featured website built to support and showcase the activities of
 
 **Frontend**  
 - Svelte (Sveltekit)
+- TypeScript
 - TailwindCSS
 
 **Backend**  
-- Node.js + Express
+- Node.js + Express + TypeScript
 - REST API
 
 **Database**  
