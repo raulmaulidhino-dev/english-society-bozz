@@ -1,3 +1,6 @@
+![English Society-Bozz Logo Banner](static/assets/logos/esbozz-logo-og.jpg)
+
+
 # 🎓 ESBozz Web Project – A Full-Stack Website for English Society-Bozz (My school extracurricular)
 
 A dynamic, full-featured website built to support and showcase the activities of **English Society-Bozz**. Developed with a modern tech stack, this project includes user authentication, dynamic content management, and responsive design—optimized for real users and real-world needs.
