@@ -53,6 +53,6 @@
                 {/each}
             </ul>
         </div>
-        <p data-aos="zoom-in" class="text-gray-600 text-sm text-center sm:text-left">Copyright © 2024&mdash;{year} English Society-Bozz.<br /> All rights reserved.</p>
+        <p data-aos="zoom-in" class="text-gray-600 text-sm text-center sm:text-left">Copyright © 2024&ndash;{year} English Society-Bozz.<br /> All rights reserved.</p>
     </div>
 </footer>
