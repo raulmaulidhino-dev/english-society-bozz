@@ -89,7 +89,7 @@ A dynamic, full-featured website built to support and showcase the activities of
 
 ## 🙋‍♀️ About Me
 
-I'm Raul, a 2025 graduated high school student passionate about web development and building tools that make an impact for society. 
+I'm Raul, a 2025 Graduated High School Student (also a Mechatronics Engineering Student at [EEPIS](https://pens.ac.id/) now) passionate about web development and building tools that make an impact for society. 
 
 Made with ❤️ in Indonesia 🇮🇩
 
