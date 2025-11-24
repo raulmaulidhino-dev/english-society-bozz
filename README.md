@@ -1,9 +1,9 @@
 ![English Society-Bozz Logo Banner](static/assets/logos/esbozz-logo-og.jpg)
 
 
-# 🎓 ESBozz Web Project – A Full-Stack Website for English Society-Bozz (My school extracurricular)
+# 🎓 ESBozz Web Project – A Full-Stack Web App for English Society-Bozz (My school extracurricular)
 
-A dynamic, full-featured website built to support and showcase the activities of **English Society-Bozz**. Developed with a modern tech stack, this project includes user authentication, dynamic content management, and responsive design—optimized for real users and real-world needs.
+A dynamic, full-featured web application built to support and showcase the activities of **English Society-Bozz**. Developed with a modern tech stack, this project includes user authentication, dynamic content management, and responsive design—optimized for real users and real-world needs.
 
 
 ## 🚀 Live Demo
@@ -83,7 +83,7 @@ A dynamic, full-featured website built to support and showcase the activities of
 - Deepened my understanding of **full-stack architecture**
 - Implemented **role-based access** and **state management**
 - Connected the **backend stacks** with the **frontend stacks**
-- Understood how **Supabase JWT Auth, Access Token, Refresh Token and Middleware** as **standard website security**
+- Understood how **Supabase JWT Auth, Access Token, Refresh Token and Middleware** as **standard web app security**
 - Understood how **SSR** and **CSR** work in web programming
 - Learned how to deploy and **manage environment variables** in production
 
