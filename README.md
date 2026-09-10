@@ -1,7 +1,7 @@
 ![English Society-Bozz Logo Banner](static/assets/logos/esbozz-logo-og.jpg)
 
 
-# 🎓 ESBozz Web Project – A Full-Stack Web App for English Society-Bozz (My school extracurricular)
+# 🎓 ESBozz Web Project – A Full-Stack Web App for English Society-Bozz (My School Extracurricular)
 
 A dynamic, full-featured web application built to support and showcase the activities of **English Society-Bozz**. Developed with a modern tech stack, this project includes user authentication, dynamic content management, and responsive design—optimized for real users and real-world needs.
 
